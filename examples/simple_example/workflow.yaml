@@ -1,0 +1,29 @@
+manifest_version: "1.0"
+spec_version: "1.0"
+
+globals:
+  start_step: "process_data"
+  budgets:
+    max_total_attempts: 10
+    max_attempts_per_step: 3
+    max_cost_dollars: 1.0
+
+steps:
+  process_data:
+    agent_id: "dummy_agent"
+    pre_specs:
+      - "has_input"
+    post_specs:
+      - "output_valid"
+    description: "Process input data"
+
+edges:
+  - from_step: "process_data"
+    to_step: "__complete__"
+    when: "post_ok"
+    priority: 10
+
+  - from_step: "process_data"
+    to_step: "__fail__"
+    when: "attempts('process_data') >= 3"
+    priority: 1
