@@ -94,6 +94,13 @@ from manifold.core.orchestrator import (
     run_workflow,
 )
 
+from manifold.core.agent import (
+    Agent,
+    AgentOutput,
+    AgentRegistry,
+    AgentAdapter,
+)
+
 __all__ = [
     # Version
     "__version__",
@@ -143,4 +150,10 @@ __all__ = [
     "WorkflowResult",
     "StepExecutionResult",
     "run_workflow",
+
+    # Agent
+    "Agent",
+    "AgentOutput",
+    "AgentRegistry",
+    "AgentAdapter",
 ]

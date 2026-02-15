@@ -10,12 +10,16 @@ globals:
 
 steps:
   process_data:
-    agent_id: "dummy_agent"
-    pre_specs:
-      - "has_input"
-    post_specs:
-      - "output_valid"
+    agent_id: "data_processor"
     description: "Process input data"
+    pre_specs:
+      - "has_input_data"
+    post_specs:
+      - "output_not_empty"
+    retry_policy:
+      max_attempts: 3
+      backoff_seconds: 0.5
+      backoff_multiplier: 2.0
 
 edges:
   - from_step: "process_data"
