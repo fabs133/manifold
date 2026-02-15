@@ -1,0 +1,107 @@
+manifest_version: "1.0"
+spec_version: "1.0"
+
+globals:
+  start_step: "build_prompt"
+
+  invariant_specs:
+    - "budget_not_exceeded"
+
+  budgets:
+    max_total_attempts: 30
+    max_attempts_per_step: 5
+    max_cost_dollars: 5.0
+
+  logging:
+    level: "INFO"
+    trace_all: true
+
+steps:
+  build_prompt:
+    agent_id: "prompt_builder"
+    description: "Generate optimized sprite generation prompt from spec"
+
+    pre_specs:
+      - "has_global_style"
+
+    post_specs:
+      - "prompt_not_empty"
+
+    retry_policy:
+      max_attempts: 3
+      backoff_seconds: 1.0
+      backoff_multiplier: 2.0
+
+  build_brief:
+    agent_id: "brief_builder"
+    description: "Build final generation brief with grid constraints"
+
+    post_specs:
+      - "prompt_not_empty"
+
+    retry_policy:
+      max_attempts: 2
+      backoff_seconds: 1.0
+      backoff_multiplier: 2.0
+
+  generate_image:
+    agent_id: "sprite_generator"
+    description: "Generate sprite image using GPT image models"
+
+    post_specs:
+      - "image_dimensions_valid"
+      - "grid_layout_valid"
+
+    retry_policy:
+      max_attempts: 5
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+edges:
+  # Build prompt -> build brief (success)
+  - from_step: "build_prompt"
+    to_step: "build_brief"
+    when: "post_ok"
+    priority: 10
+
+  # Build prompt -> fail (exhausted retries)
+  - from_step: "build_prompt"
+    to_step: "__fail__"
+    when: "attempts('build_prompt') >= 3"
+    priority: 5
+
+  # Build brief -> generate image (success)
+  - from_step: "build_brief"
+    to_step: "generate_image"
+    when: "post_ok"
+    priority: 10
+
+  # Build brief -> fail (exhausted retries)
+  - from_step: "build_brief"
+    to_step: "__fail__"
+    when: "attempts('build_brief') >= 2"
+    priority: 5
+
+  # Generate image -> complete (success)
+  - from_step: "generate_image"
+    to_step: "__complete__"
+    when: "post_ok"
+    priority: 10
+
+  # Generate image -> retry (dimension failures)
+  - from_step: "generate_image"
+    to_step: "generate_image"
+    when: "failed('image_dimensions_valid') and attempts('generate_image') < 5"
+    priority: 8
+
+  # Generate image -> retry (grid layout failures)
+  - from_step: "generate_image"
+    to_step: "generate_image"
+    when: "failed('grid_layout_valid') and attempts('generate_image') < 5"
+    priority: 7
+
+  # Generate image -> fail (exhausted retries)
+  - from_step: "generate_image"
+    to_step: "__fail__"
+    when: "attempts('generate_image') >= 5"
+    priority: 1
