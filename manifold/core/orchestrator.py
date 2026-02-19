@@ -21,13 +21,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Callable
 
-logger = logging.getLogger("manifold")
-
 from manifold.core.context import (
     Context,
     ContextUpdater,
     TraceEntry,
-    ToolCall,
     Budgets,
     create_context,
 )
@@ -36,6 +33,8 @@ from manifold.core.agent import Agent, AgentAdapter, AgentRegistry, AgentOutput
 from manifold.core.manifest import Manifest, Step, ManifestLoader
 from manifold.core.loop_detector import LoopDetector
 from manifold.core.router import Router, COMPLETE, FAIL
+
+logger = logging.getLogger("manifold")
 
 
 @dataclass
@@ -185,7 +184,11 @@ class Orchestrator:
                 )
 
             # Execute step
-            logger.debug("Executing step=%s attempt=%d", current_step, context.budgets.get_step_attempts(current_step) + 1)
+            logger.debug(
+                "Executing step=%s attempt=%d",
+                current_step,
+                context.budgets.get_step_attempts(current_step) + 1,
+            )
             step_result = await self._execute_step(current_step, context)
             steps_executed += 1
 

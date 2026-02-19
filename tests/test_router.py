@@ -10,12 +10,10 @@ from manifold.core.router import (
     FAIL,
 )
 from manifold.core.context import (
-    Context,
     TraceEntry,
     SpecResultRef,
     Budgets,
     create_context,
-    ContextUpdater,
 )
 from manifold.core.manifest import Manifest, Step, Edge, GlobalConfig
 
@@ -76,61 +74,75 @@ class TestConditionEvaluator:
 
     def test_post_ok_all_passed(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", True, tags=("postcondition",)),
-            _make_spec_ref("check2", True, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", True, tags=("postcondition",)),
+                _make_spec_ref("check2", True, tags=("postcondition",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("post_ok") is True
 
     def test_post_ok_postcondition_failed(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", True, tags=("postcondition",)),
-            _make_spec_ref("check2", False, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", True, tags=("postcondition",)),
+                _make_spec_ref("check2", False, tags=("postcondition",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("post_ok") is False
 
     def test_post_ok_non_postcondition_failure_ignored(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", True, tags=("postcondition",)),
-            _make_spec_ref("invariant1", False, tags=("invariant",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", True, tags=("postcondition",)),
+                _make_spec_ref("invariant1", False, tags=("invariant",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("post_ok") is True
 
     def test_invariant_ok_all_passed(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("inv1", True, tags=("invariant",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("inv1", True, tags=("invariant",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("invariant_ok") is True
 
     def test_invariant_ok_invariant_failed(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("inv1", False, tags=("invariant",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("inv1", False, tags=("invariant",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("invariant_ok") is False
 
     def test_passed_function(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("my_rule", True),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("my_rule", True),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("passed('my_rule')") is True
         assert ev.evaluate("passed('other_rule')") is False
 
     def test_failed_function(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("my_rule", False),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("my_rule", False),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("failed('my_rule')") is True
         assert ev.evaluate("failed('unknown_rule')") is False
@@ -152,18 +164,22 @@ class TestConditionEvaluator:
 
     def test_compound_and(self):
         ctx = create_context("test", initial_data={"input": "data"})
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", True, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", True, tags=("postcondition",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("post_ok and has('input')") is True
         assert ev.evaluate("post_ok and has('missing')") is False
 
     def test_compound_or(self):
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", False, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", False, tags=("postcondition",)),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         # In compound expressions, use "True"/"False" (Python identifiers in eval context).
         # Lowercase "true"/"false" only works as standalone literals.
@@ -173,12 +189,16 @@ class TestConditionEvaluator:
     def test_complex_retry_condition(self):
         budgets = Budgets(current_attempts={"generate_image": 2})
         ctx = create_context("test", budgets=budgets)
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("grid_layout_valid", False),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("grid_layout_valid", False),
+            ]
+        )
         ev = ConditionEvaluator(ctx, trace)
         assert ev.evaluate("failed('grid_layout_valid') and attempts('generate_image') < 5") is True
-        assert ev.evaluate("failed('grid_layout_valid') and attempts('generate_image') < 2") is False
+        assert (
+            ev.evaluate("failed('grid_layout_valid') and attempts('generate_image') < 2") is False
+        )
 
     def test_invalid_condition_returns_false(self):
         ctx = create_context("test")
@@ -237,9 +257,11 @@ class TestRouter:
         )
         router = Router(manifest)
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", True, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", True, tags=("postcondition",)),
+            ]
+        )
         assert router.route("step1", ctx, trace) == "step2"
 
     def test_failed_spec_routes_to_retry(self):
@@ -247,16 +269,23 @@ class TestRouter:
             steps={"gen": Step(step_id="gen", agent_id="a1")},
             edges=[
                 Edge(from_step="gen", to_step="__complete__", when="post_ok", priority=10),
-                Edge(from_step="gen", to_step="gen", when="failed('dims') and attempts('gen') < 3", priority=5),
+                Edge(
+                    from_step="gen",
+                    to_step="gen",
+                    when="failed('dims') and attempts('gen') < 3",
+                    priority=5,
+                ),
                 Edge(from_step="gen", to_step="__fail__", when="true", priority=0),
             ],
         )
         router = Router(manifest)
         budgets = Budgets(current_attempts={"gen": 1})
         ctx = create_context("test", budgets=budgets)
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("dims", False, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("dims", False, tags=("postcondition",)),
+            ]
+        )
         assert router.route("gen", ctx, trace) == "gen"
 
     def test_budget_exceeded_routes_to_fail(self):
@@ -264,16 +293,23 @@ class TestRouter:
             steps={"gen": Step(step_id="gen", agent_id="a1")},
             edges=[
                 Edge(from_step="gen", to_step="__complete__", when="post_ok", priority=10),
-                Edge(from_step="gen", to_step="gen", when="failed('dims') and attempts('gen') < 3", priority=5),
+                Edge(
+                    from_step="gen",
+                    to_step="gen",
+                    when="failed('dims') and attempts('gen') < 3",
+                    priority=5,
+                ),
                 Edge(from_step="gen", to_step="__fail__", when="true", priority=0),
             ],
         )
         router = Router(manifest)
         budgets = Budgets(current_attempts={"gen": 5})
         ctx = create_context("test", budgets=budgets)
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("dims", False, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("dims", False, tags=("postcondition",)),
+            ]
+        )
         # attempts('gen') < 3 is False → fallback to "true" → __fail__
         assert router.route("gen", ctx, trace) == FAIL
 
@@ -328,9 +364,11 @@ class TestRouter:
         )
         router = Router(manifest)
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", True, tags=("postcondition",)),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", True, tags=("postcondition",)),
+            ]
+        )
         explanation = router.explain_routing("s1", ctx, trace)
         assert explanation["current_step"] == "s1"
         assert explanation["selected_next"] == "__complete__"
@@ -344,44 +382,54 @@ class TestRetryRouter:
     def test_should_not_retry_on_success(self):
         rr = RetryRouter(max_attempts_per_step=3)
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", True),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", True),
+            ]
+        )
         assert rr.should_retry("step1", ctx, trace) is False
 
     def test_should_retry_on_recoverable_failure(self):
         rr = RetryRouter(max_attempts_per_step=3)
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", False, suggested_fix="Try again"),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", False, suggested_fix="Try again"),
+            ]
+        )
         assert rr.should_retry("step1", ctx, trace) is True
 
     def test_should_not_retry_when_budget_exceeded(self):
         rr = RetryRouter(max_attempts_per_step=3)
         budgets = Budgets(current_attempts={"step1": 3})
         ctx = create_context("test", budgets=budgets)
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", False, suggested_fix="Try again"),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", False, suggested_fix="Try again"),
+            ]
+        )
         assert rr.should_retry("step1", ctx, trace) is False
 
     def test_should_not_retry_without_suggested_fix(self):
         rr = RetryRouter(max_attempts_per_step=3)
         ctx = create_context("test")
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check", False),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check", False),
+            ]
+        )
         assert rr.should_retry("step1", ctx, trace) is False
 
     def test_get_retry_info(self):
         rr = RetryRouter(max_attempts_per_step=5)
         budgets = Budgets(current_attempts={"step1": 2})
         ctx = create_context("test", budgets=budgets)
-        trace = _make_trace_entry(spec_results=[
-            _make_spec_ref("check1", False, suggested_fix="Fix it"),
-            _make_spec_ref("check2", True),
-        ])
+        trace = _make_trace_entry(
+            spec_results=[
+                _make_spec_ref("check1", False, suggested_fix="Fix it"),
+                _make_spec_ref("check2", True),
+            ]
+        )
         info = rr.get_retry_info("step1", ctx, trace)
         assert info["step_id"] == "step1"
         assert info["current_attempts"] == 2

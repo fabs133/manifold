@@ -4,20 +4,17 @@ import pytest
 from typing import Any
 
 from manifold.core.orchestrator import (
-    Orchestrator,
     OrchestratorBuilder,
-    WorkflowResult,
     StepExecutionResult,
     run_workflow,
 )
-from manifold.core.context import Context, create_context, Budgets
-from manifold.core.agent import Agent, AgentOutput, AgentRegistry, PassthroughAgent, FailingAgent
-from manifold.core.spec import Spec, SpecResult, SpecEngine
-from manifold.core.manifest import Manifest, Step, Edge, GlobalConfig, ManifestLoader
+from manifold.core.context import Context
+from manifold.core.agent import Agent, AgentOutput, FailingAgent
+from manifold.core.spec import Spec, SpecResult
 from manifold.core.router import COMPLETE, FAIL
 
-
 # ── Test Agents ──────────────────────────────────────────────────────────────
+
 
 class EchoAgent(Agent):
     """Agent that echoes input data as output and writes to delta."""
@@ -29,7 +26,9 @@ class EchoAgent(Agent):
     def agent_id(self) -> str:
         return self._id
 
-    async def execute(self, context: Context, input_data: dict[str, Any] | None = None) -> AgentOutput:
+    async def execute(
+        self, context: Context, input_data: dict[str, Any] | None = None
+    ) -> AgentOutput:
         value = context.get_data("input", "default")
         return AgentOutput(
             output={"echoed": value},
@@ -49,7 +48,9 @@ class CountingAgent(Agent):
     def agent_id(self) -> str:
         return self._id
 
-    async def execute(self, context: Context, input_data: dict[str, Any] | None = None) -> AgentOutput:
+    async def execute(
+        self, context: Context, input_data: dict[str, Any] | None = None
+    ) -> AgentOutput:
         self.call_count += 1
         return AgentOutput(
             output={"count": self.call_count},
@@ -59,6 +60,7 @@ class CountingAgent(Agent):
 
 
 # ── Test Specs ───────────────────────────────────────────────────────────────
+
 
 class AlwaysPassSpec(Spec):
     @property
@@ -165,13 +167,19 @@ RETRY_MANIFEST = {
     },
     "edges": [
         {"from_step": "gen", "to_step": "__complete__", "when": "post_ok", "priority": 10},
-        {"from_step": "gen", "to_step": "gen", "when": "failed('always_fail') and attempts('gen') < 3", "priority": 5},
+        {
+            "from_step": "gen",
+            "to_step": "gen",
+            "when": "failed('always_fail') and attempts('gen') < 3",
+            "priority": 5,
+        },
         {"from_step": "gen", "to_step": "__fail__", "when": "true", "priority": 0},
     ],
 }
 
 
 # ── Tests ────────────────────────────────────────────────────────────────────
+
 
 class TestOrchestratorBuilder:
     def test_build_requires_manifest(self):
@@ -180,6 +188,7 @@ class TestOrchestratorBuilder:
 
     def test_build_with_manifest_string(self):
         import json
+
         builder = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -191,12 +200,14 @@ class TestOrchestratorBuilder:
 
     def test_fluent_interface(self):
         import json
+
         builder = OrchestratorBuilder()
         result = builder.with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
         assert result is builder  # Returns self for chaining
 
     def test_with_agents_plural(self):
         import json
+
         builder = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -211,6 +222,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_single_step_success(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -227,6 +239,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_two_step_pipeline(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(TWO_STEP_MANIFEST), format="json")
@@ -241,6 +254,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_retry_then_fail(self):
         import json
+
         counter = CountingAgent()
         orchestrator = (
             OrchestratorBuilder()
@@ -262,18 +276,28 @@ class TestOrchestratorRun:
     async def test_loop_detection_stops_identical_retries(self):
         """Loop detector prevents identical retries even if edges allow more."""
         import json
+
         manifest_data = {
             "manifest_version": "1.0",
             "spec_version": "1.0",
             "globals": {
                 "start_step": "s1",
-                "budgets": {"max_total_attempts": 100, "max_attempts_per_step": 100, "max_cost_dollars": 100.0},
+                "budgets": {
+                    "max_total_attempts": 100,
+                    "max_attempts_per_step": 100,
+                    "max_cost_dollars": 100.0,
+                },
             },
             "steps": {
                 "s1": {"agent_id": "counter", "post_specs": ["always_fail"]},
             },
             "edges": [
-                {"from_step": "s1", "to_step": "s1", "when": "failed('always_fail')", "priority": 5},
+                {
+                    "from_step": "s1",
+                    "to_step": "s1",
+                    "when": "failed('always_fail')",
+                    "priority": 5,
+                },
                 {"from_step": "s1", "to_step": "__complete__", "when": "true", "priority": 0},
             ],
         }
@@ -294,6 +318,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_agent_exception_recorded_in_trace(self):
         import json
+
         manifest_data = {
             "manifest_version": "1.0",
             "spec_version": "1.0",
@@ -318,6 +343,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_context_delta_applied(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -332,6 +358,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_cost_tracking(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -346,6 +373,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_trace_contains_step_entries(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(TWO_STEP_MANIFEST), format="json")
@@ -361,6 +389,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_on_step_complete_callback(self):
         import json
+
         callback_results = []
 
         def on_step(step_result: StepExecutionResult):
@@ -380,6 +409,7 @@ class TestOrchestratorRun:
     @pytest.mark.asyncio
     async def test_on_routing_callback(self):
         import json
+
         routing_log = []
 
         def on_route(from_step: str, to_step: str):
@@ -433,12 +463,13 @@ class TestOrchestratorRun:
             .build()
         )
         # Don't provide required_field → pre-spec fails → agent skipped
-        result = await orchestrator.run()
+        await orchestrator.run()
         assert counter.call_count == 0
 
     @pytest.mark.asyncio
     async def test_custom_run_id(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -454,6 +485,7 @@ class TestWorkflowResult:
     @pytest.mark.asyncio
     async def test_to_dict(self):
         import json
+
         orchestrator = (
             OrchestratorBuilder()
             .with_manifest_string(json.dumps(SINGLE_STEP_MANIFEST), format="json")
@@ -473,6 +505,7 @@ class TestRunWorkflow:
     @pytest.mark.asyncio
     async def test_convenience_function(self, tmp_path):
         import json
+
         manifest_path = tmp_path / "workflow.json"
         manifest_path.write_text(json.dumps(SINGLE_STEP_MANIFEST))
 
