@@ -57,7 +57,7 @@ class TestStep:
         data = {
             "agent_id": "extractor",
             "post_specs": ["output_valid"],
-            "retry_policy": {"max_attempts": 5}
+            "retry_policy": {"max_attempts": 5},
         }
         step = Step.from_dict("extract", data)
         assert step.step_id == "extract"
@@ -72,7 +72,7 @@ class TestEdge:
             "from_step": "process",
             "to_step": "__complete__",
             "when": "post_ok",
-            "priority": 10
+            "priority": 10,
         }
         edge = Edge.from_dict(data)
         assert edge.from_step == "process"
@@ -83,12 +83,7 @@ class TestEdge:
 
 class TestGlobalConfig:
     def test_from_dict_with_budgets(self):
-        data = {
-            "budgets": {
-                "max_total_attempts": 20,
-                "max_cost_dollars": 5.0
-            }
-        }
+        data = {"budgets": {"max_total_attempts": 20, "max_cost_dollars": 5.0}}
         config = GlobalConfig.from_dict(data)
         assert config.max_total_attempts == 20
         assert config.max_cost_dollars == 5.0
@@ -103,25 +98,9 @@ class TestManifest:
     def _minimal_manifest_dict(self):
         """Manifest dict matching the actual API format (steps as dict)."""
         return {
-            "globals": {
-                "budgets": {
-                    "max_total_attempts": 20,
-                    "max_cost_dollars": 5.0
-                }
-            },
-            "steps": {
-                "process": {
-                    "agent_id": "processor",
-                    "post_specs": ["output_valid"]
-                }
-            },
-            "edges": [
-                {
-                    "from_step": "process",
-                    "to_step": "__complete__",
-                    "when": "post_ok"
-                }
-            ]
+            "globals": {"budgets": {"max_total_attempts": 20, "max_cost_dollars": 5.0}},
+            "steps": {"process": {"agent_id": "processor", "post_specs": ["output_valid"]}},
+            "edges": [{"from_step": "process", "to_step": "__complete__", "when": "post_ok"}],
         }
 
     def test_from_dict(self):
@@ -167,25 +146,9 @@ class TestManifestLoader:
 
     def _minimal_manifest_dict(self):
         return {
-            "globals": {
-                "budgets": {
-                    "max_total_attempts": 20,
-                    "max_cost_dollars": 5.0
-                }
-            },
-            "steps": {
-                "process": {
-                    "agent_id": "processor",
-                    "post_specs": ["output_valid"]
-                }
-            },
-            "edges": [
-                {
-                    "from_step": "process",
-                    "to_step": "__complete__",
-                    "when": "post_ok"
-                }
-            ]
+            "globals": {"budgets": {"max_total_attempts": 20, "max_cost_dollars": 5.0}},
+            "steps": {"process": {"agent_id": "processor", "post_specs": ["output_valid"]}},
+            "edges": [{"from_step": "process", "to_step": "__complete__", "when": "post_ok"}],
         }
 
     def test_load_from_json_file(self):

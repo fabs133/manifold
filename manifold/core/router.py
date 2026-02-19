@@ -10,7 +10,6 @@ Key principle: The Router only reads; it doesn't execute.
 It returns the next step ID (or terminal states).
 """
 
-import re
 from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -162,10 +161,7 @@ class Router:
         self._manifest = manifest
 
     def route(
-        self,
-        current_step: str,
-        context: "Context",
-        trace_entry: "TraceEntry | None" = None
+        self, current_step: str, context: "Context", trace_entry: "TraceEntry | None" = None
     ) -> str:
         """
         Determine next step from current step.
@@ -198,10 +194,7 @@ class Router:
         return FAIL
 
     def get_eligible_edges(
-        self,
-        current_step: str,
-        context: "Context",
-        trace_entry: "TraceEntry | None" = None
+        self, current_step: str, context: "Context", trace_entry: "TraceEntry | None" = None
     ) -> list["Edge"]:
         """
         Get all edges whose conditions pass.
@@ -222,10 +215,7 @@ class Router:
         return [edge for edge in edges if evaluator.evaluate(edge.when)]
 
     def explain_routing(
-        self,
-        current_step: str,
-        context: "Context",
-        trace_entry: "TraceEntry | None" = None
+        self, current_step: str, context: "Context", trace_entry: "TraceEntry | None" = None
     ) -> dict[str, Any]:
         """
         Explain the routing decision for debugging.
@@ -253,7 +243,7 @@ class Router:
                 "to_step": edge.to_step,
                 "condition": edge.when,
                 "priority": edge.priority,
-                "passed": result
+                "passed": result,
             }
             edge_evaluations.append(edge_info)
 
@@ -266,7 +256,7 @@ class Router:
             "edge_details": edge_evaluations,
             "selected_next": selected or FAIL,
             "context_data_keys": list(context.data.keys()),
-            "attempt_counts": dict(context.budgets.current_attempts)
+            "attempt_counts": dict(context.budgets.current_attempts),
         }
 
 
@@ -289,12 +279,7 @@ class RetryRouter:
         """
         self._max_attempts = max_attempts_per_step
 
-    def should_retry(
-        self,
-        step_id: str,
-        context: "Context",
-        trace_entry: "TraceEntry"
-    ) -> bool:
+    def should_retry(self, step_id: str, context: "Context", trace_entry: "TraceEntry") -> bool:
         """
         Determine if step should be retried.
 
@@ -318,18 +303,13 @@ class RetryRouter:
         # Check for recoverable failures
         # (failures with suggested fixes are potentially recoverable)
         has_recoverable = any(
-            sr.suggested_fix is not None
-            for sr in trace_entry.spec_results
-            if not sr.passed
+            sr.suggested_fix is not None for sr in trace_entry.spec_results if not sr.passed
         )
 
         return has_recoverable
 
     def get_retry_info(
-        self,
-        step_id: str,
-        context: "Context",
-        trace_entry: "TraceEntry"
+        self, step_id: str, context: "Context", trace_entry: "TraceEntry"
     ) -> dict[str, Any]:
         """
         Get information about retry decision.
@@ -357,9 +337,9 @@ class RetryRouter:
                     "rule_id": sr.rule_id,
                     "message": sr.message,
                     "suggested_fix": sr.suggested_fix,
-                    "recoverable": sr.suggested_fix is not None
+                    "recoverable": sr.suggested_fix is not None,
                 }
                 for sr in failures
             ],
-            "should_retry": self.should_retry(step_id, context, trace_entry)
+            "should_retry": self.should_retry(step_id, context, trace_entry),
         }

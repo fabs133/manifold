@@ -1,7 +1,6 @@
 """Tests for the Context system — immutable state, budgets, and updates."""
 
 from manifold.core.context import (
-    Context,
     ContextUpdater,
     create_context,
     Artifact,
@@ -97,9 +96,7 @@ class TestBudgets:
 class TestArtifact:
     def test_from_content_string(self):
         artifact = Artifact.from_content(
-            path="output/result.json",
-            content='{"status": "ok"}',
-            created_by_step="process"
+            path="output/result.json", content='{"status": "ok"}', created_by_step="process"
         )
         assert artifact.path == "output/result.json"
         assert artifact.created_by_step == "process"
@@ -107,9 +104,7 @@ class TestArtifact:
 
     def test_from_content_bytes(self):
         artifact = Artifact.from_content(
-            path="output/image.png",
-            content=b"\x89PNG\r\n",
-            created_by_step="generate"
+            path="output/image.png", content=b"\x89PNG\r\n", created_by_step="generate"
         )
         assert artifact.path == "output/image.png"
         assert len(artifact.content_hash) == 64
@@ -147,7 +142,7 @@ class TestTraceEntry:
             spec_results=(
                 SpecResultRef(rule_id="r1", passed=True, message="ok"),
                 SpecResultRef(rule_id="r2", passed=True, message="ok"),
-            )
+            ),
         )
         assert entry.passed
         assert entry.failed_rules == []
@@ -162,7 +157,7 @@ class TestTraceEntry:
             spec_results=(
                 SpecResultRef(rule_id="r1", passed=True, message="ok"),
                 SpecResultRef(rule_id="r2", passed=False, message="bad"),
-            )
+            ),
         )
         assert not entry.passed
         assert entry.failed_rules == ["r2"]

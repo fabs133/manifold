@@ -16,19 +16,21 @@ Key principle: The Orchestrator enforces contracts but doesn't
 contain business logic. All logic is in agents and specs.
 """
 
-import asyncio
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Callable
 
 from manifold.core.context import (
-    Context, ContextUpdater, TraceEntry, SpecResultRef,
-    Artifact, Budgets, create_context
+    Context,
+    ContextUpdater,
+    TraceEntry,
+    Budgets,
+    create_context,
 )
 from manifold.core.spec import Spec, SpecEngine, SpecResult
 from manifold.core.agent import Agent, AgentAdapter, AgentRegistry, AgentOutput, ToolCall
 from manifold.core.manifest import Manifest, Step, ManifestLoader
-from manifold.core.loop_detector import LoopDetector, AttemptFingerprint
+from manifold.core.loop_detector import LoopDetector
 from manifold.core.router import Router, COMPLETE, FAIL
 
 
@@ -43,6 +45,7 @@ class WorkflowResult:
     - terminal_state: COMPLETE or FAIL
     - summary: Human-readable summary
     """
+
     success: bool
     final_context: Context
     terminal_state: str
@@ -60,13 +63,14 @@ class WorkflowResult:
             "duration_ms": self.duration_ms,
             "total_steps_executed": self.total_steps_executed,
             "total_retries": self.total_retries,
-            "context": self.final_context.to_dict()
+            "context": self.final_context.to_dict(),
         }
 
 
 @dataclass
 class StepExecutionResult:
     """Result of executing a single step."""
+
     step_id: str
     agent_output: AgentOutput | None
     spec_results: list[SpecResult]
@@ -96,7 +100,7 @@ class Orchestrator:
         agent_registry: AgentRegistry,
         spec_engine: SpecEngine,
         on_step_complete: Callable[[StepExecutionResult], None] | None = None,
-        on_routing: Callable[[str, str], None] | None = None
+        on_routing: Callable[[str, str], None] | None = None,
     ):
         """
         Initialize orchestrator.
@@ -120,7 +124,7 @@ class Orchestrator:
         self,
         initial_data: dict[str, Any] | None = None,
         run_id: str | None = None,
-        budgets: Budgets | None = None
+        budgets: Budgets | None = None,
     ) -> WorkflowResult:
         """
         Execute the complete workflow.
@@ -140,13 +144,13 @@ class Orchestrator:
             budgets = Budgets(
                 max_total_attempts=self._manifest.globals.max_total_attempts,
                 max_attempts_per_step=self._manifest.globals.max_attempts_per_step,
-                max_cost_dollars=self._manifest.globals.max_cost_dollars
+                max_cost_dollars=self._manifest.globals.max_cost_dollars,
             )
 
         context = create_context(
             run_id=run_id or f"run_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
             initial_data=initial_data,
-            budgets=budgets
+            budgets=budgets,
         )
 
         # Get starting step
@@ -165,7 +169,7 @@ class Orchestrator:
                     summary=f"Budget exceeded after {steps_executed} steps",
                     duration_ms=self._elapsed_ms(start_time),
                     total_steps_executed=steps_executed,
-                    total_retries=retries
+                    total_retries=retries,
                 )
 
             # Execute step
@@ -177,9 +181,7 @@ class Orchestrator:
 
             # Apply agent's delta to context
             if step_result.agent_output and step_result.agent_output.delta:
-                context = ContextUpdater.patch_data_many(
-                    context, step_result.agent_output.delta
-                )
+                context = ContextUpdater.patch_data_many(context, step_result.agent_output.delta)
 
             # Add artifacts
             if step_result.agent_output:
@@ -199,9 +201,7 @@ class Orchestrator:
 
             # Check for loops
             fingerprint = self._loop_detector.compute_fingerprint(
-                step_result.trace_entry,
-                context,
-                initial_data
+                step_result.trace_entry, context, initial_data
             )
 
             if self._loop_detector.is_loop(fingerprint):
@@ -212,17 +212,13 @@ class Orchestrator:
                     summary=f"Loop detected at step '{current_step}'",
                     duration_ms=self._elapsed_ms(start_time),
                     total_steps_executed=steps_executed,
-                    total_retries=retries
+                    total_retries=retries,
                 )
 
             self._loop_detector.record(fingerprint)
 
             # Route to next step
-            next_step = self._router.route(
-                current_step,
-                context,
-                step_result.trace_entry
-            )
+            next_step = self._router.route(current_step, context, step_result.trace_entry)
 
             # Track retries
             if next_step == current_step:
@@ -243,14 +239,10 @@ class Orchestrator:
             summary=f"Workflow {'completed' if success else 'failed'} after {steps_executed} steps",
             duration_ms=self._elapsed_ms(start_time),
             total_steps_executed=steps_executed,
-            total_retries=retries
+            total_retries=retries,
         )
 
-    async def _execute_step(
-        self,
-        step_id: str,
-        context: Context
-    ) -> StepExecutionResult:
+    async def _execute_step(self, step_id: str, context: Context) -> StepExecutionResult:
         """
         Execute a single step.
 
@@ -266,10 +258,7 @@ class Orchestrator:
         attempt = context.budgets.get_step_attempts(step_id) + 1
 
         # Evaluate pre-specs
-        pre_results = self._specs.evaluate(
-            list(step.pre_specs),
-            context
-        )
+        pre_results = self._specs.evaluate(list(step.pre_specs), context)
 
         if not self._specs.all_passed(pre_results):
             # Pre-conditions failed
@@ -279,7 +268,7 @@ class Orchestrator:
                 start_time=start_time,
                 spec_results=pre_results,
                 agent_output=None,
-                error="Pre-conditions not met"
+                error="Pre-conditions not met",
             )
 
         # Prepare input data
@@ -297,17 +286,13 @@ class Orchestrator:
 
         # Evaluate post-specs
         post_results = self._specs.evaluate(
-            list(step.post_specs),
-            context,
-            agent_output.output if agent_output else None
+            list(step.post_specs), context, agent_output.output if agent_output else None
         )
 
         # Evaluate invariant specs (step-level + global)
         invariant_ids = list(step.invariant_specs) + list(self._manifest.globals.invariant_specs)
         invariant_results = self._specs.evaluate(
-            invariant_ids,
-            context,
-            agent_output.output if agent_output else None
+            invariant_ids, context, agent_output.output if agent_output else None
         )
 
         # Combine all spec results
@@ -319,7 +304,7 @@ class Orchestrator:
             start_time=start_time,
             spec_results=all_results,
             agent_output=agent_output,
-            error=error
+            error=error,
         )
 
     def _prepare_input(self, step: Step, context: Context) -> dict[str, Any] | None:
@@ -341,7 +326,7 @@ class Orchestrator:
         start_time: datetime,
         spec_results: list[SpecResult],
         agent_output: AgentOutput | None,
-        error: str | None
+        error: str | None,
     ) -> StepExecutionResult:
         """Create a StepExecutionResult with trace entry."""
         duration_ms = self._elapsed_ms(start_time)
@@ -358,7 +343,7 @@ class Orchestrator:
                 args=tc.args,
                 result=tc.result,
                 duration_ms=tc.duration_ms,
-                timestamp=tc.timestamp
+                timestamp=tc.timestamp,
             )
             for tc in tool_calls
         )
@@ -371,7 +356,7 @@ class Orchestrator:
             tool_calls=context_tool_calls,
             spec_results=spec_refs,
             duration_ms=duration_ms,
-            error=error
+            error=error,
         )
 
         passed = all(sr.passed for sr in spec_results) and error is None
@@ -382,7 +367,7 @@ class Orchestrator:
             spec_results=spec_results,
             trace_entry=trace_entry,
             passed=passed,
-            error=error
+            error=error,
         )
 
     def _elapsed_ms(self, start_time: datetime) -> int:
@@ -449,7 +434,9 @@ class OrchestratorBuilder:
         self._specs.extend(specs)
         return self
 
-    def on_step_complete(self, callback: Callable[[StepExecutionResult], None]) -> "OrchestratorBuilder":
+    def on_step_complete(
+        self, callback: Callable[[StepExecutionResult], None]
+    ) -> "OrchestratorBuilder":
         """Set step completion callback."""
         self._on_step_complete = callback
         return self
@@ -476,7 +463,7 @@ class OrchestratorBuilder:
             agent_registry=agent_registry,
             spec_engine=spec_engine,
             on_step_complete=self._on_step_complete,
-            on_routing=self._on_routing
+            on_routing=self._on_routing,
         )
 
 
@@ -485,7 +472,7 @@ async def run_workflow(
     manifest_path: str,
     agents: list[Agent | AgentAdapter],
     specs: list[Spec],
-    initial_data: dict[str, Any] | None = None
+    initial_data: dict[str, Any] | None = None,
 ) -> WorkflowResult:
     """
     Run a workflow from a manifest file.

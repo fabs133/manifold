@@ -80,6 +80,69 @@ See README.md for basic component overview. This document provides deep technica
 
 ---
 
+## Data Flow
+
+A typical Manifold workflow follows this execution path:
+
+```
+1. Manifest loaded (YAML/JSON)
+   → Steps, edges, retry policies, budgets parsed
+
+2. Orchestrator starts at first step
+   → Creates immutable Context with initial_data
+
+3. For each step:
+   a. Pre-specs evaluated
+      → If any FAIL → step skipped, route to error edge
+
+   b. Agent executes
+      → Receives Context + input_data
+      → Returns AgentOutput (output, delta, tool_calls, cost)
+
+   c. Post-specs evaluated against AgentOutput
+      → If all PASS → route via "post_ok" edge
+      → If any FAIL → route via "failed(rule_id)" edge
+
+   d. Loop detector checks fingerprint
+      → If identical fingerprint seen before → abort (no progress)
+      → If new fingerprint → allow retry
+
+   e. Context updated (immutable copy)
+      → TraceEntry appended (agent output, spec results, routing decision)
+      → Budget counters incremented
+
+4. Router selects next edge
+   → Evaluates conditions: post_ok, failed(), has(), attempts()
+   → Routes to next step, __complete__, or __fail__
+
+5. Repeat from step 3 until terminal state reached
+```
+
+### Where Data Lives
+
+| Data | Location | Lifetime |
+|------|----------|----------|
+| Workflow inputs | `context.data` | Permanent (set via `initial_data`) |
+| Agent responses | `context.trace[-1].agent_output` | Appended each step |
+| Spec results | `context.trace[-1].spec_results` | Appended each step |
+| Routing decisions | `context.trace[-1].routing_decision` | Appended each step |
+| Shared state updates | `context.data` (via agent `delta`) | Merged after step |
+| File artifacts | `context.artifacts` | Appended as created |
+| Budget counters | `context.budgets` | Updated each step |
+
+### Key Insight
+
+Agent output goes into the **trace**, not directly into `context.data`. To access the result of the last step:
+
+```python
+last_trace = result.final_context.trace[-1]
+agent_response = last_trace.agent_output
+```
+
+If an agent needs to write shared state for the next step, it returns a `delta` dict in its `AgentOutput`. The orchestrator merges this into `context.data` after post-specs pass.
+
+---
+
 ## Design Principles
 
 ### 1. Contracts as Laws of Physics

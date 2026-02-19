@@ -33,6 +33,7 @@ class SpecResult:
     - Suggested fixes for self-correction
     - Structured data for programmatic handling
     """
+
     rule_id: str
     passed: bool
     message: str
@@ -46,16 +47,10 @@ class SpecResult:
         rule_id: str,
         message: str = "Passed",
         tags: tuple[str, ...] = (),
-        data: dict[str, Any] | None = None
+        data: dict[str, Any] | None = None,
     ) -> "SpecResult":
         """Create a passing result."""
-        return cls(
-            rule_id=rule_id,
-            passed=True,
-            message=message,
-            tags=tags,
-            data=data or {}
-        )
+        return cls(rule_id=rule_id, passed=True, message=message, tags=tags, data=data or {})
 
     @classmethod
     def fail(
@@ -64,7 +59,7 @@ class SpecResult:
         message: str,
         suggested_fix: str | None = None,
         tags: tuple[str, ...] = (),
-        data: dict[str, Any] | None = None
+        data: dict[str, Any] | None = None,
     ) -> "SpecResult":
         """Create a failing result."""
         return cls(
@@ -73,7 +68,7 @@ class SpecResult:
             message=message,
             suggested_fix=suggested_fix,
             tags=tags,
-            data=data or {}
+            data=data or {},
         )
 
     def to_dict(self) -> dict:
@@ -84,19 +79,20 @@ class SpecResult:
             "message": self.message,
             "suggested_fix": self.suggested_fix,
             "tags": list(self.tags),
-            "data": self.data
+            "data": self.data,
         }
 
-    def to_trace_ref(self) -> "SpecResultRef":
+    def to_trace_ref(self) -> "SpecResultRef":  # noqa: F821
         """Convert to lightweight trace reference."""
         from manifold.core.context import SpecResultRef
+
         return SpecResultRef(
             rule_id=self.rule_id,
             passed=self.passed,
             message=self.message,
             suggested_fix=self.suggested_fix,
             tags=self.tags,
-            data=self.data
+            data=self.data,
         )
 
 
@@ -186,10 +182,7 @@ class SpecEngine:
         return spec
 
     def evaluate(
-        self,
-        rule_ids: list[str],
-        context: "Context",
-        candidate: Any = None
+        self, rule_ids: list[str], context: "Context", candidate: Any = None
     ) -> list[SpecResult]:
         """
         Evaluate a list of specs by their rule_ids.
@@ -207,32 +200,33 @@ class SpecEngine:
             spec = self.get(rule_id)
             if spec is None:
                 # Missing spec is a failure
-                results.append(SpecResult.fail(
-                    rule_id=rule_id,
-                    message=f"Spec '{rule_id}' not found in registry",
-                    suggested_fix="Register the spec or remove from step config",
-                    tags=("error", "config")
-                ))
+                results.append(
+                    SpecResult.fail(
+                        rule_id=rule_id,
+                        message=f"Spec '{rule_id}' not found in registry",
+                        suggested_fix="Register the spec or remove from step config",
+                        tags=("error", "config"),
+                    )
+                )
             else:
                 try:
                     result = spec.evaluate(context, candidate)
                     results.append(result)
                 except Exception as e:
                     # Spec threw exception - treat as failure
-                    results.append(SpecResult.fail(
-                        rule_id=rule_id,
-                        message=f"Spec raised exception: {e}",
-                        suggested_fix="Fix the spec implementation",
-                        tags=("error", "exception"),
-                        data={"exception": str(e), "exception_type": type(e).__name__}
-                    ))
+                    results.append(
+                        SpecResult.fail(
+                            rule_id=rule_id,
+                            message=f"Spec raised exception: {e}",
+                            suggested_fix="Fix the spec implementation",
+                            tags=("error", "exception"),
+                            data={"exception": str(e), "exception_type": type(e).__name__},
+                        )
+                    )
         return results
 
     def evaluate_specs(
-        self,
-        specs: list[Spec],
-        context: "Context",
-        candidate: Any = None
+        self, specs: list[Spec], context: "Context", candidate: Any = None
     ) -> list[SpecResult]:
         """
         Evaluate spec instances directly (without registry lookup).
@@ -251,13 +245,15 @@ class SpecEngine:
                 result = spec.evaluate(context, candidate)
                 results.append(result)
             except Exception as e:
-                results.append(SpecResult.fail(
-                    rule_id=spec.rule_id,
-                    message=f"Spec raised exception: {e}",
-                    suggested_fix="Fix the spec implementation",
-                    tags=("error", "exception"),
-                    data={"exception": str(e), "exception_type": type(e).__name__}
-                ))
+                results.append(
+                    SpecResult.fail(
+                        rule_id=spec.rule_id,
+                        message=f"Spec raised exception: {e}",
+                        suggested_fix="Fix the spec implementation",
+                        tags=("error", "exception"),
+                        data={"exception": str(e), "exception_type": type(e).__name__},
+                    )
+                )
         return results
 
     def all_passed(self, results: list[SpecResult]) -> bool:
@@ -300,14 +296,14 @@ class HasDataField(Spec):
             return SpecResult.ok(
                 rule_id=self.rule_id,
                 message=f"Field '{self._field_name}' is present",
-                tags=self.tags
+                tags=self.tags,
             )
         return SpecResult.fail(
             rule_id=self.rule_id,
             message=f"Missing required field: {self._field_name}",
             suggested_fix=f"Ensure previous step produces '{self._field_name}'",
             tags=self.tags,
-            data={"missing_field": self._field_name}
+            data={"missing_field": self._field_name},
         )
 
 
@@ -331,14 +327,14 @@ class HasArtifact(Spec):
             return SpecResult.ok(
                 rule_id=self.rule_id,
                 message=f"Artifact '{self._artifact_path}' exists",
-                tags=self.tags
+                tags=self.tags,
             )
         return SpecResult.fail(
             rule_id=self.rule_id,
             message=f"Missing artifact: {self._artifact_path}",
             suggested_fix=f"Ensure previous step produces artifact '{self._artifact_path}'",
             tags=self.tags,
-            data={"missing_artifact": self._artifact_path}
+            data={"missing_artifact": self._artifact_path},
         )
 
 
@@ -359,8 +355,8 @@ class BudgetNotExceeded(Spec):
                 tags=self.tags,
                 data={
                     "total_attempts": budgets.get_total_attempts(),
-                    "max_attempts": budgets.max_total_attempts
-                }
+                    "max_attempts": budgets.max_total_attempts,
+                },
             )
 
         if budgets.is_cost_exceeded():
@@ -369,17 +365,10 @@ class BudgetNotExceeded(Spec):
                 message=f"Cost (${budgets.current_cost:.2f}) >= max (${budgets.max_cost_dollars:.2f})",
                 suggested_fix="Stop workflow, cost limit reached",
                 tags=self.tags,
-                data={
-                    "current_cost": budgets.current_cost,
-                    "max_cost": budgets.max_cost_dollars
-                }
+                data={"current_cost": budgets.current_cost, "max_cost": budgets.max_cost_dollars},
             )
 
-        return SpecResult.ok(
-            rule_id=self.rule_id,
-            message="Budget within limits",
-            tags=self.tags
-        )
+        return SpecResult.ok(rule_id=self.rule_id, message="Budget within limits", tags=self.tags)
 
 
 class CandidateNotNone(Spec):
@@ -398,16 +387,12 @@ class CandidateNotNone(Spec):
 
     def evaluate(self, context: "Context", candidate: Any = None) -> SpecResult:
         if candidate is not None:
-            return SpecResult.ok(
-                rule_id=self.rule_id,
-                message="Output produced",
-                tags=self.tags
-            )
+            return SpecResult.ok(rule_id=self.rule_id, message="Output produced", tags=self.tags)
         return SpecResult.fail(
             rule_id=self.rule_id,
             message="No output produced (candidate is None)",
             suggested_fix="Ensure agent returns a value",
-            tags=self.tags
+            tags=self.tags,
         )
 
 
@@ -432,14 +417,14 @@ class CandidateHasAttribute(Spec):
                 rule_id=self.rule_id,
                 message="No candidate to check",
                 suggested_fix="Ensure agent produces output",
-                tags=self.tags
+                tags=self.tags,
             )
 
         if hasattr(candidate, self._attribute):
             return SpecResult.ok(
                 rule_id=self.rule_id,
                 message=f"Candidate has attribute '{self._attribute}'",
-                tags=self.tags
+                tags=self.tags,
             )
 
         return SpecResult.fail(
@@ -447,5 +432,5 @@ class CandidateHasAttribute(Spec):
             message=f"Candidate missing attribute: {self._attribute}",
             suggested_fix=f"Ensure output includes '{self._attribute}'",
             tags=self.tags,
-            data={"missing_attribute": self._attribute}
+            data={"missing_attribute": self._attribute},
         )

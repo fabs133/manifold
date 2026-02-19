@@ -12,7 +12,6 @@ from dataclasses import dataclass, field, replace
 from datetime import datetime
 from typing import Any
 import hashlib
-import json
 
 
 @dataclass(frozen=True)
@@ -23,6 +22,7 @@ class Artifact:
     Artifacts are files or external resources created by agents.
     They are immutable once created.
     """
+
     path: str
     content_hash: str
     created_at: datetime
@@ -35,7 +35,7 @@ class Artifact:
         path: str,
         content: bytes | str,
         created_by_step: str,
-        metadata: dict[str, Any] | None = None
+        metadata: dict[str, Any] | None = None,
     ) -> "Artifact":
         """Create an artifact from content, computing the hash automatically."""
         if isinstance(content, str):
@@ -46,13 +46,14 @@ class Artifact:
             content_hash=content_hash,
             created_at=datetime.now(),
             created_by_step=created_by_step,
-            metadata=metadata or {}
+            metadata=metadata or {},
         )
 
 
 @dataclass(frozen=True)
 class ToolCall:
     """Record of a tool/function call made by an agent."""
+
     name: str
     args: dict[str, Any]
     result: Any
@@ -65,7 +66,7 @@ class ToolCall:
             "args": self.args,
             "result": self.result,
             "duration_ms": self.duration_ms,
-            "timestamp": self.timestamp.isoformat()
+            "timestamp": self.timestamp.isoformat(),
         }
 
 
@@ -76,6 +77,7 @@ class SpecResultRef:
 
     This is a lightweight reference; full SpecResult is in the spec module.
     """
+
     rule_id: str
     passed: bool
     message: str
@@ -90,7 +92,7 @@ class SpecResultRef:
             "message": self.message,
             "suggested_fix": self.suggested_fix,
             "tags": list(self.tags),
-            "data": self.data
+            "data": self.data,
         }
 
 
@@ -102,6 +104,7 @@ class TraceEntry:
     Every execution of a step creates a TraceEntry, regardless of success.
     This enables full auditability and debugging.
     """
+
     timestamp: datetime
     step_id: str
     attempt: int
@@ -122,7 +125,7 @@ class TraceEntry:
             "spec_results": [sr.to_dict() for sr in self.spec_results],
             "routing_decision": self.routing_decision,
             "duration_ms": self.duration_ms,
-            "error": self.error
+            "error": self.error,
         }
 
     @property
@@ -143,6 +146,7 @@ class Budgets:
 
     Budgets prevent runaway execution and control costs.
     """
+
     max_total_attempts: int = 50
     max_attempts_per_step: int = 3
     max_cost_dollars: float = 10.0
@@ -197,6 +201,7 @@ class Context:
         history: Optional summaries for LLM context
         metadata: Additional run metadata
     """
+
     run_id: str
     data: dict[str, Any] = field(default_factory=dict)
     artifacts: dict[str, Artifact] = field(default_factory=dict)
@@ -237,15 +242,17 @@ class Context:
         return {
             "run_id": self.run_id,
             "data": self.data,
-            "artifacts": {k: {"path": v.path, "hash": v.content_hash} for k, v in self.artifacts.items()},
+            "artifacts": {
+                k: {"path": v.path, "hash": v.content_hash} for k, v in self.artifacts.items()
+            },
             "trace_count": len(self.trace),
             "budgets": {
                 "total_attempts": self.budgets.get_total_attempts(),
                 "max_total": self.budgets.max_total_attempts,
                 "cost": self.budgets.current_cost,
-                "max_cost": self.budgets.max_cost_dollars
+                "max_cost": self.budgets.max_cost_dollars,
             },
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
 
@@ -314,7 +321,7 @@ def create_context(
     run_id: str,
     initial_data: dict[str, Any] | None = None,
     budgets: Budgets | None = None,
-    metadata: dict[str, Any] | None = None
+    metadata: dict[str, Any] | None = None,
 ) -> Context:
     """
     Factory function to create a new Context.
@@ -332,5 +339,5 @@ def create_context(
         run_id=run_id,
         data=initial_data or {},
         budgets=budgets or Budgets(),
-        metadata=metadata or {"created_at": datetime.now().isoformat()}
+        metadata=metadata or {"created_at": datetime.now().isoformat()},
     )

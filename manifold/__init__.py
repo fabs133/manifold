@@ -104,7 +104,6 @@ from manifold.core.agent import (
 __all__ = [
     # Version
     "__version__",
-
     # Context
     "Context",
     "ContextUpdater",
@@ -114,7 +113,6 @@ __all__ = [
     "ToolCall",
     "SpecResultRef",
     "Budgets",
-
     # Specs
     "Spec",
     "SpecResult",
@@ -124,7 +122,6 @@ __all__ = [
     "BudgetNotExceeded",
     "CandidateNotNone",
     "CandidateHasAttribute",
-
     # Manifest
     "Manifest",
     "ManifestLoader",
@@ -132,25 +129,21 @@ __all__ = [
     "Edge",
     "RetryPolicy",
     "GlobalConfig",
-
     # Router
     "Router",
     "ConditionEvaluator",
     "RetryRouter",
     "COMPLETE",
     "FAIL",
-
     # Loop Detection
     "LoopDetector",
     "AttemptFingerprint",
-
     # Orchestrator
     "Orchestrator",
     "OrchestratorBuilder",
     "WorkflowResult",
     "StepExecutionResult",
     "run_workflow",
-
     # Agent
     "Agent",
     "AgentOutput",

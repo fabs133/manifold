@@ -31,6 +31,7 @@ class ToolCall:
     - Loop detection (fingerprinting)
     - Cost tracking
     """
+
     name: str
     args: dict[str, Any]
     result: Any
@@ -45,7 +46,7 @@ class ToolCall:
             "result": str(self.result)[:500],  # Truncate large results
             "duration_ms": self.duration_ms,
             "timestamp": self.timestamp.isoformat(),
-            "cost": self.cost
+            "cost": self.cost,
         }
 
     def canonical_key(self) -> str:
@@ -56,6 +57,7 @@ class ToolCall:
         """
         import json
         import hashlib
+
         args_str = json.dumps(self.args, sort_keys=True, default=str)
         return f"{self.name}:{hashlib.sha256(args_str.encode()).hexdigest()[:16]}"
 
@@ -73,6 +75,7 @@ class AgentOutput:
     - raw: Raw model response (for debugging)
     - proposed_next: Hint for routing (not authoritative)
     """
+
     output: Any
     delta: dict[str, Any] | None = None
     artifacts: list["Artifact"] | None = None
@@ -126,9 +129,7 @@ class Agent(ABC):
 
     @abstractmethod
     async def execute(
-        self,
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, context: "Context", input_data: dict[str, Any] | None = None
     ) -> AgentOutput:
         """
         Execute the agent's task.
@@ -160,12 +161,7 @@ class AgentAdapter:
     (e.g., OpenAI Agents SDK, LangChain, etc.)
     """
 
-    def __init__(
-        self,
-        agent_id: str,
-        execute_fn,
-        description: str = ""
-    ):
+    def __init__(self, agent_id: str, execute_fn, description: str = ""):
         self._agent_id = agent_id
         self._execute_fn = execute_fn
         self._description = description or f"Adapted agent: {agent_id}"
@@ -179,9 +175,7 @@ class AgentAdapter:
         return self._description
 
     async def execute(
-        self,
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, context: "Context", input_data: dict[str, Any] | None = None
     ) -> AgentOutput:
         """Execute the wrapped agent function."""
         result = await self._execute_fn(context, input_data)
@@ -195,7 +189,7 @@ class AgentAdapter:
                 delta=result.get("delta"),
                 artifacts=result.get("artifacts"),
                 tool_calls=result.get("tool_calls"),
-                raw=result.get("raw")
+                raw=result.get("raw"),
             )
         else:
             # Treat as raw output
@@ -252,14 +246,9 @@ class PassthroughAgent(Agent):
     agent_id = "passthrough"
 
     async def execute(
-        self,
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, context: "Context", input_data: dict[str, Any] | None = None
     ) -> AgentOutput:
-        return AgentOutput(
-            output=input_data,
-            delta=input_data
-        )
+        return AgentOutput(output=input_data, delta=input_data)
 
 
 class FailingAgent(Agent):
@@ -277,9 +266,7 @@ class FailingAgent(Agent):
         return "failing"
 
     async def execute(
-        self,
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, context: "Context", input_data: dict[str, Any] | None = None
     ) -> AgentOutput:
         raise RuntimeError(self._error_message)
 
@@ -291,12 +278,7 @@ class FunctionAgent(Agent):
     Useful for quick agent creation without subclassing.
     """
 
-    def __init__(
-        self,
-        agent_id: str,
-        fn,
-        description: str = ""
-    ):
+    def __init__(self, agent_id: str, fn, description: str = ""):
         self._agent_id = agent_id
         self._fn = fn
         self._description = description
@@ -310,11 +292,8 @@ class FunctionAgent(Agent):
         return self._description or f"Function agent: {self._agent_id}"
 
     async def execute(
-        self,
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, context: "Context", input_data: dict[str, Any] | None = None
     ) -> AgentOutput:
-        import asyncio
         import inspect
 
         # Call function (handle both sync and async)
@@ -327,9 +306,6 @@ class FunctionAgent(Agent):
         if isinstance(result, AgentOutput):
             return result
         elif isinstance(result, dict):
-            return AgentOutput(
-                output=result.get("output", result),
-                delta=result.get("delta")
-            )
+            return AgentOutput(output=result.get("output", result), delta=result.get("delta"))
         else:
             return AgentOutput(output=result)

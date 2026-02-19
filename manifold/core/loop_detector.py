@@ -12,13 +12,13 @@ Key concept: Attempt Fingerprint
 - If fingerprint repeats → loop detected → stop
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, TYPE_CHECKING
 import hashlib
 import json
 
 if TYPE_CHECKING:
-    from manifold.core.context import Context, TraceEntry, SpecResultRef
+    from manifold.core.context import Context, TraceEntry
 
 
 @dataclass(frozen=True)
@@ -36,6 +36,7 @@ class AttemptFingerprint:
     Two attempts with the same fingerprint are considered "identical"
     and indicate a loop (no progress being made).
     """
+
     step_id: str
     input_hash: str
     tool_calls_hash: str
@@ -44,14 +45,16 @@ class AttemptFingerprint:
     invalid_fields: tuple[str, ...]
 
     def __hash__(self) -> int:
-        return hash((
-            self.step_id,
-            self.input_hash,
-            self.tool_calls_hash,
-            self.failed_rule_ids,
-            self.missing_fields,
-            self.invalid_fields
-        ))
+        return hash(
+            (
+                self.step_id,
+                self.input_hash,
+                self.tool_calls_hash,
+                self.failed_rule_ids,
+                self.missing_fields,
+                self.invalid_fields,
+            )
+        )
 
     def to_dict(self) -> dict:
         return {
@@ -60,7 +63,7 @@ class AttemptFingerprint:
             "tool_calls_hash": self.tool_calls_hash,
             "failed_rule_ids": list(self.failed_rule_ids),
             "missing_fields": list(self.missing_fields),
-            "invalid_fields": list(self.invalid_fields)
+            "invalid_fields": list(self.invalid_fields),
         }
 
     def diff(self, other: "AttemptFingerprint") -> dict[str, Any]:
@@ -83,19 +86,19 @@ class AttemptFingerprint:
         if set(self.failed_rule_ids) != set(other.failed_rule_ids):
             diffs["failed_rule_ids"] = {
                 "removed": list(set(self.failed_rule_ids) - set(other.failed_rule_ids)),
-                "added": list(set(other.failed_rule_ids) - set(self.failed_rule_ids))
+                "added": list(set(other.failed_rule_ids) - set(self.failed_rule_ids)),
             }
 
         if set(self.missing_fields) != set(other.missing_fields):
             diffs["missing_fields"] = {
                 "removed": list(set(self.missing_fields) - set(other.missing_fields)),
-                "added": list(set(other.missing_fields) - set(self.missing_fields))
+                "added": list(set(other.missing_fields) - set(self.missing_fields)),
             }
 
         if set(self.invalid_fields) != set(other.invalid_fields):
             diffs["invalid_fields"] = {
                 "removed": list(set(self.invalid_fields) - set(other.invalid_fields)),
-                "added": list(set(other.invalid_fields) - set(self.invalid_fields))
+                "added": list(set(other.invalid_fields) - set(self.invalid_fields)),
             }
 
         return diffs
@@ -160,10 +163,7 @@ class LoopDetector:
         self._last: dict[str, AttemptFingerprint] = {}
 
     def compute_fingerprint(
-        self,
-        entry: "TraceEntry",
-        context: "Context",
-        input_data: dict[str, Any] | None = None
+        self, entry: "TraceEntry", context: "Context", input_data: dict[str, Any] | None = None
     ) -> AttemptFingerprint:
         """
         Compute canonical fingerprint for an attempt.
@@ -183,9 +183,7 @@ class LoopDetector:
         tool_calls_hash = self._hash_tool_calls(entry.tool_calls)
 
         # Extract failed rules
-        failed_rules = tuple(sorted([
-            sr.rule_id for sr in entry.spec_results if not sr.passed
-        ]))
+        failed_rules = tuple(sorted([sr.rule_id for sr in entry.spec_results if not sr.passed]))
 
         # Extract missing fields from spec results
         missing_fields = self._extract_missing_fields(entry.spec_results)
@@ -199,14 +197,11 @@ class LoopDetector:
             tool_calls_hash=tool_calls_hash,
             failed_rule_ids=failed_rules,
             missing_fields=missing_fields,
-            invalid_fields=invalid_fields
+            invalid_fields=invalid_fields,
         )
 
     def _hash_inputs(
-        self,
-        step_id: str,
-        context: "Context",
-        input_data: dict[str, Any] | None
+        self, step_id: str, context: "Context", input_data: dict[str, Any] | None
     ) -> str:
         """Hash the effective inputs for a step."""
         # Include relevant context data
@@ -229,10 +224,9 @@ class LoopDetector:
         if not tool_calls:
             return "no_tools"
 
-        canonical = sorted([
-            (tc.name, json.dumps(tc.args, sort_keys=True, default=str))
-            for tc in tool_calls
-        ])
+        canonical = sorted(
+            [(tc.name, json.dumps(tc.args, sort_keys=True, default=str)) for tc in tool_calls]
+        )
         serialized = json.dumps(canonical)
         return hashlib.sha256(serialized.encode()).hexdigest()[:16]
 
@@ -333,5 +327,5 @@ class LoopDetector:
         return {
             "steps_tracked": list(self._seen.keys()),
             "attempts_per_step": {k: len(v) for k, v in self._seen.items()},
-            "total_attempts": sum(len(v) for v in self._seen.values())
+            "total_attempts": sum(len(v) for v in self._seen.values()),
         }

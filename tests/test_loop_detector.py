@@ -11,7 +11,7 @@ class TestAttemptFingerprint:
             tool_calls_hash="def456",
             failed_rule_ids=("rule1",),
             missing_fields=("email",),
-            invalid_fields=()
+            invalid_fields=(),
         )
         fp2 = AttemptFingerprint(
             step_id="step1",
@@ -19,7 +19,7 @@ class TestAttemptFingerprint:
             tool_calls_hash="def456",
             failed_rule_ids=("rule1",),
             missing_fields=("email",),
-            invalid_fields=()
+            invalid_fields=(),
         )
         assert hash(fp1) == hash(fp2)
 

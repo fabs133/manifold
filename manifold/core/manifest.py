@@ -25,6 +25,7 @@ class RetryPolicy:
 
     Controls how many times a step can be retried and backoff timing.
     """
+
     max_attempts: int = 3
     backoff_seconds: float = 1.0
     backoff_multiplier: float = 2.0
@@ -47,6 +48,7 @@ class Step:
     - Tool allowlist
     - Retry policy
     """
+
     step_id: str
     agent_id: str
     pre_specs: tuple[str, ...] = ()
@@ -65,7 +67,7 @@ class Step:
         retry_policy = RetryPolicy(
             max_attempts=retry_data.get("max_attempts", 3),
             backoff_seconds=retry_data.get("backoff_seconds", 1.0),
-            backoff_multiplier=retry_data.get("backoff_multiplier", 2.0)
+            backoff_multiplier=retry_data.get("backoff_multiplier", 2.0),
         )
 
         return cls(
@@ -78,7 +80,7 @@ class Step:
             tool_allowlist=tuple(data.get("tool_allowlist", [])),
             retry_policy=retry_policy,
             description=data.get("description", ""),
-            input_mapping=data.get("input_mapping")
+            input_mapping=data.get("input_mapping"),
         )
 
     def to_dict(self) -> dict:
@@ -94,10 +96,10 @@ class Step:
             "retry_policy": {
                 "max_attempts": self.retry_policy.max_attempts,
                 "backoff_seconds": self.retry_policy.backoff_seconds,
-                "backoff_multiplier": self.retry_policy.backoff_multiplier
+                "backoff_multiplier": self.retry_policy.backoff_multiplier,
             },
             "description": self.description,
-            "input_mapping": self.input_mapping
+            "input_mapping": self.input_mapping,
         }
 
 
@@ -119,6 +121,7 @@ class Edge:
     - has("field"): Context has data field
     - attempts("step_id") < N: Attempt count check
     """
+
     from_step: str
     to_step: str
     when: str
@@ -131,7 +134,7 @@ class Edge:
             from_step=data.get("from_step", ""),
             to_step=data.get("to_step", ""),
             when=data.get("when", "true"),
-            priority=data.get("priority", 0)
+            priority=data.get("priority", 0),
         )
 
     def to_dict(self) -> dict:
@@ -140,7 +143,7 @@ class Edge:
             "from_step": self.from_step,
             "to_step": self.to_step,
             "when": self.when,
-            "priority": self.priority
+            "priority": self.priority,
         }
 
 
@@ -154,6 +157,7 @@ class GlobalConfig:
     - Budget limits
     - Logging settings
     """
+
     invariant_specs: tuple[str, ...] = ()
     max_total_attempts: int = 50
     max_attempts_per_step: int = 3
@@ -173,7 +177,7 @@ class GlobalConfig:
             max_cost_dollars=budgets.get("max_cost_dollars", 10.0),
             start_step=data.get("start_step", ""),
             logging_level=data.get("logging", {}).get("level", "INFO"),
-            trace_all=data.get("logging", {}).get("trace_all", True)
+            trace_all=data.get("logging", {}).get("trace_all", True),
         )
 
     def to_dict(self) -> dict:
@@ -183,13 +187,10 @@ class GlobalConfig:
             "budgets": {
                 "max_total_attempts": self.max_total_attempts,
                 "max_attempts_per_step": self.max_attempts_per_step,
-                "max_cost_dollars": self.max_cost_dollars
+                "max_cost_dollars": self.max_cost_dollars,
             },
             "start_step": self.start_step,
-            "logging": {
-                "level": self.logging_level,
-                "trace_all": self.trace_all
-            }
+            "logging": {"level": self.logging_level, "trace_all": self.trace_all},
         }
 
 
@@ -206,6 +207,7 @@ class Manifest:
     - Edge definitions
     - Global settings
     """
+
     manifest_version: str
     spec_version: str
     steps: dict[str, Step]
@@ -293,7 +295,7 @@ class Manifest:
             "steps": {k: v.to_dict() for k, v in self.steps.items()},
             "edges": [e.to_dict() for e in self.edges],
             "globals": self.globals.to_dict(),
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
 
     @classmethod
@@ -315,7 +317,7 @@ class Manifest:
             globals=globals_config,
             agent_configs=data.get("agents", {}),
             spec_configs=data.get("specs", {}),
-            metadata=data.get("metadata", {})
+            metadata=data.get("metadata", {}),
         )
 
 

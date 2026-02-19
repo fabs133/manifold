@@ -8,7 +8,6 @@ from manifold.core.spec import (
     HasArtifact,
     BudgetNotExceeded,
     CandidateNotNone,
-    CandidateHasAttribute,
 )
 from manifold.core.context import create_context, Artifact, Budgets, ContextUpdater
 
@@ -22,11 +21,7 @@ class TestSpecResult:
         assert result.suggested_fix is None
 
     def test_fail_result(self):
-        result = SpecResult.fail(
-            "test_rule",
-            "Something wrong",
-            suggested_fix="Fix it"
-        )
+        result = SpecResult.fail("test_rule", "Something wrong", suggested_fix="Fix it")
         assert not result.passed
         assert result.message == "Something wrong"
         assert result.suggested_fix == "Fix it"
@@ -40,11 +35,7 @@ class TestSpecResult:
         assert result.tags == ("critical", "format")
 
     def test_result_with_data(self):
-        result = SpecResult.fail(
-            "rule1",
-            "Missing field",
-            data={"missing_field": "email"}
-        )
+        result = SpecResult.fail("rule1", "Missing field", data={"missing_field": "email"})
         assert result.data == {"missing_field": "email"}
 
     def test_to_dict(self):
@@ -68,9 +59,7 @@ class TestCustomSpec:
                 if context.has_data("email"):
                     return SpecResult.ok(self.rule_id, "Email present")
                 return SpecResult.fail(
-                    self.rule_id,
-                    "Missing email",
-                    suggested_fix="Add email to context"
+                    self.rule_id, "Missing email", suggested_fix="Add email to context"
                 )
 
         spec = HasEmail()
