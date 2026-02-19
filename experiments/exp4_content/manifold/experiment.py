@@ -34,14 +34,17 @@ from datetime import datetime
 # Add manifold to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from manifold import Agent, AgentOutput, Context, ToolCall
 from manifold import (
+    Agent,
+    AgentOutput,
+    Context,
+    ToolCall,
     OrchestratorBuilder,
     create_context,
     Spec,
     SpecResult,
+    BudgetNotExceeded,
 )
-from manifold.core.spec import BudgetNotExceeded
 
 
 # ────────────────────────────────────────────────────────────────────────────

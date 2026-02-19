@@ -54,7 +54,6 @@ class Step:
     pre_specs: tuple[str, ...] = ()
     post_specs: tuple[str, ...] = ()
     invariant_specs: tuple[str, ...] = ()
-    progress_specs: tuple[str, ...] = ()
     tool_allowlist: tuple[str, ...] = ()
     retry_policy: RetryPolicy = field(default_factory=RetryPolicy)
     description: str = ""
@@ -76,7 +75,6 @@ class Step:
             pre_specs=tuple(data.get("pre_specs", [])),
             post_specs=tuple(data.get("post_specs", [])),
             invariant_specs=tuple(data.get("invariant_specs", [])),
-            progress_specs=tuple(data.get("progress_specs", [])),
             tool_allowlist=tuple(data.get("tool_allowlist", [])),
             retry_policy=retry_policy,
             description=data.get("description", ""),
@@ -91,7 +89,6 @@ class Step:
             "pre_specs": list(self.pre_specs),
             "post_specs": list(self.post_specs),
             "invariant_specs": list(self.invariant_specs),
-            "progress_specs": list(self.progress_specs),
             "tool_allowlist": list(self.tool_allowlist),
             "retry_policy": {
                 "max_attempts": self.retry_policy.max_attempts,

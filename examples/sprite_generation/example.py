@@ -26,9 +26,9 @@ from manifold import (
     create_context,
 )
 
-# Import sprite harness components
-from manifold.harnesses.sprite.agent import create_sprite_agents
-from manifold.harnesses.sprite.specs import (
+# Import sprite harness components (local to this example)
+from examples.sprite_generation.harness.agent import create_sprite_agents
+from examples.sprite_generation.harness.specs import (
     ImageDimensionsSpec,
     GridLayoutValidSpec,
     HasGlobalStyleSpec,
@@ -111,17 +111,17 @@ async def main():
 
     # 7. Display results
     print("\n=== Workflow Result ===")
-    print(f"Status: {result.status}")
-    print(f"Steps executed: {len(result.trace)}")
-    print(f"Total cost: ${result.total_cost:.4f}")
+    print(f"Status: {result.terminal_state}")
+    print(f"Steps executed: {result.total_steps_executed}")
+    print(f"Total cost: ${result.final_context.budgets.current_cost:.4f}")
     print()
 
-    if result.status == "complete":
+    if result.success:
         print("[SUCCESS] Sprite generation completed!")
 
         # Check for generated image
         final_context = result.final_context
-        if final_context and "image_bytes" in final_context.data:
+        if "image_bytes" in final_context.data:
             image_data = final_context.data["image_bytes"]
             print(f"  Image size: {len(image_data)} bytes")
 
@@ -130,14 +130,15 @@ async def main():
             output_path.write_bytes(image_data)
             print(f"  Saved to: {output_path}")
 
-        if final_context and "generated_image" in final_context.data:
+        if "generated_image" in final_context.data:
             img_info = final_context.data["generated_image"]
             print(f"  Dimensions: {img_info['width']}x{img_info['height']}")
 
     else:
         print("[FAILED] Workflow did not complete successfully")
+        print(f"  Summary: {result.summary}")
 
-        if result.final_context and result.final_context.trace:
+        if result.final_context.trace:
             last_entry = result.final_context.trace[-1]
             print(f"  Last step: {last_entry.step_id}")
 
@@ -150,9 +151,10 @@ async def main():
 
     # 8. Show trace
     print("\n=== Execution Trace ===")
-    for i, entry in enumerate(result.trace, 1):
+    for i, entry in enumerate(result.final_context.trace, 1):
         status = "OK" if all(sr.passed for sr in entry.spec_results) else "FAIL"
-        print(f"{i}. {entry.step_id} [{status}] (cost: ${entry.cost:.4f})")
+        cost = sum(tc.cost for tc in entry.tool_calls) if entry.tool_calls else 0.0
+        print(f"{i}. {entry.step_id} [{status}] (duration: {entry.duration_ms}ms)")
 
 
 if __name__ == "__main__":

@@ -16,15 +16,18 @@ Key principle: The Orchestrator enforces contracts but doesn't
 contain business logic. All logic is in agents and specs.
 """
 
+import logging
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Callable
+
+logger = logging.getLogger("manifold")
 
 from manifold.core.context import (
     Context,
     ContextUpdater,
     TraceEntry,
-    ToolCall as ContextToolCall,
+    ToolCall,
     Budgets,
     create_context,
 )
@@ -121,6 +124,11 @@ class Orchestrator:
         self._on_step_complete = on_step_complete
         self._on_routing = on_routing
 
+        # Configure logging from manifest
+        level_name = manifest.globals.logging_level.upper()
+        level = getattr(logging, level_name, logging.INFO)
+        logger.setLevel(level)
+
     async def run(
         self,
         initial_data: dict[str, Any] | None = None,
@@ -159,10 +167,13 @@ class Orchestrator:
         steps_executed = 0
         retries = 0
 
+        logger.info("Starting workflow run_id=%s start_step=%s", context.run_id, current_step)
+
         # Main execution loop
         while current_step not in (COMPLETE, FAIL):
             # Check global budget
             if context.budgets.is_total_budget_exceeded():
+                logger.warning("Budget exceeded after %d steps", steps_executed)
                 return WorkflowResult(
                     success=False,
                     final_context=context,
@@ -174,6 +185,7 @@ class Orchestrator:
                 )
 
             # Execute step
+            logger.debug("Executing step=%s attempt=%d", current_step, context.budgets.get_step_attempts(current_step) + 1)
             step_result = await self._execute_step(current_step, context)
             steps_executed += 1
 
@@ -206,6 +218,7 @@ class Orchestrator:
             )
 
             if self._loop_detector.is_loop(fingerprint):
+                logger.warning("Loop detected at step '%s'", current_step)
                 return WorkflowResult(
                     success=False,
                     final_context=context,
@@ -220,6 +233,7 @@ class Orchestrator:
 
             # Route to next step
             next_step = self._router.route(current_step, context, step_result.trace_entry)
+            logger.debug("Routing: %s -> %s", current_step, next_step)
 
             # Track retries
             if next_step == current_step:
@@ -335,19 +349,8 @@ class Orchestrator:
         # Convert spec results to refs
         spec_refs = tuple(sr.to_trace_ref() for sr in spec_results)
 
-        # Get tool calls
-        tool_calls = tuple(agent_output.get_tool_calls()) if agent_output else ()
-        # Convert ToolCall from agent module to context module format
-        context_tool_calls = tuple(
-            ContextToolCall(
-                name=tc.name,
-                args=tc.args,
-                result=tc.result,
-                duration_ms=tc.duration_ms,
-                timestamp=tc.timestamp,
-            )
-            for tc in tool_calls
-        )
+        # Get tool calls (same ToolCall type used in both agent and context)
+        context_tool_calls = tuple(agent_output.get_tool_calls()) if agent_output else ()
 
         trace_entry = TraceEntry(
             timestamp=start_time,

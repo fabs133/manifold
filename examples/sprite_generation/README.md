@@ -159,7 +159,7 @@ The harness is **non-invasive** — it wraps the existing `FastHookProvider` wit
 
 ```python
 from sprite_pipeline.providers.fast_hook_provider import FastHookProvider
-from manifold.harnesses.sprite.agent import create_sprite_agents
+from examples.sprite_generation.harness.agent import create_sprite_agents
 
 # Create hook provider (unchanged)
 hook_provider = FastHookProvider()

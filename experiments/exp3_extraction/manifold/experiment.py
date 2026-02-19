@@ -13,16 +13,19 @@ from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime
 
-# Add manifold to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
+# Add manifold repo root and experiments dir to path
+_repo_root = str(Path(__file__).parent.parent.parent.parent)
+_experiments_root = str(Path(__file__).parent.parent.parent)
+sys.path.insert(0, _repo_root)
+sys.path.insert(0, _experiments_root)
 
 from manifold import (
     OrchestratorBuilder,
     Context,
     create_context,
+    BudgetNotExceeded,
 )
-from manifold.agents.openai import OpenAIChatAgent
-from manifold.core.spec import BudgetNotExceeded
+from lib.agents.openai import OpenAIChatAgent
 
 
 async def extract_data_manifold(

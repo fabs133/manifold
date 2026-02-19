@@ -52,22 +52,42 @@ class Artifact:
 
 @dataclass(frozen=True)
 class ToolCall:
-    """Record of a tool/function call made by an agent."""
+    """
+    Record of a tool/function call made by an agent.
+
+    Tool calls are logged for:
+    - Audit trail
+    - Debugging
+    - Loop detection (fingerprinting)
+    - Cost tracking
+    """
 
     name: str
     args: dict[str, Any]
     result: Any
     duration_ms: int
     timestamp: datetime = field(default_factory=datetime.now)
+    cost: float = 0.0  # Optional cost in dollars
 
     def to_dict(self) -> dict:
         return {
             "name": self.name,
             "args": self.args,
-            "result": self.result,
+            "result": str(self.result)[:500],  # Truncate large results
             "duration_ms": self.duration_ms,
             "timestamp": self.timestamp.isoformat(),
+            "cost": self.cost,
         }
+
+    def canonical_key(self) -> str:
+        """
+        Create a canonical key for this tool call.
+
+        Used for fingerprinting to detect identical retries.
+        """
+        import json as _json
+        args_str = _json.dumps(self.args, sort_keys=True, default=str)
+        return f"{self.name}:{hashlib.sha256(args_str.encode()).hexdigest()[:16]}"
 
 
 @dataclass(frozen=True)

@@ -7,8 +7,8 @@ with Manifold orchestration while preserving all existing functionality.
 Example usage:
     ```python
     from sprite_pipeline.providers.fast_hook_provider import FastHookProvider
-    from manifold.harnesses.sprite import create_sprite_agents
-    from manifold.harnesses.sprite.specs import (
+    from examples.sprite_generation.harness import create_sprite_agents
+    from examples.sprite_generation.harness.specs import (
         HasGlobalStyleSpec,
         PromptNotEmptySpec,
         ImageDimensionsSpec,
@@ -44,14 +44,14 @@ Example usage:
     ```
 """
 
-from manifold.harnesses.sprite.agent import (
+from examples.sprite_generation.harness.agent import (
     SpriteGenerationAgent,
     PromptBuilderAgent,
     BriefBuilderAgent,
     create_sprite_agents,
 )
 
-from manifold.harnesses.sprite.specs import (
+from examples.sprite_generation.harness.specs import (
     ImageDimensionsSpec,
     SpriteExtractionSpec,
     GridLayoutValidSpec,

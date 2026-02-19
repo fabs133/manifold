@@ -10,7 +10,10 @@ Key principle: The Router only reads; it doesn't execute.
 It returns the next step ID (or terminal states).
 """
 
+import logging
 from typing import Any, TYPE_CHECKING
+
+logger = logging.getLogger("manifold.router")
 
 if TYPE_CHECKING:
     from manifold.core.context import Context, TraceEntry
@@ -94,7 +97,7 @@ class ConditionEvaluator:
             return bool(eval(condition, {"__builtins__": {}}, eval_context))
         except Exception as e:
             # Invalid condition - treat as false and log
-            print(f"Warning: Invalid condition '{condition}': {e}")
+            logger.warning("Invalid condition '%s': %s", condition, e)
             return False
 
     def _post_ok(self) -> bool:

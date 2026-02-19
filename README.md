@@ -234,8 +234,7 @@ class TraceEntry:
 - [Core Concepts](docs/CONCEPTS.md)
 - [Writing Specs](docs/WRITING_SPECS.md)
 - [Manifest Schema](docs/MANIFEST_SCHEMA.md)
-- [API Reference](docs/API.md)
-- [Examples](manifold/examples/)
+- [Examples](examples/)
 
 ## Use Cases
 

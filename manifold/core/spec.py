@@ -10,7 +10,9 @@ Spec Categories:
 - pre_specs: Must pass before step runs
 - post_specs: Must pass for output to be accepted
 - invariant_specs: Must always hold (global constraints)
-- progress_specs: Must show situation changed (anti-loop)
+
+Note: Progress/anti-loop detection is handled by the LoopDetector
+(semantic fingerprinting), not by specs.
 """
 
 from abc import ABC, abstractmethod

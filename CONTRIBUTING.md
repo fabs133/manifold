@@ -97,7 +97,7 @@ ruff check manifold/ tests/
 
 ### Type Hints
 
-All public APIs must have type hints. We use **mypy** in strict mode:
+All public APIs should have type hints. We use **mypy** for type checking:
 
 ```bash
 mypy manifold/
