@@ -72,7 +72,7 @@ class AttemptFingerprint:
 
         Useful for explaining what changed between attempts.
         """
-        diffs = {}
+        diffs: dict[str, Any] = {}
 
         if self.step_id != other.step_id:
             diffs["step_id"] = {"from": self.step_id, "to": other.step_id}

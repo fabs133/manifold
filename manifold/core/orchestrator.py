@@ -24,11 +24,12 @@ from manifold.core.context import (
     Context,
     ContextUpdater,
     TraceEntry,
+    ToolCall as ContextToolCall,
     Budgets,
     create_context,
 )
 from manifold.core.spec import Spec, SpecEngine, SpecResult
-from manifold.core.agent import Agent, AgentAdapter, AgentRegistry, AgentOutput, ToolCall
+from manifold.core.agent import Agent, AgentAdapter, AgentRegistry, AgentOutput
 from manifold.core.manifest import Manifest, Step, ManifestLoader
 from manifold.core.loop_detector import LoopDetector
 from manifold.core.router import Router, COMPLETE, FAIL
@@ -338,7 +339,7 @@ class Orchestrator:
         tool_calls = tuple(agent_output.get_tool_calls()) if agent_output else ()
         # Convert ToolCall from agent module to context module format
         context_tool_calls = tuple(
-            ToolCall(
+            ContextToolCall(
                 name=tc.name,
                 args=tc.args,
                 result=tc.result,

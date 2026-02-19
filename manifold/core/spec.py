@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from manifold.core.context import Context
+    from manifold.core.context import Context, SpecResultRef
 
 
 @dataclass(frozen=True)
