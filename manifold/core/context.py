@@ -86,6 +86,7 @@ class ToolCall:
         Used for fingerprinting to detect identical retries.
         """
         import json as _json
+
         args_str = _json.dumps(self.args, sort_keys=True, default=str)
         return f"{self.name}:{hashlib.sha256(args_str.encode()).hexdigest()[:16]}"
 
