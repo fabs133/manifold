@@ -1,0 +1,463 @@
+{
+  "experiment": "exp3_extraction_smart_control",
+  "trials": 10,
+  "results": [
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 due to 'urgent' and 'immediate attention' in the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.39595365524292,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 1,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T19:22:26.438989",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 6.0002570152282715,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 2,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T19:22:32.439246"
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 6.415082216262817,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": true,
+      "trial_id": 3,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-16T19:22:38.854328"
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Issue type inferred as refund_error based on context of refund not received. Priority set to 5 due to request for management contact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.2948696613311768,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 4,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-16T19:22:41.149198",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 7.174713611602783,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:email",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:email",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:customer_id",
+          "missing_field:email",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:email",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 5,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-16T19:22:48.323911"
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": null
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.5464074611663818,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 6,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T19:22:49.870319",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 6.035018444061279,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 7,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T19:22:55.905337"
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 6.783174276351929,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 8,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-16T19:23:02.688511"
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 5 as the customer is a CEO and requests management contact, indicating a critical issue."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.7442846298217773,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 9,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-16T19:23:04.432796",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 4.932226181030273,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:email",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:email",
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:customer_id",
+            "missing_field:email",
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:customer_id",
+          "missing_field:email",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:email",
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:customer_id",
+          "missing_field:email",
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 10,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-16T19:23:09.365022"
+    }
+  ],
+  "summary": {
+    "total_trials": 10,
+    "successful": 4,
+    "success_rate": 0.4,
+    "avg_attempts": 2.2,
+    "avg_cost": 0.022,
+    "duplicate_retries": 1,
+    "avg_field_accuracy": 0.8571428571428571
+  }
+}

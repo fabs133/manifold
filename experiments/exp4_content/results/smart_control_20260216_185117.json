@@ -1,0 +1,62 @@
+{
+  "experiment": "exp4_content_smart_control",
+  "trials": 1,
+  "results": [
+    {
+      "success": false,
+      "word_count": 0,
+      "total_cost": 0.06,
+      "time_seconds": 105.62899112701416,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 2
+      },
+      "wasted_stages": 2,
+      "stage_history": [
+        {
+          "stage": "research",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "outline",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "draft",
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "draft_too_short:1480w"
+          ]
+        },
+        {
+          "stage": "draft",
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "draft_too_short:1074w"
+          ]
+        }
+      ],
+      "trial_id": 1,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "smart_control",
+      "timestamp": "2026-02-16T17:51:17.648203"
+    }
+  ],
+  "summary": {
+    "total_trials": 1,
+    "successful": 0,
+    "success_rate": 0.0,
+    "avg_attempts_total": 4.0,
+    "avg_cost": 0.06,
+    "avg_wasted_stages": 2.0,
+    "avg_word_count": 0.0
+  }
+}

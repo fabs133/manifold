@@ -1,0 +1,71 @@
+{
+  "experiment": "exp2_gptimage1_smart_control",
+  "trials": 2,
+  "results": [
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 87.36433386802673,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (2.6% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (2.6% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T11:47:35.415179"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.182828426361084,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 2,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T11:48:25.598930"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_attempts": 1.5,
+    "avg_cost": 0.06,
+    "loop_incidents": 0,
+    "duplicate_failure_incidents": 0
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "experiment": "exp1_dalle3_manifold",
+  "trials": 1,
+  "results": [
+    {
+      "trial_id": 1,
+      "method": "manifold",
+      "model": "dall-e-3",
+      "description": "Fantasy knight character",
+      "meets_requirements": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.04,
+      "time_seconds": 16.565312147140503,
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "total_steps_executed": 1,
+      "error": null,
+      "timestamp": "2026-02-16T19:57:45.435703",
+      "trace_length": 1,
+      "spec_failures": 0
+    }
+  ],
+  "summary": {
+    "total_trials": 1,
+    "successful": 1,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost_per_trial": 0.04,
+    "avg_time_seconds": 16.565312147140503,
+    "loop_incidents": 0,
+    "loop_rate": 0.0
+  }
+}

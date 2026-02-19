@@ -1,0 +1,41 @@
+manifest_version: "1.0"
+spec_version: "1.0"
+
+globals:
+  start_step: "generate_sprite"
+  budgets:
+    max_total_attempts: 10
+    max_attempts_per_step: 3
+    max_cost_dollars: 0.50
+
+steps:
+  generate_sprite:
+    agent_id: "dalle3_generator"
+    pre_specs: []
+    post_specs:
+      - "image_dimensions_valid"
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 3
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+edges:
+  # Success path
+  - from_step: "generate_sprite"
+    to_step: "__complete__"
+    when: "post_ok"
+    priority: 10
+
+  # Retry path (post-spec failed but under attempt limit)
+  - from_step: "generate_sprite"
+    to_step: "generate_sprite"
+    when: "failed('image_dimensions_valid') and attempts('generate_sprite') < 3"
+    priority: 5
+
+  # Failure path (exceeded retries)
+  - from_step: "generate_sprite"
+    to_step: "__fail__"
+    when: "attempts('generate_sprite') >= 3"
+    priority: 1

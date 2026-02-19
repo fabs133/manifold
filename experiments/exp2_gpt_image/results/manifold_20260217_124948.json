@@ -1,0 +1,52 @@
+{
+  "experiment": "exp2_gptimage1_manifold",
+  "trials": 2,
+  "results": [
+    {
+      "trial_id": 1,
+      "method": "manifold",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "meets_requirements": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.04,
+      "time_seconds": 42.754257678985596,
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "total_steps_executed": 1,
+      "error": null,
+      "timestamp": "2026-02-17T11:49:18.685447",
+      "trace_length": 1,
+      "spec_failures": 0
+    },
+    {
+      "trial_id": 2,
+      "method": "manifold",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "meets_requirements": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.04,
+      "time_seconds": 20.263946533203125,
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "total_steps_executed": 1,
+      "error": null,
+      "timestamp": "2026-02-17T11:49:48.955462",
+      "trace_length": 1,
+      "spec_failures": 0
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost_per_trial": 0.04,
+    "avg_time_seconds": 31.50910210609436,
+    "loop_incidents": 0,
+    "loop_rate": 0.0
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "experiment": "exp1_dalle3",
+  "generated_at": "2026-02-17T17:18:21.439305",
+  "total_trials": 150,
+  "approaches": [
+    {
+      "experiment": "exp1_dalle3",
+      "approach": "naive",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp1_dalle3\\results\\baseline_20260217_111839.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.04,
+      "avg_time_seconds": 16.522,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.431758"
+    },
+    {
+      "experiment": "exp1_dalle3",
+      "approach": "smart",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp1_dalle3\\production_runs\\exp1_production_20260216_193415\\smart_aggregated.json",
+      "total_trials": 50,
+      "successful": 29,
+      "success_rate": 0.58,
+      "avg_attempts": 1.98,
+      "avg_cost": 0.0624,
+      "avg_time_seconds": 33.38,
+      "loop_incidents": 21,
+      "loop_rate": 0.42,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.432263"
+    },
+    {
+      "experiment": "exp1_dalle3",
+      "approach": "manifold",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp1_dalle3\\results\\manifold_20260216_212701.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.04,
+      "avg_time_seconds": 16.631,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.432263"
+    }
+  ]
+}

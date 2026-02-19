@@ -1,0 +1,2165 @@
+{
+  "experiment": "exp4_content_control",
+  "trials": 50,
+  "results": [
+    {
+      "trial_id": 1,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 858,
+      "total_cost": 0.03172,
+      "time_seconds": 53.02509045600891,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0036525000000000004
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004155
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0111375,
+          "word_count": 872
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012775000000000002,
+          "word_count": 858
+        }
+      ],
+      "timestamp": "2026-02-17T12:07:48.418016"
+    },
+    {
+      "trial_id": 2,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 701,
+      "total_cost": 0.027765,
+      "time_seconds": 53.019622802734375,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00409
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0038425000000000004
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0092125,
+          "word_count": 700
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.010620000000000001,
+          "word_count": 701
+        }
+      ],
+      "timestamp": "2026-02-17T12:08:44.438133"
+    },
+    {
+      "trial_id": 3,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 662,
+      "total_cost": 0.0293725,
+      "time_seconds": 49.19906401634216,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00433
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0049825
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009519999999999999,
+          "word_count": 672
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01054,
+          "word_count": 662
+        }
+      ],
+      "timestamp": "2026-02-17T12:09:36.637996"
+    },
+    {
+      "trial_id": 4,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 617,
+      "total_cost": 0.0279425,
+      "time_seconds": 41.42448973655701,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004235
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0043425
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0090925,
+          "word_count": 621
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0102725,
+          "word_count": 617
+        }
+      ],
+      "timestamp": "2026-02-17T12:10:21.062988"
+    },
+    {
+      "trial_id": 5,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 728,
+      "total_cost": 0.032159999999999994,
+      "time_seconds": 50.18109941482544,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00398
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0050525
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0108475,
+          "word_count": 727
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01228,
+          "word_count": 728
+        }
+      ],
+      "timestamp": "2026-02-17T12:11:14.245034"
+    },
+    {
+      "trial_id": 6,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 713,
+      "total_cost": 0.0302125,
+      "time_seconds": 51.264941453933716,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0045650000000000005
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0047150000000000004
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0098825,
+          "word_count": 729
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01105,
+          "word_count": 713
+        }
+      ],
+      "timestamp": "2026-02-17T12:12:08.510781"
+    },
+    {
+      "trial_id": 7,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 792,
+      "total_cost": 0.0295425,
+      "time_seconds": 45.92391920089722,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0037025000000000005
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0042075
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0101075,
+          "word_count": 799
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.011524999999999999,
+          "word_count": 792
+        }
+      ],
+      "timestamp": "2026-02-17T12:12:57.436229"
+    },
+    {
+      "trial_id": 8,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 738,
+      "total_cost": 0.0292425,
+      "time_seconds": 43.298845052719116,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0046
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0035900000000000003
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0096975,
+          "word_count": 740
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.011355,
+          "word_count": 738
+        }
+      ],
+      "timestamp": "2026-02-17T12:13:43.736607"
+    },
+    {
+      "trial_id": 9,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 792,
+      "total_cost": 0.03468,
+      "time_seconds": 47.512627601623535,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00376
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.00543
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.011997500000000001,
+          "word_count": 797
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0134925,
+          "word_count": 792
+        }
+      ],
+      "timestamp": "2026-02-17T12:14:34.249985"
+    },
+    {
+      "trial_id": 10,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 928,
+      "total_cost": 0.037137500000000004,
+      "time_seconds": 50.26019310951233,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004155
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0047125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.01311,
+          "word_count": 932
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01516,
+          "word_count": 928
+        }
+      ],
+      "timestamp": "2026-02-17T12:15:27.512065"
+    },
+    {
+      "trial_id": 11,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 728,
+      "total_cost": 0.03205,
+      "time_seconds": 57.397648334503174,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00467
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.005245
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0104225,
+          "word_count": 730
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0117125,
+          "word_count": 728
+        }
+      ],
+      "timestamp": "2026-02-17T12:16:27.910748"
+    },
+    {
+      "trial_id": 12,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 719,
+      "total_cost": 0.0297,
+      "time_seconds": 46.1483211517334,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0043950000000000005
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0043125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009832500000000001,
+          "word_count": 729
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01116,
+          "word_count": 719
+        }
+      ],
+      "timestamp": "2026-02-17T12:17:17.059965"
+    },
+    {
+      "trial_id": 13,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 849,
+      "total_cost": 0.0318575,
+      "time_seconds": 51.663442850112915,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0039425
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0045375
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.010925,
+          "word_count": 854
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0124525,
+          "word_count": 849
+        }
+      ],
+      "timestamp": "2026-02-17T12:18:11.724675"
+    },
+    {
+      "trial_id": 14,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 646,
+      "total_cost": 0.02967,
+      "time_seconds": 37.7274534702301,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00478
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0050550000000000005
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0093625,
+          "word_count": 647
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0104725,
+          "word_count": 646
+        }
+      ],
+      "timestamp": "2026-02-17T12:18:52.453853"
+    },
+    {
+      "trial_id": 15,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 867,
+      "total_cost": 0.036065,
+      "time_seconds": 44.948453426361084,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00419
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.005017499999999999
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0124975,
+          "word_count": 868
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.014360000000000001,
+          "word_count": 867
+        }
+      ],
+      "timestamp": "2026-02-17T12:19:40.404183"
+    },
+    {
+      "trial_id": 16,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 706,
+      "total_cost": 0.030004999999999997,
+      "time_seconds": 45.16671848297119,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003715
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0038425000000000004
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.010389999999999998,
+          "word_count": 706
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012057499999999999,
+          "word_count": 706
+        }
+      ],
+      "timestamp": "2026-02-17T12:20:28.572204"
+    },
+    {
+      "trial_id": 17,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 836,
+      "total_cost": 0.0357725,
+      "time_seconds": 43.961357831954956,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00479
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.005755000000000001
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0118725,
+          "word_count": 840
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.013354999999999999,
+          "word_count": 836
+        }
+      ],
+      "timestamp": "2026-02-17T12:21:15.533977"
+    },
+    {
+      "trial_id": 18,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 757,
+      "total_cost": 0.029947500000000002,
+      "time_seconds": 36.60808539390564,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004105
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.00432
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0100525,
+          "word_count": 762
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01147,
+          "word_count": 757
+        }
+      ],
+      "timestamp": "2026-02-17T12:21:55.142647"
+    },
+    {
+      "trial_id": 19,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 803,
+      "total_cost": 0.03126999999999999,
+      "time_seconds": 36.616538524627686,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0034925
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004805
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.01078,
+          "word_count": 805
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012192499999999998,
+          "word_count": 803
+        }
+      ],
+      "timestamp": "2026-02-17T12:22:34.760817"
+    },
+    {
+      "trial_id": 20,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 617,
+      "total_cost": 0.026795,
+      "time_seconds": 22.11250638961792,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00434
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004175
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.00856,
+          "word_count": 617
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.00972,
+          "word_count": 617
+        }
+      ],
+      "timestamp": "2026-02-17T12:22:59.875653"
+    },
+    {
+      "trial_id": 21,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 689,
+      "total_cost": 0.029442500000000003,
+      "time_seconds": 36.60490083694458,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00397
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0045125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009805000000000001,
+          "word_count": 688
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.011155,
+          "word_count": 689
+        }
+      ],
+      "timestamp": "2026-02-17T12:23:39.480855"
+    },
+    {
+      "trial_id": 22,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 784,
+      "total_cost": 0.03214,
+      "time_seconds": 55.38772940635681,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003575
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0045675
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.011210000000000001,
+          "word_count": 793
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0127875,
+          "word_count": 784
+        }
+      ],
+      "timestamp": "2026-02-17T12:24:37.869240"
+    },
+    {
+      "trial_id": 23,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 704,
+      "total_cost": 0.0294625,
+      "time_seconds": 40.1125807762146,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00432
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0051175
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0094925,
+          "word_count": 708
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0105325,
+          "word_count": 704
+        }
+      ],
+      "timestamp": "2026-02-17T12:25:20.982618"
+    },
+    {
+      "trial_id": 24,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 789,
+      "total_cost": 0.0327675,
+      "time_seconds": 58.64611101150513,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004125
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004395
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.01125,
+          "word_count": 789
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012997499999999999,
+          "word_count": 789
+        }
+      ],
+      "timestamp": "2026-02-17T12:26:22.630358"
+    },
+    {
+      "trial_id": 25,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 642,
+      "total_cost": 0.02594,
+      "time_seconds": 35.20666837692261,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0037225
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0042125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.00851,
+          "word_count": 652
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.009495,
+          "word_count": 642
+        }
+      ],
+      "timestamp": "2026-02-17T12:27:00.838089"
+    },
+    {
+      "trial_id": 26,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 733,
+      "total_cost": 0.0293125,
+      "time_seconds": 33.25398898124695,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00423
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0042875
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009722499999999999,
+          "word_count": 740
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0110725,
+          "word_count": 733
+        }
+      ],
+      "timestamp": "2026-02-17T12:27:37.093322"
+    },
+    {
+      "trial_id": 27,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 905,
+      "total_cost": 0.03691,
+      "time_seconds": 38.65874671936035,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0039499999999999995
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0041775
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.013255000000000001,
+          "word_count": 907
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0155275,
+          "word_count": 905
+        }
+      ],
+      "timestamp": "2026-02-17T12:28:18.753334"
+    },
+    {
+      "trial_id": 28,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 771,
+      "total_cost": 0.03324,
+      "time_seconds": 33.15754771232605,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004505
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.00483
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.011147500000000001,
+          "word_count": 772
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0127575,
+          "word_count": 771
+        }
+      ],
+      "timestamp": "2026-02-17T12:28:54.911729"
+    },
+    {
+      "trial_id": 29,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 736,
+      "total_cost": 0.0318625,
+      "time_seconds": 29.54954767227173,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00399
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0053349999999999995
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0106375,
+          "word_count": 737
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0119,
+          "word_count": 736
+        }
+      ],
+      "timestamp": "2026-02-17T12:29:27.461917"
+    },
+    {
+      "trial_id": 30,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 810,
+      "total_cost": 0.0326125,
+      "time_seconds": 33.975929737091064,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003435
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0042025
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.011575,
+          "word_count": 811
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0134,
+          "word_count": 810
+        }
+      ],
+      "timestamp": "2026-02-17T12:30:04.439255"
+    },
+    {
+      "trial_id": 31,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 656,
+      "total_cost": 0.026675,
+      "time_seconds": 27.291109800338745,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0035725
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0043749999999999995
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0088175,
+          "word_count": 657
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.009909999999999999,
+          "word_count": 656
+        }
+      ],
+      "timestamp": "2026-02-17T12:30:34.730954"
+    },
+    {
+      "trial_id": 32,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 664,
+      "total_cost": 0.0280975,
+      "time_seconds": 38.603877782821655,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00464
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.00395
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009054999999999999,
+          "word_count": 662
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0104525,
+          "word_count": 664
+        }
+      ],
+      "timestamp": "2026-02-17T12:31:16.335288"
+    },
+    {
+      "trial_id": 33,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 686,
+      "total_cost": 0.030829999999999996,
+      "time_seconds": 40.86685752868652,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00407
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0043275
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0104925,
+          "word_count": 698
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.01194,
+          "word_count": 686
+        }
+      ],
+      "timestamp": "2026-02-17T12:32:00.203182"
+    },
+    {
+      "trial_id": 34,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 1006,
+      "total_cost": 0.039330000000000004,
+      "time_seconds": 39.09609937667847,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004255
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0052375
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.013885000000000002,
+          "word_count": 1015
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.015952499999999998,
+          "word_count": 1006
+        }
+      ],
+      "timestamp": "2026-02-17T12:32:42.300761"
+    },
+    {
+      "trial_id": 35,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 643,
+      "total_cost": 0.0302325,
+      "time_seconds": 38.97093105316162,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.005059999999999999
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0057025
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0092925,
+          "word_count": 645
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.010177499999999999,
+          "word_count": 643
+        }
+      ],
+      "timestamp": "2026-02-17T12:33:24.272589"
+    },
+    {
+      "trial_id": 36,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 818,
+      "total_cost": 0.0321575,
+      "time_seconds": 40.12253284454346,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.004435000000000001
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0044525
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.010845,
+          "word_count": 826
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012424999999999999,
+          "word_count": 818
+        }
+      ],
+      "timestamp": "2026-02-17T12:34:07.395808"
+    },
+    {
+      "trial_id": 37,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 827,
+      "total_cost": 0.032592499999999996,
+      "time_seconds": 41.34699201583862,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0038525
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004175
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0114025,
+          "word_count": 834
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.013162499999999999,
+          "word_count": 827
+        }
+      ],
+      "timestamp": "2026-02-17T12:34:51.744236"
+    },
+    {
+      "trial_id": 38,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 683,
+      "total_cost": 0.028470000000000002,
+      "time_seconds": 35.113420486450195,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0039499999999999995
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004387500000000001
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0094575,
+          "word_count": 689
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.010675,
+          "word_count": 683
+        }
+      ],
+      "timestamp": "2026-02-17T12:35:29.858277"
+    },
+    {
+      "trial_id": 39,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 726,
+      "total_cost": 0.029794999999999995,
+      "time_seconds": 35.12373971939087,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0038699999999999997
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004507499999999999
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.01002,
+          "word_count": 726
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0113975,
+          "word_count": 726
+        }
+      ],
+      "timestamp": "2026-02-17T12:36:07.983508"
+    },
+    {
+      "trial_id": 40,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 590,
+      "total_cost": 0.025155,
+      "time_seconds": 25.914088487625122,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0037749999999999997
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004037499999999999
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.008155,
+          "word_count": 592
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.009187500000000001,
+          "word_count": 590
+        }
+      ],
+      "timestamp": "2026-02-17T12:36:36.898651"
+    },
+    {
+      "trial_id": 41,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 639,
+      "total_cost": 0.03075,
+      "time_seconds": 32.42926263809204,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00417
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.00532
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0100525,
+          "word_count": 639
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0112075,
+          "word_count": 639
+        }
+      ],
+      "timestamp": "2026-02-17T12:37:12.328433"
+    },
+    {
+      "trial_id": 42,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 736,
+      "total_cost": 0.029017499999999998,
+      "time_seconds": 34.11593675613403,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003645
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004535
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.009784999999999999,
+          "word_count": 739
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0110525,
+          "word_count": 736
+        }
+      ],
+      "timestamp": "2026-02-17T12:37:49.445392"
+    },
+    {
+      "trial_id": 43,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 616,
+      "total_cost": 0.025202500000000003,
+      "time_seconds": 30.57064962387085,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0036825
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0040725
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.008225,
+          "word_count": 621
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.009222500000000002,
+          "word_count": 616
+        }
+      ],
+      "timestamp": "2026-02-17T12:38:23.016898"
+    },
+    {
+      "trial_id": 44,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 705,
+      "total_cost": 0.0303875,
+      "time_seconds": 32.24541878700256,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00411
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0040675
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0105575,
+          "word_count": 760
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0116525,
+          "word_count": 705
+        }
+      ],
+      "timestamp": "2026-02-17T12:38:58.262720"
+    },
+    {
+      "trial_id": 45,
+      "topic": "Getting Started with Docker Containers",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 810,
+      "total_cost": 0.0323175,
+      "time_seconds": 29.08945870399475,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00432
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0046300000000000004
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0108925,
+          "word_count": 812
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.012475,
+          "word_count": 810
+        }
+      ],
+      "timestamp": "2026-02-17T12:39:30.352917"
+    },
+    {
+      "trial_id": 46,
+      "topic": "Microservices Architecture Patterns and Best Practices",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 820,
+      "total_cost": 0.0351275,
+      "time_seconds": 49.46206760406494,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003974999999999999
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004937499999999999
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.012207500000000001,
+          "word_count": 821
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0140075,
+          "word_count": 820
+        }
+      ],
+      "timestamp": "2026-02-17T12:40:22.816499"
+    },
+    {
+      "trial_id": 47,
+      "topic": "Implementing OAuth 2.0 Authentication Flow",
+      "complexity": "medium",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 884,
+      "total_cost": 0.0368725,
+      "time_seconds": 42.55596303939819,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00534
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0059025
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.012035,
+          "word_count": 884
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.013595000000000001,
+          "word_count": 884
+        }
+      ],
+      "timestamp": "2026-02-17T12:41:08.372870"
+    },
+    {
+      "trial_id": 48,
+      "topic": "Byzantine Fault Tolerance in Distributed Systems",
+      "complexity": "hard",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 853,
+      "total_cost": 0.034379999999999994,
+      "time_seconds": 45.4652464389801,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.003995
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0041125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.012139999999999998,
+          "word_count": 858
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0141325,
+          "word_count": 853
+        }
+      ],
+      "timestamp": "2026-02-17T12:41:56.839252"
+    },
+    {
+      "trial_id": 49,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 680,
+      "total_cost": 0.025832499999999998,
+      "time_seconds": 34.64579796791077,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0034225
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0035975
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0088325,
+          "word_count": 695
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.00998,
+          "word_count": 680
+        }
+      ],
+      "timestamp": "2026-02-17T12:42:34.486502"
+    },
+    {
+      "trial_id": 50,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 691,
+      "total_cost": 0.028932499999999996,
+      "time_seconds": 34.261648178100586,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0039499999999999995
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0047275
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0095325,
+          "word_count": 690
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0107225,
+          "word_count": 691
+        }
+      ],
+      "timestamp": "2026-02-17T12:43:11.750030"
+    }
+  ],
+  "summary": {
+    "total_trials": 50,
+    "successful": 50,
+    "success_rate": 1.0,
+    "avg_cost_per_trial": 0.030975050000000007,
+    "avg_time_seconds": 40.58610537528992,
+    "avg_word_count": 747.06,
+    "avg_total_stages": 4.0
+  }
+}

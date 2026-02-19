@@ -49,6 +49,15 @@ dmypy.json
 # Distribution / packaging
 *.whl
 
+# Secrets
+.env
+*.env
+
 # Misc
 .DS_Store
 *.log
+
+# Corrupted/intermediate experiment runs
+experiments/corrupted_runs/
+experiments/production_runs/
+experiments/*/production_runs/

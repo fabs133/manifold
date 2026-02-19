@@ -1,0 +1,57 @@
+{
+  "experiment": "exp4_content_manifold",
+  "trials": 2,
+  "results": [
+    {
+      "trial_id": 1,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "manifold",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 0,
+      "total_cost": 0.016357499999999997,
+      "time_seconds": 31.190203189849854,
+      "total_steps_executed": 4,
+      "total_api_calls": 3,
+      "total_retries": 0,
+      "wasted_stages": 0,
+      "loop_detected": false,
+      "trace_length": 4,
+      "spec_failures": 4,
+      "error": null,
+      "timestamp": "2026-02-17T11:55:00.161824"
+    },
+    {
+      "trial_id": 2,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "manifold",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 0,
+      "total_cost": 0.017210000000000003,
+      "time_seconds": 27.932857275009155,
+      "total_steps_executed": 4,
+      "total_api_calls": 3,
+      "total_retries": 0,
+      "wasted_stages": 0,
+      "loop_detected": false,
+      "trace_length": 4,
+      "spec_failures": 4,
+      "error": null,
+      "timestamp": "2026-02-17T11:55:31.101030"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_cost_per_trial": 0.01678375,
+    "avg_time_seconds": 29.561530232429504,
+    "avg_word_count": 0.0,
+    "avg_steps_executed": 4.0,
+    "avg_retries": 0.0,
+    "loop_incidents": 0
+  }
+}

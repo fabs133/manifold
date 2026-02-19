@@ -57,7 +57,6 @@ from manifold.harnesses.sprite.specs import (
     GridLayoutValidSpec,
     HasGlobalStyleSpec,
     PromptNotEmptySpec,
-    BudgetNotExceededSpec,
 )
 
 __all__ = [
@@ -72,5 +71,4 @@ __all__ = [
     "GridLayoutValidSpec",
     "HasGlobalStyleSpec",
     "PromptNotEmptySpec",
-    "BudgetNotExceededSpec",
 ]

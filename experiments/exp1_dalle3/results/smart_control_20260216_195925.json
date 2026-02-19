@@ -1,0 +1,385 @@
+{
+  "experiment": "exp1_dalle3_smart_control",
+  "trials": 10,
+  "results": [
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 47.19140696525574,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (7.0% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (0.8% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (7.0% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (0.8% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-16T18:53:46.363912"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 41.44978165626526,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (6.1% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (7.1% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (6.1% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (7.1% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 2,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-16T18:54:27.813693"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 43.78568768501282,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (6.5% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (5.2% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (6.5% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (5.2% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 3,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Slime creature",
+      "timestamp": "2026-02-16T18:55:11.599885"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 45.306803941726685,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (9.6% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (9.6% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 4,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-16T18:55:56.906689"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 40.020498752593994,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (10.7% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (19.5% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (10.7% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (19.5% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 5,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-16T18:56:36.928697"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 39.42392039299011,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (9.3% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (17.8% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (9.3% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (17.8% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 6,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-16T18:57:16.352618"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 24.789748430252075,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 7,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-16T18:57:41.142366"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 22.255279779434204,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 8,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Slime creature",
+      "timestamp": "2026-02-16T18:58:03.397646"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 43.1248881816864,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (14.4% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (14.4% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 9,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-16T18:58:46.522534"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 39.06777381896973,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (2.4% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (19.2% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (2.4% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (19.2% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 10,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-16T18:59:25.590308"
+    }
+  ],
+  "summary": {
+    "total_trials": 10,
+    "successful": 4,
+    "success_rate": 0.4,
+    "avg_attempts": 2.4,
+    "avg_cost": 0.072,
+    "loop_incidents": 6,
+    "duplicate_failure_incidents": 0
+  }
+}

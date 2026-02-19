@@ -1,0 +1,1237 @@
+{
+  "experiment": "exp2_gptimage1_smart_control",
+  "trials": 50,
+  "results": [
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 37.37985897064209,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T14:47:43.595213"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.31580924987793,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 2,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T14:48:33.912729"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 38.61651635169983,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 3,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T14:49:22.530111"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 39.63052558898926,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 4,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T14:50:12.162279"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 43.101789474487305,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 5,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T14:51:05.265406"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 39.6530122756958,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 6,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T14:51:54.919897"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 42.97191095352173,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 7,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T14:52:47.894272"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.89571523666382,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 8,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T14:53:38.790645"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.41953229904175,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 9,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T14:54:29.211284"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 121.55183148384094,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (0.7% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (0.7% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 10,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T14:56:40.764483"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.96741223335266,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 11,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T14:57:32.734133"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 79.2353744506836,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (1.5% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (1.5% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 12,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T14:59:01.970402"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 44.26511764526367,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 13,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T14:59:56.236900"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 42.028393268585205,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 14,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:00:48.266610"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.05223798751831,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 15,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:01:39.320700"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.91527724266052,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 16,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:02:31.236672"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.40527963638306,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 17,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:03:22.643606"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.287232637405396,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 18,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:04:12.932233"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 38.653008222579956,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 19,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:05:01.587415"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 80.2271158695221,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (0.7% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (0.7% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 20,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:06:31.815835"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 42.12476110458374,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 21,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:07:23.942404"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 43.604472160339355,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 22,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:08:17.547472"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.49861717224121,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 23,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:09:09.048266"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 87.59590554237366,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (1.4% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (1.4% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 24,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:10:46.646338"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.86824345588684,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 25,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:11:37.515433"
+    },
+    {
+      "success": false,
+      "attempts": 2,
+      "total_cost": 0.04,
+      "time_seconds": 55.84862041473389,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (4.1% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (4.1% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 26,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:12:43.365392"
+    },
+    {
+      "success": false,
+      "attempts": 1,
+      "total_cost": 0.0,
+      "time_seconds": 11.111066579818726,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 27,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:13:04.477642"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 37.46140170097351,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 28,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:13:51.940865"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 86.32214283943176,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (2.1% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (2.1% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 29,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:15:28.264199"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 56.13811707496643,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (9.3% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (9.3% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 30,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:16:34.403079"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 42.696768045425415,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 31,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:17:27.101123"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.7608208656311,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 32,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:18:17.863458"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 39.04347801208496,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 33,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:19:06.909520"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 45.55477690696716,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 34,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:20:02.465545"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 83.76737928390503,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (1.0% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (7.7% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (1.0% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (7.7% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 35,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:21:36.234221"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.909810304641724,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 36,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:22:28.145290"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 74.88608431816101,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (3.2% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (3.2% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 37,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:23:53.032199"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 36.67812371253967,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 38,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:24:39.711608"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 43.01082754135132,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 39,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:25:32.723427"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.92539095878601,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 40,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:26:23.649988"
+    },
+    {
+      "success": false,
+      "attempts": 1,
+      "total_cost": 0.0,
+      "time_seconds": 0.020714282989501953,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 41,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:26:33.672215"
+    },
+    {
+      "success": false,
+      "attempts": 1,
+      "total_cost": 0.0,
+      "time_seconds": 1.061403512954712,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "error": "<urlopen error [Errno 11001] getaddrinfo failed>"
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 42,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:26:44.735321"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 40.5077064037323,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 43,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:27:35.244060"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 43.67470026016235,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 44,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:28:28.920141"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 82.80183053016663,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (18.2% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (18.2% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 45,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:30:01.722934"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 87.7607650756836,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (1.3% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (1.3% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 46,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T15:31:39.485701"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 38.96766495704651,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 47,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-17T15:32:28.454597"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 41.18629860877991,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 48,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Slime creature",
+      "timestamp": "2026-02-17T15:33:19.642406"
+    },
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 38.74041819572449,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 49,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Dragon enemy",
+      "timestamp": "2026-02-17T15:34:08.383888"
+    },
+    {
+      "success": true,
+      "attempts": 2,
+      "total_cost": 0.08,
+      "time_seconds": 83.42244791984558,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (5.1% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (5.1% white space)"
+          ]
+        }
+      ],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 50,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Treasure chest",
+      "timestamp": "2026-02-17T15:35:41.809313"
+    }
+  ],
+  "summary": {
+    "total_trials": 50,
+    "successful": 45,
+    "success_rate": 0.9,
+    "avg_attempts": 1.26,
+    "avg_cost": 0.046400000000000025,
+    "loop_incidents": 1,
+    "duplicate_failure_incidents": 0
+  }
+}

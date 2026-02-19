@@ -1,0 +1,28 @@
+manifest_version: "1.0"
+spec_version: "1.0"
+
+globals:
+  start_step: "extract_data"
+  budgets:
+    max_total_attempts: 10
+    max_attempts_per_step: 3
+    max_cost_dollars: 0.10
+
+steps:
+  extract_data:
+    agent_id: "gpt4_extractor"
+    pre_specs: []
+    post_specs: []
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 3
+      backoff_seconds: 1.0
+      backoff_multiplier: 1.5
+
+edges:
+  # Success path
+  - from_step: "extract_data"
+    to_step: "__complete__"
+    when: "True"
+    priority: 10

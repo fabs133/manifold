@@ -1,0 +1,48 @@
+{
+  "experiment": "exp3_extraction_smart_control",
+  "trials": 1,
+  "results": [
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 based on 'urgent' and 'immediate attention' in the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.354621171951294,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 1,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T18:48:46.399157",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    }
+  ],
+  "summary": {
+    "total_trials": 1,
+    "successful": 1,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost": 0.01,
+    "duplicate_retries": 0,
+    "avg_field_accuracy": 0.8571428571428571
+  }
+}

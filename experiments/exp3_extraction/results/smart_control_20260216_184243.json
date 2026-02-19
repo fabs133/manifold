@@ -1,0 +1,95 @@
+{
+  "experiment": "exp3_extraction_smart_control",
+  "trials": 2,
+  "results": [
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 due to 'urgent' and 'immediate attention' in the subject and body."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.2336390018463135,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 1,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T17:42:35.046535",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": false,
+      "data": null,
+      "attempts": 3,
+      "total_cost": 0.03,
+      "time_seconds": 8.603875398635864,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        },
+        {
+          "attempt": 3,
+          "success": false,
+          "errors": [
+            "missing_field:order_id"
+          ]
+        }
+      ],
+      "context_hints_used": [
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ],
+        [
+          "missing_field:order_id"
+        ]
+      ],
+      "duplicate_retry": false,
+      "trial_id": 2,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-16T17:42:43.650411"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 1,
+    "success_rate": 0.5,
+    "avg_attempts": 2.0,
+    "avg_cost": 0.02,
+    "duplicate_retries": 0,
+    "avg_field_accuracy": 0.8571428571428571
+  }
+}

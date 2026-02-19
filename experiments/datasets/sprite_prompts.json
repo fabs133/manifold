@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "category": "fantasy_character",
+    "description": "Fantasy knight character",
+    "frames": 4,
+    "style": "pixel art",
+    "expected_grid": "2x2"
+  },
+  {
+    "id": 2,
+    "category": "fantasy_character",
+    "description": "Wizard casting spells",
+    "frames": 4,
+    "style": "pixel art",
+    "expected_grid": "2x2"
+  },
+  {
+    "id": 3,
+    "category": "monster",
+    "description": "Slime creature",
+    "frames": 4,
+    "style": "pixel art",
+    "expected_grid": "2x2"
+  },
+  {
+    "id": 4,
+    "category": "monster",
+    "description": "Dragon enemy",
+    "frames": 4,
+    "style": "pixel art",
+    "expected_grid": "2x2"
+  },
+  {
+    "id": 5,
+    "category": "item",
+    "description": "Treasure chest",
+    "frames": 4,
+    "style": "pixel art",
+    "expected_grid": "2x2"
+  }
+]

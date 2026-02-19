@@ -1,0 +1,52 @@
+{
+  "experiment": "exp1_dalle3_manifold",
+  "trials": 2,
+  "results": [
+    {
+      "trial_id": 1,
+      "method": "manifold",
+      "model": "dall-e-3",
+      "description": "Fantasy knight character",
+      "meets_requirements": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.04,
+      "time_seconds": 17.245333671569824,
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "total_steps_executed": 1,
+      "error": null,
+      "timestamp": "2026-02-16T20:08:45.695430",
+      "trace_length": 1,
+      "spec_failures": 0
+    },
+    {
+      "trial_id": 2,
+      "method": "manifold",
+      "model": "dall-e-3",
+      "description": "Wizard casting spells",
+      "meets_requirements": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.04,
+      "time_seconds": 20.281441926956177,
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "total_steps_executed": 1,
+      "error": null,
+      "timestamp": "2026-02-16T20:09:06.985326",
+      "trace_length": 1,
+      "spec_failures": 0
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost_per_trial": 0.04,
+    "avg_time_seconds": 18.763387799263,
+    "loop_incidents": 0,
+    "loop_rate": 0.0
+  }
+}

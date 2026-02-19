@@ -1,0 +1,55 @@
+{
+  "experiment": "exp2_gptimage1_smart_control",
+  "trials": 2,
+  "results": [
+    {
+      "success": false,
+      "attempts": 1,
+      "total_cost": 0.0,
+      "time_seconds": 0.25116491317749023,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-16T17:42:18.361807"
+    },
+    {
+      "success": false,
+      "attempts": 1,
+      "total_cost": 0.0,
+      "time_seconds": 0.7108502388000488,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 2,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-16T17:42:19.072657"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 0,
+    "success_rate": 0.0,
+    "avg_attempts": 1.0,
+    "avg_cost": 0.0,
+    "loop_incidents": 0,
+    "duplicate_failure_incidents": 0
+  }
+}

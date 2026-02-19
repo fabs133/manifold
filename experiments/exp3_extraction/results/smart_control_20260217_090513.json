@@ -1,0 +1,1665 @@
+{
+  "experiment": "exp3_extraction_smart_control",
+  "trials": 50,
+  "results": [
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 due to 'urgent' and 'immediate attention' in the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.691631555557251,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 1,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T07:59:14.505425",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID was not provided in the email. Assumed default priority of 3 for billing question."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.5103492736816406,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 2,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T07:59:21.017305",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID and Order ID not provided. Account number mentioned does not match required format."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.0532267093658447,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 3,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T07:59:28.071862",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 4,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 4 based on request for management contact, indicating urgency but not explicitly critical."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.520420789718628,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 4,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T07:59:34.592971",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": null,
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email address and customer ID are missing. The issue is identified as technical due to API failures. Priority is set to 5 due to production impact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.9677174091339111,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 5,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T07:59:41.562624",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 based on 'urgent' and 'immediate attention' in the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.4619779586791992,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 6,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T07:59:48.025051",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Issue type inferred as billing based on the context of the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.2740046977996826,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 7,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T07:59:54.300348",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID not found in the email. Order ID not mentioned. Customer role not specified."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.5894997119903564,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 8,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:00:00.891751",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 5 due to request for management contact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.900292158126831,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 9,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:00:07.792746",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "The email is from an automated system, not a specific customer. No customer ID or order ID provided."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.2522473335266113,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 10,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:00:14.045853",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": ""
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.3513917922973633,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 11,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:00:20.398861",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Priority set to 3 as default for billing issues."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.7565224170684814,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 12,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:00:27.156331",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID and Order ID not provided. Customer account number mentioned (ACC-77777) does not match required format for customer_id."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.1696975231170654,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 13,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:00:34.327462",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": ""
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.859570026397705,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 14,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:00:41.187432",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email is from an automated system, no specific customer or order ID provided. Issue type inferred as 'technical' based on API failures. Priority set to 5 due to 'affecting production workloads'."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.657197952270508,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 15,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:00:48.846129",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Issue type inferred as refund_error due to mention of refund processing error."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.5207386016845703,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 16,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:00:56.367369",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID is not provided in the email. Priority is set to 3 as a default for billing questions."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.5109617710113525,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 17,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:01:03.879567",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID not provided in the email. Order ID not provided. Customer role not specified."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.792663335800171,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 18,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:01:12.672588",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 3,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 3 as it was not specified; requires escalation due to request for management contact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.64894700050354,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 19,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:01:20.322104",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "The email is automated and does not provide specific customer or order information. The issue type is assumed to be 'technical' based on the content of the message. Priority is set to 5 due to the critical nature of production workload impact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.323301076889038,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 20,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:01:28.646979",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": null
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.641845703125,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 21,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:01:35.289561",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in email. Priority set to 3 as default for billing questions."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.9866387844085693,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 22,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:01:43.276719",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID not provided in the email. Account number mentioned does not match required format for customer_id."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.252265453338623,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 23,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:01:50.530053",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 3,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 3 as no explicit priority was mentioned. Escalation requested as contact from management was asked."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.0477967262268066,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 24,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:01:57.580128",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": null,
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "The email is automated and does not contain specific customer information such as customer_id, email, or order_id. The issue type is inferred as 'technical' due to the mention of API failures. Priority is set to 5 due to the critical nature of production workload impact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.8880629539489746,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 25,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:02:05.468594",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": ""
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.8378255367279053,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 26,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:02:12.307720",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not provided in the email. Priority set to 3 as default for billing issues."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 4.577245235443115,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 27,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:02:21.885288",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID not provided in the email. Order ID not provided. Customer role not specified. Account number mentioned does not match required format for customer ID."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.575467109680176,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 28,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:02:29.461395",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 3,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 3 as the email does not specify urgency, but escalation is implied by request for management contact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.3726253509521484,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 29,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:02:36.834731",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email is from an automated system, no customer-specific data provided. Assumed issue type as 'technical' due to API failures. Priority set to 5 due to 'affecting production workloads' and 'investigate immediately'."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.708320140838623,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 30,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:02:45.544222",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": null
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.438861608505249,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 31,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:02:51.984047",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Assumed priority as 3 based on billing issue without explicit urgency."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.5910849571228027,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 32,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:02:59.576406",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID and Order ID not provided. Customer account number mentioned but does not match required format."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.048126459121704,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 33,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:03:06.624852",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": ""
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.3142955303192139,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 34,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:03:12.939581",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "The email is from an automated system, so customer_id and order_id are not provided. The issue type is assumed to be 'technical' due to API failures. Priority is set to 5 due to the critical nature of production workload impact."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.3866586685180664,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 35,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:03:21.327093",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": null
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.8317086696624756,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 36,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:03:28.160387",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Priority set to 3 as default for billing issues."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.762484073638916,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 37,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:03:35.923760",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID not provided in the email. Order ID not mentioned. Customer role not specified."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.506688117980957,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 38,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:03:43.431469",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 4,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority inferred as 4 due to request for management contact; issue type inferred as refund_error based on refund mention."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.8629794120788574,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 39,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:03:50.294854",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email is from an automated system; no specific customer or order ID provided. Issue type inferred as technical due to API failures. Priority set to 5 due to 'affecting production workloads' and 'investigate immediately'."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.7831690311431885,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 40,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:03:59.079972",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": null
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.824700117111206,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 41,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:04:05.905391",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Assuming billing issue based on content."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.007483720779419,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 42,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:04:13.913948",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID and Order ID not provided in the email. Customer account number mentioned does not match the required format."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.1754209995269775,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 43,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:04:21.090645",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 3,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 3 as the email does not specify urgency, but a refund issue typically requires attention. Escalation requested by customer."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.9418442249298096,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 44,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:04:29.032542",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": null,
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email is from an automated system, not a customer. No customer or order ID provided."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.336027145385742,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 45,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:04:36.369033",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering",
+        "_notes": "Priority set to 5 based on 'urgent' and 'immediate attention' in the email."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.7026383876800537,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 46,
+      "method": "smart_control",
+      "email_id": 1,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:04:44.072848",
+      "correct_fields": 7,
+      "total_expected_fields": 7,
+      "field_accuracy": 1.0
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null,
+        "_notes": "Order ID not found in the email. Priority set to 3 as default for billing issues without explicit urgency."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.1084952354431152,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 47,
+      "method": "smart_control",
+      "email_id": 2,
+      "complexity": "simple",
+      "timestamp": "2026-02-17T08:04:51.182380",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Customer ID was not provided in the email. Order ID was not mentioned. Customer role is not specified."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 1.8210194110870361,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 48,
+      "method": "smart_control",
+      "email_id": 3,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:04:58.004249",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 4,
+        "requires_escalation": true,
+        "customer_role": "CEO",
+        "_notes": "Priority set to 4 based on request for management contact, indicating urgency."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 3.2010610103607178,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 49,
+      "method": "smart_control",
+      "email_id": 4,
+      "complexity": "medium",
+      "timestamp": "2026-02-17T08:05:06.205966",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    },
+    {
+      "success": true,
+      "data": {
+        "customer_id": null,
+        "email": null,
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null,
+        "_notes": "Email is from an automated system, not a customer. No customer_id, order_id, or valid email provided."
+      },
+      "attempts": 1,
+      "total_cost": 0.01,
+      "time_seconds": 2.627077579498291,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "context_hints_used": [],
+      "duplicate_retry": false,
+      "trial_id": 50,
+      "method": "smart_control",
+      "email_id": 5,
+      "complexity": "hard",
+      "timestamp": "2026-02-17T08:05:13.834024",
+      "correct_fields": 6,
+      "total_expected_fields": 7,
+      "field_accuracy": 0.8571428571428571
+    }
+  ],
+  "summary": {
+    "total_trials": 50,
+    "successful": 50,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost": 0.010000000000000004,
+    "duplicate_retries": 0,
+    "avg_field_accuracy": 0.9114285714285709
+  }
+}

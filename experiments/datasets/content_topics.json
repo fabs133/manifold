@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "complexity": "simple",
+    "topic": "Building Reliable AI Agents in Production",
+    "target_length": 1800,
+    "min_sections": 3
+  },
+  {
+    "id": 2,
+    "complexity": "simple",
+    "topic": "Introduction to Python Async Programming",
+    "target_length": 1800,
+    "min_sections": 3
+  },
+  {
+    "id": 3,
+    "complexity": "simple",
+    "topic": "Getting Started with Docker Containers",
+    "target_length": 1800,
+    "min_sections": 3
+  },
+  {
+    "id": 4,
+    "complexity": "medium",
+    "topic": "Microservices Architecture Patterns and Best Practices",
+    "target_length": 1800,
+    "min_sections": 4
+  },
+  {
+    "id": 5,
+    "complexity": "medium",
+    "topic": "Implementing OAuth 2.0 Authentication Flow",
+    "target_length": 1800,
+    "min_sections": 4
+  },
+  {
+    "id": 6,
+    "complexity": "hard",
+    "topic": "Byzantine Fault Tolerance in Distributed Systems",
+    "target_length": 1800,
+    "min_sections": 4
+  }
+]

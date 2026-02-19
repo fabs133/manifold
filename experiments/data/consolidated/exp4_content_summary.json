@@ -1,0 +1,55 @@
+{
+  "experiment": "exp4_content",
+  "generated_at": "2026-02-17T17:18:21.467752",
+  "total_trials": 150,
+  "approaches": [
+    {
+      "experiment": "exp4_content",
+      "approach": "naive",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp4_content\\results\\baseline_20260217_134311.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 4.0,
+      "avg_cost": 0.030975,
+      "avg_time_seconds": 40.586,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.457008"
+    },
+    {
+      "experiment": "exp4_content",
+      "approach": "smart",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp4_content\\results\\smart_control_20260217_140141.json",
+      "total_trials": 50,
+      "successful": 49,
+      "success_rate": 0.98,
+      "avg_attempts": 4.18,
+      "avg_cost": 0.0632,
+      "avg_time_seconds": 62.433,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.458523"
+    },
+    {
+      "experiment": "exp4_content",
+      "approach": "manifold",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp4_content\\results\\manifold_20260217_134342.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.030426,
+      "avg_time_seconds": 40.386,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.458523"
+    }
+  ]
+}

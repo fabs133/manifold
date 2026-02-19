@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/fabs133/manifold/tree/master/docs
+    about: Check the docs for guides on manifests, specs, and concepts.
+  - name: Discussions
+    url: https://github.com/fabs133/manifold/discussions
+    about: Ask questions and share ideas with the community.

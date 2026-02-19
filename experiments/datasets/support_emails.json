@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "complexity": "simple",
+    "email_text": "From: john.doe@techcorp.com\nSubject: Urgent - Payment Issue\n\nHi support team,\n\nI've been trying to process a refund for order #ORD-12345 but keep getting an error. This is blocking our Q4 close and needs immediate attention.\n\nMy customer ID is CUST-98765. Please escalate to your manager.\n\nThanks,\nJohn Doe\nVP Engineering, TechCorp",
+    "expected": {
+      "customer_id": "CUST-98765",
+      "email": "john.doe@techcorp.com",
+      "order_id": "ORD-12345",
+      "issue_type": "refund_error",
+      "priority": 5,
+      "requires_escalation": true,
+      "customer_role": "VP Engineering"
+    }
+  },
+  {
+    "id": 2,
+    "complexity": "simple",
+    "email_text": "From: sarah.johnson@startup.io\nSubject: Billing Question\n\nHello,\n\nI notice my invoice #INV-54321 has a charge for 100 API calls but I only made 75. Can you check this?\n\nCustomer ID: CUST-11111\n\nBest,\nSarah",
+    "expected": {
+      "customer_id": "CUST-11111",
+      "email": "sarah.johnson@startup.io",
+      "order_id": "INV-54321",
+      "issue_type": "billing",
+      "priority": 3,
+      "requires_escalation": false,
+      "customer_role": null
+    }
+  },
+  {
+    "id": 3,
+    "complexity": "medium",
+    "email_text": "From: alex.martinez@company.com\nSubject: API Not Working\n\nYour API keeps returning 500 errors. This is affecting our production system.\n\nWe're a paying customer (account #ACC-77777) and need this resolved ASAP.\n\nAlex Martinez",
+    "expected": {
+      "customer_id": "ACC-77777",
+      "email": "alex.martinez@company.com",
+      "order_id": null,
+      "issue_type": "technical",
+      "priority": 5,
+      "requires_escalation": true,
+      "customer_role": null
+    }
+  },
+  {
+    "id": 4,
+    "complexity": "medium",
+    "email_text": "From: emily.chen@bigco.com\nSubject: Re: Order ORD-99999\n\nHi,\n\nI'm following up on my previous email about order ORD-99999. I still haven't received my refund.\n\nCan someone from management please contact me?\n\nEmily Chen\nCEO\nCustomer #CUST-22222\nemily.chen@bigco.com",
+    "expected": {
+      "customer_id": "CUST-22222",
+      "email": "emily.chen@bigco.com",
+      "order_id": "ORD-99999",
+      "issue_type": "refund_error",
+      "priority": 5,
+      "requires_escalation": true,
+      "customer_role": "CEO"
+    }
+  },
+  {
+    "id": 5,
+    "complexity": "hard",
+    "email_text": "From: support-request@automated.com\nSubject: Automated Report\n\nThis is an automated message from our monitoring system.\n\nMultiple API failures detected in the last hour affecting production workloads.\n\nPlease investigate immediately.",
+    "expected": {
+      "customer_id": null,
+      "email": "support-request@automated.com",
+      "order_id": null,
+      "issue_type": "technical",
+      "priority": 5,
+      "requires_escalation": true,
+      "customer_role": null
+    }
+  }
+]

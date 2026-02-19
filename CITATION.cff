@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use Manifold in your research, please cite it as below."
+type: software
+title: "Manifold: Specification-Driven Orchestration for Multi-Agent LLM Systems"
+authors:
+  - family-names: "Rempel"
+    given-names: "Fabio-Eric"
+    email: "FabioRempel@proton.me"
+version: "0.1.0"
+date-released: "2026-02-15"
+license: MIT
+url: "https://github.com/fabs133/manifold"
+repository-code: "https://github.com/fabs133/manifold"
+keywords:
+  - multi-agent systems
+  - large language models
+  - specification pattern
+  - orchestration
+  - false positive detection
+  - contract-driven validation
+abstract: >-
+  Manifold is a specification-driven orchestration architecture for
+  multi-agent LLM systems that eliminates false positives through
+  verifiable contracts. It combines the Specification Pattern with
+  fingerprint-based loop detection to prevent infinite retry cycles
+  while ensuring output correctness. Across 600 controlled trials,
+  Manifold achieved 94% true success rate with zero false positives,
+  compared to 34% true success and 66% false positive rate for
+  naive prompting.
+preferred-citation:
+  type: article
+  title: "Manifold: Eliminating False Positives in Multi-Agent LLM Systems Through Specification-Driven Orchestration"
+  authors:
+    - family-names: "Rempel"
+      given-names: "Fabio-Eric"
+  year: 2026
+  url: "https://github.com/fabs133/manifold/tree/master/research/paper"

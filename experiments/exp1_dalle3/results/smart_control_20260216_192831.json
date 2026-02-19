@@ -1,0 +1,79 @@
+{
+  "experiment": "exp1_dalle3_smart_control",
+  "trials": 2,
+  "results": [
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 19.162384271621704,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-16T18:27:56.449528"
+    },
+    {
+      "success": false,
+      "attempts": 3,
+      "total_cost": 0.08,
+      "time_seconds": 35.13368773460388,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (3.7% white space)"
+          ]
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "failures": [
+            "separation:Insufficient separation (13.5% white space)"
+          ]
+        }
+      ],
+      "adaptations": [
+        {
+          "attempt": 2,
+          "failures": [
+            "separation:Insufficient separation (3.7% white space)"
+          ]
+        },
+        {
+          "attempt": 3,
+          "failures": [
+            "separation:Insufficient separation (13.5% white space)"
+          ]
+        }
+      ],
+      "loop_detected": true,
+      "duplicate_failures": 0,
+      "trial_id": 2,
+      "method": "smart_control",
+      "model": "dall-e-3",
+      "description": "Wizard casting spells",
+      "timestamp": "2026-02-16T18:28:31.583216"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 1,
+    "success_rate": 0.5,
+    "avg_attempts": 2.0,
+    "avg_cost": 0.06,
+    "loop_incidents": 1,
+    "duplicate_failure_incidents": 0
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "experiment": "exp4_content_control",
+  "trials": 2,
+  "results": [
+    {
+      "trial_id": 1,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 780,
+      "total_cost": 0.030334999999999997,
+      "time_seconds": 42.3315544128418,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.0040425
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.0042125
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0103175,
+          "word_count": 790
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.011762499999999999,
+          "word_count": 780
+        }
+      ],
+      "timestamp": "2026-02-17T11:50:46.088480"
+    },
+    {
+      "trial_id": 2,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "control",
+      "model": "gpt-4o",
+      "success": true,
+      "word_count": 736,
+      "total_cost": 0.030049999999999997,
+      "time_seconds": 49.387638330459595,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "success": true,
+          "cost": 0.00478
+        },
+        {
+          "stage": "outline",
+          "success": true,
+          "cost": 0.004055
+        },
+        {
+          "stage": "draft",
+          "success": true,
+          "cost": 0.0098325,
+          "word_count": 736
+        },
+        {
+          "stage": "polish",
+          "success": true,
+          "cost": 0.0113825,
+          "word_count": 736
+        }
+      ],
+      "timestamp": "2026-02-17T11:51:38.477082"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_cost_per_trial": 0.030192499999999997,
+    "avg_time_seconds": 45.859596371650696,
+    "avg_word_count": 758.0,
+    "avg_total_stages": 4.0
+  }
+}

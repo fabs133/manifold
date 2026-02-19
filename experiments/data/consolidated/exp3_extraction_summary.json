@@ -1,0 +1,55 @@
+{
+  "experiment": "exp3_extraction",
+  "generated_at": "2026-02-17T17:18:21.457008",
+  "total_trials": 150,
+  "approaches": [
+    {
+      "experiment": "exp3_extraction",
+      "approach": "naive",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp3_extraction\\results\\baseline_20260217_112550.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.001069,
+      "avg_time_seconds": 1.16,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": 0.9,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.447856"
+    },
+    {
+      "experiment": "exp3_extraction",
+      "approach": "smart",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp3_extraction\\results\\smart_control_20260217_090513.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.01,
+      "avg_time_seconds": 2.319,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": 0.9114,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.447856"
+    },
+    {
+      "experiment": "exp3_extraction",
+      "approach": "manifold",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp3_extraction\\results\\manifold_20260217_085657.json",
+      "total_trials": 50,
+      "successful": 47,
+      "success_rate": 0.94,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.008903,
+      "avg_time_seconds": 2.231,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": 0.9914,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.447856"
+    }
+  ]
+}

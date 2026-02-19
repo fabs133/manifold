@@ -1,0 +1,121 @@
+manifest_version: "1.0"
+spec_version: "1.0"
+
+globals:
+  start_step: "research"
+  budgets:
+    max_total_attempts: 20
+    max_attempts_per_step: 3
+    max_cost_dollars: 0.50
+
+steps:
+  research:
+    agent_id: "researcher"
+    pre_specs: []
+    post_specs:
+      - "research_not_empty"
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 2
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+  outline:
+    agent_id: "outliner"
+    pre_specs:
+      - "has_research"
+    post_specs:
+      - "outline_not_empty"
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 2
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+  draft:
+    agent_id: "drafter"
+    pre_specs:
+      - "has_outline"
+    post_specs:
+      - "draft_long_enough"
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 2
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+  polish:
+    agent_id: "polisher"
+    pre_specs:
+      - "has_draft"
+    post_specs: []
+    invariant_specs:
+      - "budget_not_exceeded"
+    retry_policy:
+      max_attempts: 2
+      backoff_seconds: 2.0
+      backoff_multiplier: 1.5
+
+edges:
+  # Research → Outline (on success)
+  - from_step: "research"
+    to_step: "outline"
+    when: "post_ok"
+    priority: 10
+
+  # Research retry
+  - from_step: "research"
+    to_step: "research"
+    when: "failed('research_not_empty') and attempts('research') < 2"
+    priority: 5
+
+  # Research fail
+  - from_step: "research"
+    to_step: "__fail__"
+    when: "attempts('research') >= 2"
+    priority: 1
+
+  # Outline → Draft (on success)
+  - from_step: "outline"
+    to_step: "draft"
+    when: "post_ok"
+    priority: 10
+
+  # Outline retry
+  - from_step: "outline"
+    to_step: "outline"
+    when: "failed('outline_not_empty') and attempts('outline') < 2"
+    priority: 5
+
+  # Outline fail
+  - from_step: "outline"
+    to_step: "__fail__"
+    when: "attempts('outline') >= 2"
+    priority: 1
+
+  # Draft → Polish (on success)
+  - from_step: "draft"
+    to_step: "polish"
+    when: "post_ok"
+    priority: 10
+
+  # Draft retry (too short)
+  - from_step: "draft"
+    to_step: "draft"
+    when: "failed('draft_long_enough') and attempts('draft') < 2"
+    priority: 5
+
+  # Draft fail
+  - from_step: "draft"
+    to_step: "__fail__"
+    when: "attempts('draft') >= 2"
+    priority: 1
+
+  # Polish → Complete
+  - from_step: "polish"
+    to_step: "__complete__"
+    when: "True"
+    priority: 10

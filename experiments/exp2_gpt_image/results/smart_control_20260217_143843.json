@@ -1,0 +1,36 @@
+{
+  "experiment": "exp2_gptimage1_smart_control",
+  "trials": 1,
+  "results": [
+    {
+      "success": true,
+      "attempts": 1,
+      "total_cost": 0.04,
+      "time_seconds": 38.84963297843933,
+      "validation_history": [
+        {
+          "attempt": 1,
+          "success": true,
+          "failures": []
+        }
+      ],
+      "adaptations": [],
+      "loop_detected": false,
+      "duplicate_failures": 0,
+      "trial_id": 1,
+      "method": "smart_control",
+      "model": "gpt-image-1",
+      "description": "Fantasy knight character",
+      "timestamp": "2026-02-17T13:38:43.363825"
+    }
+  ],
+  "summary": {
+    "total_trials": 1,
+    "successful": 1,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost": 0.04,
+    "loop_incidents": 0,
+    "duplicate_failure_incidents": 0
+  }
+}

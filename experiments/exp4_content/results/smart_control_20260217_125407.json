@@ -1,0 +1,103 @@
+{
+  "experiment": "exp4_content_smart_control",
+  "trials": 2,
+  "results": [
+    {
+      "success": true,
+      "word_count": 1013,
+      "total_cost": 0.06,
+      "time_seconds": 58.954185485839844,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "outline",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "draft",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "polish",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "trial_id": 1,
+      "topic": "Building Reliable AI Agents in Production",
+      "complexity": "simple",
+      "method": "smart_control",
+      "timestamp": "2026-02-17T11:52:58.752724"
+    },
+    {
+      "success": true,
+      "word_count": 1356,
+      "total_cost": 0.06,
+      "time_seconds": 65.28620314598083,
+      "stage_attempts": {
+        "research": 1,
+        "outline": 1,
+        "draft": 1,
+        "polish": 1
+      },
+      "wasted_stages": 0,
+      "stage_history": [
+        {
+          "stage": "research",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "outline",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "draft",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        },
+        {
+          "stage": "polish",
+          "attempt": 1,
+          "success": true,
+          "errors": []
+        }
+      ],
+      "trial_id": 2,
+      "topic": "Introduction to Python Async Programming",
+      "complexity": "simple",
+      "method": "smart_control",
+      "timestamp": "2026-02-17T11:54:07.040144"
+    }
+  ],
+  "summary": {
+    "total_trials": 2,
+    "successful": 2,
+    "success_rate": 1.0,
+    "avg_attempts_total": 4.0,
+    "avg_cost": 0.06,
+    "avg_wasted_stages": 0.0,
+    "avg_word_count": 1184.5
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "experiment": "exp2_gptimage1",
+  "generated_at": "2026-02-17T17:18:21.446347",
+  "total_trials": 150,
+  "approaches": [
+    {
+      "experiment": "exp2_gptimage1",
+      "approach": "naive",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp2_gpt_image\\results\\baseline_20260217_134933.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.04,
+      "avg_time_seconds": 41.557,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.439305"
+    },
+    {
+      "experiment": "exp2_gptimage1",
+      "approach": "smart",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp2_gpt_image\\results\\smart_control_20260217_163541.json",
+      "total_trials": 50,
+      "successful": 45,
+      "success_rate": 0.9,
+      "avg_attempts": 1.26,
+      "avg_cost": 0.0464,
+      "avg_time_seconds": 48.51,
+      "loop_incidents": 1,
+      "loop_rate": 0.02,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.439305"
+    },
+    {
+      "experiment": "exp2_gptimage1",
+      "approach": "manifold",
+      "source_file": "C:\\Users\\fbrmp\\Projekte\\manifold\\experiments\\exp2_gpt_image\\results\\manifold_20260217_171031.json",
+      "total_trials": 50,
+      "successful": 50,
+      "success_rate": 1.0,
+      "avg_attempts": 1.0,
+      "avg_cost": 0.04,
+      "avg_time_seconds": 31.56,
+      "loop_incidents": 0,
+      "loop_rate": 0.0,
+      "avg_field_accuracy": null,
+      "duplicate_retries": 0,
+      "generated_at": "2026-02-17T17:18:21.440817"
+    }
+  ]
+}

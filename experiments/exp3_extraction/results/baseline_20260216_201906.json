@@ -1,0 +1,375 @@
+{
+  "experiment": "exp3_extraction_control",
+  "trials": 10,
+  "results": [
+    {
+      "trial_id": 1,
+      "method": "control",
+      "complexity": "simple",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.001165,
+      "time_seconds": 1.098160743713379,
+      "duplicate_retry": false,
+      "correct_fields": 6,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "customer_role"
+      ],
+      "extracted": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering"
+      },
+      "expected": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "vp_engineering"
+      },
+      "timestamp": "2026-02-16T19:18:52.779269"
+    },
+    {
+      "trial_id": 2,
+      "method": "control",
+      "complexity": "simple",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0010525,
+      "time_seconds": 1.5571203231811523,
+      "duplicate_retry": false,
+      "correct_fields": 6,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "order_id"
+      ],
+      "extracted": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null
+      },
+      "expected": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": "INV-54321",
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:18:54.336389"
+    },
+    {
+      "trial_id": 3,
+      "method": "control",
+      "complexity": "medium",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0010125,
+      "time_seconds": 1.904109239578247,
+      "duplicate_retry": false,
+      "correct_fields": 7,
+      "total_fields": 7,
+      "hallucinated_fields": [],
+      "extracted": {
+        "customer_id": "ACC-77777",
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "expected": {
+        "customer_id": "ACC-77777",
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:18:56.240498"
+    },
+    {
+      "trial_id": 4,
+      "method": "control",
+      "complexity": "medium",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0011475,
+      "time_seconds": 1.735781192779541,
+      "duplicate_retry": false,
+      "correct_fields": 5,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "priority",
+        "customer_role"
+      ],
+      "extracted": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 4,
+        "requires_escalation": true,
+        "customer_role": "CEO"
+      },
+      "expected": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "ceo"
+      },
+      "timestamp": "2026-02-16T19:18:57.976280"
+    },
+    {
+      "trial_id": 5,
+      "method": "control",
+      "complexity": "hard",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0009549999999999999,
+      "time_seconds": 1.1844379901885986,
+      "duplicate_retry": false,
+      "correct_fields": 5,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "customer_id",
+        "customer_role"
+      ],
+      "extracted": {
+        "customer_id": "unknown",
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "system"
+      },
+      "expected": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:18:59.162234"
+    },
+    {
+      "trial_id": 1,
+      "method": "control",
+      "complexity": "simple",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.001165,
+      "time_seconds": 1.9666950702667236,
+      "duplicate_retry": false,
+      "correct_fields": 6,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "customer_role"
+      ],
+      "extracted": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "VP Engineering"
+      },
+      "expected": {
+        "customer_id": "CUST-98765",
+        "email": "john.doe@techcorp.com",
+        "order_id": "ORD-12345",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "vp_engineering"
+      },
+      "timestamp": "2026-02-16T19:19:01.128929"
+    },
+    {
+      "trial_id": 2,
+      "method": "control",
+      "complexity": "simple",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0010525,
+      "time_seconds": 1.12154221534729,
+      "duplicate_retry": false,
+      "correct_fields": 6,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "order_id"
+      ],
+      "extracted": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": null,
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null
+      },
+      "expected": {
+        "customer_id": "CUST-11111",
+        "email": "sarah.johnson@startup.io",
+        "order_id": "INV-54321",
+        "issue_type": "billing",
+        "priority": 3,
+        "requires_escalation": false,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:19:02.250471"
+    },
+    {
+      "trial_id": 3,
+      "method": "control",
+      "complexity": "medium",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0010125,
+      "time_seconds": 1.3863646984100342,
+      "duplicate_retry": false,
+      "correct_fields": 7,
+      "total_fields": 7,
+      "hallucinated_fields": [],
+      "extracted": {
+        "customer_id": "ACC-77777",
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "expected": {
+        "customer_id": "ACC-77777",
+        "email": "alex.martinez@company.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:19:03.636836"
+    },
+    {
+      "trial_id": 4,
+      "method": "control",
+      "complexity": "medium",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0011475,
+      "time_seconds": 2.025092363357544,
+      "duplicate_retry": false,
+      "correct_fields": 5,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "priority",
+        "customer_role"
+      ],
+      "extracted": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 4,
+        "requires_escalation": true,
+        "customer_role": "CEO"
+      },
+      "expected": {
+        "customer_id": "CUST-22222",
+        "email": "emily.chen@bigco.com",
+        "order_id": "ORD-99999",
+        "issue_type": "refund_error",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": "ceo"
+      },
+      "timestamp": "2026-02-16T19:19:05.661929"
+    },
+    {
+      "trial_id": 5,
+      "method": "control",
+      "complexity": "hard",
+      "schema_valid": true,
+      "all_required_fields": true,
+      "success": true,
+      "attempts_needed": 1,
+      "total_cost": 0.0009450000000000001,
+      "time_seconds": 1.2123908996582031,
+      "duplicate_retry": false,
+      "correct_fields": 6,
+      "total_fields": 7,
+      "hallucinated_fields": [
+        "customer_id"
+      ],
+      "extracted": {
+        "customer_id": "unknown",
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "expected": {
+        "customer_id": null,
+        "email": "support-request@automated.com",
+        "order_id": null,
+        "issue_type": "technical",
+        "priority": 5,
+        "requires_escalation": true,
+        "customer_role": null
+      },
+      "timestamp": "2026-02-16T19:19:06.874319"
+    }
+  ],
+  "summary": {
+    "total_trials": 10,
+    "successful": 10,
+    "success_rate": 1.0,
+    "avg_attempts": 1.0,
+    "avg_cost": 0.0010655,
+    "duplicate_retries": 0,
+    "duplicate_retry_rate": 0.0,
+    "avg_field_accuracy": 0.8428571428571429
+  }
+}
