@@ -264,10 +264,10 @@ class SituationChanged(Spec):
         return ("progress", "anti-loop")
 
     def evaluate(self, context: Context, candidate=None) -> SpecResult:
-        # Get last attempt for this step
-        last_trace = context.get_last_trace_for_step(self._step_id)
+        # Get all previous attempts for this step
+        traces = context.get_traces_for_step(self._step_id)
 
-        if last_trace is None:
+        if not traces:
             # First attempt, always ok
             return SpecResult.ok(
                 self.rule_id,
@@ -275,27 +275,27 @@ class SituationChanged(Spec):
                 tags=self.tags
             )
 
-        # Compare context before last attempt to current context
-        current_data_keys = set(context.data.keys())
-        last_data_keys = set(last_trace.context_before.keys()) if hasattr(last_trace, 'context_before') else set()
+        last_trace = traces[-1]
 
-        # Check if new data was added
-        new_keys = current_data_keys - last_data_keys
-        if new_keys:
+        # Check if fewer rules are failing than last time
+        last_failures = set(last_trace.failed_rules)
+        if last_failures:
             return SpecResult.ok(
                 self.rule_id,
-                f"New data added: {new_keys}",
+                f"Previous attempt had failures: {last_failures}",
                 tags=self.tags,
-                data={"new_keys": list(new_keys)}
+                data={"last_failures": list(last_failures)}
             )
 
-        # Check if data values changed
-        # (simplified - real implementation would deep compare)
-        if len(context.data) != len(last_data_keys):
+        # Check if new data has been added to context since last attempt
+        # (e.g., another step filled in missing fields)
+        current_data_keys = set(context.data.keys())
+        if len(current_data_keys) > len(traces):
             return SpecResult.ok(
                 self.rule_id,
-                "Data changed",
-                tags=self.tags
+                "Context has new data",
+                tags=self.tags,
+                data={"data_keys": list(current_data_keys)}
             )
 
         return SpecResult.fail(

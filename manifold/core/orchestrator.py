@@ -16,6 +16,7 @@ Key principle: The Orchestrator enforces contracts but doesn't
 contain business logic. All logic is in agents and specs.
 """
 
+import asyncio
 import logging
 from dataclasses import dataclass
 from datetime import datetime
@@ -195,12 +196,12 @@ class Orchestrator:
             # Update context with trace
             context = ContextUpdater.append_trace(context, step_result.trace_entry)
 
-            # Apply agent's delta to context
-            if step_result.agent_output and step_result.agent_output.delta:
-                context = ContextUpdater.patch_data_many(context, step_result.agent_output.delta)
-
-            # Add artifacts
-            if step_result.agent_output:
+            # Apply agent's delta and artifacts only when step passed
+            if step_result.passed and step_result.agent_output:
+                if step_result.agent_output.delta:
+                    context = ContextUpdater.patch_data_many(
+                        context, step_result.agent_output.delta
+                    )
                 for artifact in step_result.agent_output.get_artifacts():
                     context = ContextUpdater.append_artifact(context, artifact)
 
@@ -238,9 +239,16 @@ class Orchestrator:
             next_step = self._router.route(current_step, context, step_result.trace_entry)
             logger.debug("Routing: %s -> %s", current_step, next_step)
 
-            # Track retries
+            # Track retries and apply backoff
             if next_step == current_step:
                 retries += 1
+                step = self._manifest.get_step(current_step)
+                if step:
+                    attempt = context.budgets.get_step_attempts(current_step)
+                    backoff = step.retry_policy.get_backoff(attempt)
+                    if backoff > 0:
+                        logger.debug("Backoff %.2fs before retry of '%s'", backoff, current_step)
+                        await asyncio.sleep(backoff)
 
             # Callback
             if self._on_routing:

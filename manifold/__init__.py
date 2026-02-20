@@ -99,6 +99,10 @@ from manifold.core.agent import (
     AgentOutput,
     AgentRegistry,
     AgentAdapter,
+    # Utility agents
+    FunctionAgent,
+    PassthroughAgent,
+    FailingAgent,
 )
 
 __all__ = [
@@ -149,4 +153,7 @@ __all__ = [
     "AgentOutput",
     "AgentRegistry",
     "AgentAdapter",
+    "FunctionAgent",
+    "PassthroughAgent",
+    "FailingAgent",
 ]

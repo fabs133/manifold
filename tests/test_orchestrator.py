@@ -266,10 +266,9 @@ class TestOrchestratorRun:
         result = await orchestrator.run()
         assert result.success is False
         assert result.terminal_state == FAIL
-        # Run 1: context data_keys=[] → fingerprint A → recorded
-        # Run 2: context data_keys=["call_count"] → fingerprint B → recorded
-        # Run 3 would have: data_keys=["call_count"] → fingerprint B again → loop detected
-        # So loop detection kicks in after 2 executions
+        # Run 1: specs fail → delta NOT applied → data_keys=[] → fingerprint A → recorded → routed back
+        # Run 2: specs fail → delta NOT applied → data_keys=[] → fingerprint A → loop detected
+        # Agent executes twice before loop detection catches the identical fingerprint
         assert counter.call_count == 2
 
     @pytest.mark.asyncio
@@ -312,7 +311,8 @@ class TestOrchestratorRun:
         result = await orchestrator.run()
         assert result.success is False
         assert "Loop detected" in result.summary
-        # Despite 100 max attempts, loop detection limits to 2
+        # Despite 100 max attempts, loop detection catches identical fingerprint on 2nd execution
+        # because delta is not applied on failed steps (no progress possible)
         assert counter.call_count == 2
 
     @pytest.mark.asyncio

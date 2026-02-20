@@ -53,6 +53,9 @@ where = ["."]
 include = ["manifold*"]
 exclude = ["tests*", "docs*", "examples*", "experiments*"]
 
+[tool.setuptools.package-data]
+manifold = ["py.typed"]
+
 [tool.black]
 line-length = 100
 target-version = ["py310", "py311", "py312", "py313"]

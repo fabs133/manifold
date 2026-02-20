@@ -64,10 +64,17 @@ class TestPublicAPI:
         assert Agent is not None
         assert AgentOutput is not None
 
+    def test_utility_agent_exports(self):
+        from manifold import FunctionAgent, PassthroughAgent, FailingAgent
+
+        assert FunctionAgent is not None
+        assert PassthroughAgent is not None
+        assert FailingAgent is not None
+
 
 class TestAllExportsCount:
     def test_all_has_expected_count(self):
         import manifold
 
-        # 34 public exports + __version__
-        assert len(manifold.__all__) >= 34
+        # 37 public exports + __version__
+        assert len(manifold.__all__) >= 37
