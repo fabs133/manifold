@@ -43,6 +43,7 @@ async def main():
     # This assumes sprite_pipeline is installed
     try:
         from sprite_pipeline.providers.fast_hook_provider import FastHookProvider
+
         hook_provider = FastHookProvider()
         print("[OK] FastHookProvider initialized")
     except ImportError:

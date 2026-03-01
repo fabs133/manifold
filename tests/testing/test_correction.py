@@ -14,6 +14,7 @@ Coverage:
 - CorrectionRunner.run(): CRITERIA_GAP validated, CRITERIA_GAP rejected,
                           MODEL_OUTLIER, LLM failure → None
 """
+
 from __future__ import annotations
 
 import json
@@ -39,7 +40,6 @@ from manifold.testing.models import (
     SpecProposal,
     _compute_mad,
 )
-
 
 # ---------------------------------------------------------------------------
 # Fixtures
@@ -90,7 +90,7 @@ def make_hypothesis(target: str = "classify_spec") -> Hypothesis:
             "    return SpecResult.ok(...)"
         ),
         hypothesis="Welfare orgs with partial religious affiliation cause model splits. "
-                   "Explicit criteria should restore convergence.",
+        "Explicit criteria should restore convergence.",
         target_spec_id=target,
         llm_raw_response='{"proposed_change":"...","proposed_spec_code":"...","hypothesis":"..."}',
     )
@@ -99,6 +99,7 @@ def make_hypothesis(target: str = "classify_spec") -> Hypothesis:
 # ---------------------------------------------------------------------------
 # Step 1 — analyze()
 # ---------------------------------------------------------------------------
+
 
 class TestAnalyze:
     def test_criteria_gap_sets_cause(self):
@@ -130,6 +131,7 @@ class TestAnalyze:
     def test_target_spec_fallback_when_empty(self):
         sig = make_signal()
         from dataclasses import replace
+
         sig = replace(sig, implicated_specs=[])
         a = analyze(sig)
         assert a.target_spec_id == "unknown_spec"
@@ -153,6 +155,7 @@ class TestAnalyze:
 # ---------------------------------------------------------------------------
 # LLM response parsing
 # ---------------------------------------------------------------------------
+
 
 class TestParseLLMResponse:
     def _valid_json(self, **overrides) -> str:
@@ -205,11 +208,14 @@ class TestParseLLMResponse:
 # Step 2 — generate_hypothesis()
 # ---------------------------------------------------------------------------
 
+
 class TestGenerateHypothesis:
     def _mock_llm(self, response: str):
         """Returns a stub LLM caller that always responds with `response`."""
+
         async def caller(prompt: str) -> str:
             return response
+
         return caller
 
     def _valid_llm_response(self, **overrides) -> str:
@@ -291,11 +297,14 @@ class TestGenerateHypothesis:
 # Step 3 — validate()
 # ---------------------------------------------------------------------------
 
+
 class TestValidate:
     def _make_model_runner(self, scores_by_model: dict[str, float]):
         """Stub model runner returning predefined scores."""
+
         async def runner(input_data: dict, criteria_hint: str, model_id: str) -> float:
             return scores_by_model[model_id]
+
         return runner
 
     @pytest.mark.asyncio
@@ -325,7 +334,9 @@ class TestValidate:
         sig = make_signal(DriftType.CRITERIA_GAP, expected_mad=0.04)
         h = make_hypothesis()
         # Tight scores after correction
-        runner = self._make_model_runner({"gpt": 0.79, "gemini": 0.80, "llama": 0.81, "mistral": 0.78})
+        runner = self._make_model_runner(
+            {"gpt": 0.79, "gemini": 0.80, "llama": 0.81, "mistral": 0.78}
+        )
         result = await validate(h, sig, runner, MODEL_IDS, expected_mad=0.04)
         assert result.validated is True
         assert result.mad_after < result.mad_before
@@ -335,13 +346,16 @@ class TestValidate:
         sig = make_signal(DriftType.CRITERIA_GAP, expected_mad=0.04)
         h = make_hypothesis()
         # Scores still diverge after correction
-        runner = self._make_model_runner({"gpt": 0.80, "gemini": 0.80, "llama": -0.80, "mistral": -0.80})
+        runner = self._make_model_runner(
+            {"gpt": 0.80, "gemini": 0.80, "llama": -0.80, "mistral": -0.80}
+        )
         result = await validate(h, sig, runner, MODEL_IDS, expected_mad=0.04)
         assert result.validated is False
 
     @pytest.mark.asyncio
     async def test_empty_triggering_input_guard(self):
         from dataclasses import replace
+
         sig = make_signal(DriftType.CRITERIA_GAP)
         sig = replace(sig, triggering_input={})
         h = make_hypothesis()
@@ -380,6 +394,7 @@ class TestValidate:
 # CorrectionRunner — full pipeline
 # ---------------------------------------------------------------------------
 
+
 class TestCorrectionRunner:
     def _make_runner(
         self,
@@ -387,12 +402,14 @@ class TestCorrectionRunner:
         scores_after: dict[str, float] | None = None,
     ) -> CorrectionRunner:
         if llm_response is None:
-            llm_response = json.dumps({
-                "proposed_change": "Add explicit edge-case criterion.",
-                "proposed_spec_code": "# Explicit criterion: welfare + religious → ngo_religious",
-                "hypothesis": "Models converge once ambiguity is resolved.",
-                "target_spec_id": "classify_spec",
-            })
+            llm_response = json.dumps(
+                {
+                    "proposed_change": "Add explicit edge-case criterion.",
+                    "proposed_spec_code": "# Explicit criterion: welfare + religious → ngo_religious",
+                    "hypothesis": "Models converge once ambiguity is resolved.",
+                    "target_spec_id": "classify_spec",
+                }
+            )
 
         async def llm(prompt: str) -> str:
             return llm_response
@@ -464,7 +481,7 @@ class TestCorrectionRunner:
         assert proposal.proposed_change
         assert proposal.proposed_spec_code
         assert proposal.hypothesis
-        assert proposal.drift_examples      # at least the triggering fingerprint
+        assert proposal.drift_examples  # at least the triggering fingerprint
         assert proposal.validation_mad_before is not None
         assert proposal.validation_mad_after is not None
         assert proposal.created_at.tzinfo == timezone.utc

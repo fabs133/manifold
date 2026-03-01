@@ -19,10 +19,10 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
-
 # ---------------------------------------------------------------------------
 # Enums
 # ---------------------------------------------------------------------------
+
 
 class DriftType(Enum):
     """
@@ -41,27 +41,29 @@ class DriftType(Enum):
     Note: SILENT_CONSENSUS (all agree but wrong) is explicitly out of scope.
     It requires a human baseline layer and cannot be detected automatically.
     """
+
     MODEL_OUTLIER = "model_outlier"
-    CRITERIA_GAP  = "criteria_gap"
-    UNKNOWN       = "unknown"
+    CRITERIA_GAP = "criteria_gap"
+    UNKNOWN = "unknown"
 
 
 class ProposalStatus(Enum):
-    PENDING   = "pending"
-    VALIDATED = "validated"   # technically validated via re-run
-    REJECTED  = "rejected"    # validation showed no improvement
+    PENDING = "pending"
+    VALIDATED = "validated"  # technically validated via re-run
+    REJECTED = "rejected"  # validation showed no improvement
 
 
 class ReviewStatus(Enum):
-    PENDING  = "pending"
+    PENDING = "pending"
     APPROVED = "approved"
     REJECTED = "rejected"
-    MODIFIED = "modified"     # human modified before approving
+    MODIFIED = "modified"  # human modified before approving
 
 
 # ---------------------------------------------------------------------------
 # ConvergenceRecord — the atom of the baseline
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class ConvergenceRecord:
@@ -90,17 +92,18 @@ class ConvergenceRecord:
     spec_versions   : {spec_id: version} at time of run — for changelog
     raw_outputs     : {model_id: raw output dict} — full detail for debugging
     """
-    run_id:            str
-    timestamp:         datetime
+
+    run_id: str
+    timestamp: datetime
     input_fingerprint: str
-    input_class:       str                       # cluster label
-    cluster_version:   str | None                # None = pre-stable cluster
-    model_scores:      dict[str, float]          # model_id → score
-    consensus_score:   float
-    inter_model_mad:   float
-    confidence:        float                     # [0, 1]
-    spec_versions:     dict[str, str]            # spec_id → version
-    raw_outputs:       dict[str, Any] = field(default_factory=dict)
+    input_class: str  # cluster label
+    cluster_version: str | None  # None = pre-stable cluster
+    model_scores: dict[str, float]  # model_id → score
+    consensus_score: float
+    inter_model_mad: float
+    confidence: float  # [0, 1]
+    spec_versions: dict[str, str]  # spec_id → version
+    raw_outputs: dict[str, Any] = field(default_factory=dict)
 
     # ------------------------------------------------------------------
     # Constructors
@@ -162,16 +165,16 @@ class ConvergenceRecord:
 
     def to_dict(self) -> dict:
         return {
-            "run_id":            self.run_id,
-            "timestamp":         self.timestamp.isoformat(),
+            "run_id": self.run_id,
+            "timestamp": self.timestamp.isoformat(),
             "input_fingerprint": self.input_fingerprint,
-            "input_class":       self.input_class,
-            "cluster_version":   self.cluster_version,
-            "model_scores":      self.model_scores,
-            "consensus_score":   self.consensus_score,
-            "inter_model_mad":   self.inter_model_mad,
-            "confidence":        self.confidence,
-            "spec_versions":     self.spec_versions,
+            "input_class": self.input_class,
+            "cluster_version": self.cluster_version,
+            "model_scores": self.model_scores,
+            "consensus_score": self.consensus_score,
+            "inter_model_mad": self.inter_model_mad,
+            "confidence": self.confidence,
+            "spec_versions": self.spec_versions,
         }
 
     @classmethod
@@ -194,6 +197,7 @@ class ConvergenceRecord:
 # ---------------------------------------------------------------------------
 # BaselineSnapshot — a point-in-time summary of the baseline
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class BaselineSnapshot:
@@ -223,33 +227,34 @@ class BaselineSnapshot:
     is_valid            : False if a spec change invalidated some records
     notes               : free-text (e.g. why snapshot was triggered)
     """
-    snapshot_id:          str
-    created_at:           datetime
-    total_records:        int
-    records_by_class:     dict[str, int]
-    mad_by_class:         dict[str, float]
-    mad_stddev_by_class:  dict[str, float]
-    confidence_by_class:  dict[str, float]
-    spec_versions:        dict[str, str]
-    proposals_since_last: list[str]               # SpecProposal IDs
-    cluster_version:      str | None
-    is_valid:             bool = True
-    notes:                str = ""
+
+    snapshot_id: str
+    created_at: datetime
+    total_records: int
+    records_by_class: dict[str, int]
+    mad_by_class: dict[str, float]
+    mad_stddev_by_class: dict[str, float]
+    confidence_by_class: dict[str, float]
+    spec_versions: dict[str, str]
+    proposals_since_last: list[str]  # SpecProposal IDs
+    cluster_version: str | None
+    is_valid: bool = True
+    notes: str = ""
 
     def to_dict(self) -> dict:
         return {
-            "snapshot_id":          self.snapshot_id,
-            "created_at":           self.created_at.isoformat(),
-            "total_records":        self.total_records,
-            "records_by_class":     self.records_by_class,
-            "mad_by_class":         self.mad_by_class,
-            "mad_stddev_by_class":  self.mad_stddev_by_class,
-            "confidence_by_class":  self.confidence_by_class,
-            "spec_versions":        self.spec_versions,
+            "snapshot_id": self.snapshot_id,
+            "created_at": self.created_at.isoformat(),
+            "total_records": self.total_records,
+            "records_by_class": self.records_by_class,
+            "mad_by_class": self.mad_by_class,
+            "mad_stddev_by_class": self.mad_stddev_by_class,
+            "confidence_by_class": self.confidence_by_class,
+            "spec_versions": self.spec_versions,
             "proposals_since_last": self.proposals_since_last,
-            "cluster_version":      self.cluster_version,
-            "is_valid":             self.is_valid,
-            "notes":                self.notes,
+            "cluster_version": self.cluster_version,
+            "is_valid": self.is_valid,
+            "notes": self.notes,
         }
 
     @classmethod
@@ -273,6 +278,7 @@ class BaselineSnapshot:
 # ---------------------------------------------------------------------------
 # DriftSignal — emitted when convergence breaks down
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class DriftSignal:
@@ -304,39 +310,40 @@ class DriftSignal:
     representative_fps  : fingerprints of other inputs from same class that converged
                           (context for correction workflow)
     """
-    signal_id:           str
-    run_id:              str
-    timestamp:           datetime
-    drift_type:          DriftType
-    input_fingerprint:   str
-    input_class:         str
-    model_scores:        dict[str, float]
-    observed_mad:        float
-    expected_mad:        float | None
-    baseline_records:    int
-    outlier_model:       str | None
-    implicated_specs:    list[str]
-    representative_fps:  list[str]               # fingerprints for correction context
-    triggering_input:    dict = field(default_factory=dict)
+
+    signal_id: str
+    run_id: str
+    timestamp: datetime
+    drift_type: DriftType
+    input_fingerprint: str
+    input_class: str
+    model_scores: dict[str, float]
+    observed_mad: float
+    expected_mad: float | None
+    baseline_records: int
+    outlier_model: str | None
+    implicated_specs: list[str]
+    representative_fps: list[str]  # fingerprints for correction context
+    triggering_input: dict = field(default_factory=dict)
     # Raw input that triggered drift — populated by harness, used by CorrectionRunner
     # for re-running models during hypothesis validation.
 
     def to_dict(self) -> dict:
         return {
-            "signal_id":          self.signal_id,
-            "run_id":             self.run_id,
-            "timestamp":          self.timestamp.isoformat(),
-            "drift_type":         self.drift_type.value,
-            "input_fingerprint":  self.input_fingerprint,
-            "input_class":        self.input_class,
-            "model_scores":       self.model_scores,
-            "observed_mad":       self.observed_mad,
-            "expected_mad":       self.expected_mad,
-            "baseline_records":   self.baseline_records,
-            "outlier_model":      self.outlier_model,
-            "implicated_specs":   self.implicated_specs,
+            "signal_id": self.signal_id,
+            "run_id": self.run_id,
+            "timestamp": self.timestamp.isoformat(),
+            "drift_type": self.drift_type.value,
+            "input_fingerprint": self.input_fingerprint,
+            "input_class": self.input_class,
+            "model_scores": self.model_scores,
+            "observed_mad": self.observed_mad,
+            "expected_mad": self.expected_mad,
+            "baseline_records": self.baseline_records,
+            "outlier_model": self.outlier_model,
+            "implicated_specs": self.implicated_specs,
             "representative_fps": self.representative_fps,
-            "triggering_input":   self.triggering_input,
+            "triggering_input": self.triggering_input,
         }
 
     @classmethod
@@ -362,6 +369,7 @@ class DriftSignal:
 # ---------------------------------------------------------------------------
 # SpecProposal — output of the correction workflow
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class SpecProposal:
@@ -396,23 +404,24 @@ class SpecProposal:
     reviewer_notes        : free-text from human reviewer
     applied_at            : UTC when applied to registry (None until applied)
     """
-    proposal_id:            str
-    created_at:             datetime
-    triggered_by_signal_id: str                  # FK to DriftSignal
-    target_spec_id:         str
-    current_spec_version:   str
-    proposed_change:        str
-    proposed_spec_code:     str
-    hypothesis:             str
-    drift_examples:         list[str]            # input fingerprints
-    convergence_examples:   list[str]            # input fingerprints
-    proposal_status:        ProposalStatus       = ProposalStatus.PENDING
-    validation_mad_before:  float | None         = None
-    validation_mad_after:   float | None         = None
-    models_converged_after: int | None           = None
-    review_status:          ReviewStatus         = ReviewStatus.PENDING
-    reviewer_notes:         str | None           = None
-    applied_at:             datetime | None      = None
+
+    proposal_id: str
+    created_at: datetime
+    triggered_by_signal_id: str  # FK to DriftSignal
+    target_spec_id: str
+    current_spec_version: str
+    proposed_change: str
+    proposed_spec_code: str
+    hypothesis: str
+    drift_examples: list[str]  # input fingerprints
+    convergence_examples: list[str]  # input fingerprints
+    proposal_status: ProposalStatus = ProposalStatus.PENDING
+    validation_mad_before: float | None = None
+    validation_mad_after: float | None = None
+    models_converged_after: int | None = None
+    review_status: ReviewStatus = ReviewStatus.PENDING
+    reviewer_notes: str | None = None
+    applied_at: datetime | None = None
 
     @property
     def mad_improvement(self) -> float | None:
@@ -423,23 +432,23 @@ class SpecProposal:
 
     def to_dict(self) -> dict:
         return {
-            "proposal_id":            self.proposal_id,
-            "created_at":             self.created_at.isoformat(),
+            "proposal_id": self.proposal_id,
+            "created_at": self.created_at.isoformat(),
             "triggered_by_signal_id": self.triggered_by_signal_id,
-            "target_spec_id":         self.target_spec_id,
-            "current_spec_version":   self.current_spec_version,
-            "proposed_change":        self.proposed_change,
-            "proposed_spec_code":     self.proposed_spec_code,
-            "hypothesis":             self.hypothesis,
-            "drift_examples":         self.drift_examples,
-            "convergence_examples":   self.convergence_examples,
-            "proposal_status":        self.proposal_status.value,
-            "validation_mad_before":  self.validation_mad_before,
-            "validation_mad_after":   self.validation_mad_after,
+            "target_spec_id": self.target_spec_id,
+            "current_spec_version": self.current_spec_version,
+            "proposed_change": self.proposed_change,
+            "proposed_spec_code": self.proposed_spec_code,
+            "hypothesis": self.hypothesis,
+            "drift_examples": self.drift_examples,
+            "convergence_examples": self.convergence_examples,
+            "proposal_status": self.proposal_status.value,
+            "validation_mad_before": self.validation_mad_before,
+            "validation_mad_after": self.validation_mad_after,
             "models_converged_after": self.models_converged_after,
-            "review_status":          self.review_status.value,
-            "reviewer_notes":         self.reviewer_notes,
-            "applied_at":             self.applied_at.isoformat() if self.applied_at else None,
+            "review_status": self.review_status.value,
+            "reviewer_notes": self.reviewer_notes,
+            "applied_at": self.applied_at.isoformat() if self.applied_at else None,
         }
 
     @classmethod
@@ -468,6 +477,7 @@ class SpecProposal:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _compute_mad(values: list[float]) -> float:
     """Mean absolute deviation from the mean."""

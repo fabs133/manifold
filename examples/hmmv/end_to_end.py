@@ -39,7 +39,11 @@ log = logging.getLogger("example")
 from manifold.testing.convergence import ConvergenceConfig, ConvergenceMonitor
 from manifold.testing.correction import CorrectionRunner
 from manifold.testing.models import (
-    DriftSignal, DriftType, ProposalStatus, ReviewStatus, SpecProposal,
+    DriftSignal,
+    DriftType,
+    ProposalStatus,
+    ReviewStatus,
+    SpecProposal,
     _compute_mad,
 )
 from manifold.testing.stores import (
@@ -48,7 +52,6 @@ from manifold.testing.stores import (
     InMemorySnapshotStore,
     InMemorySpecRegistry,
 )
-
 
 # =============================================================================
 # STUB: Model stubs simulating 4 diverse LLM models
@@ -62,25 +65,25 @@ EDGE_CASE_INPUT = {
 
 # Normal inputs → all 4 models within ~0.05 of each other
 NORMAL_SCORES = {
-    "gpt-4o":        0.82,
-    "gemini-flash":  0.80,
-    "llama-3.3":     0.81,
+    "gpt-4o": 0.82,
+    "gemini-flash": 0.80,
+    "llama-3.3": 0.81,
     "mistral-small": 0.79,
 }
 
 # Edge case → models split: 2 say strongly religious, 2 say secular welfare
 EDGE_CASE_SCORES_BEFORE = {
-    "gpt-4o":        0.85,
-    "gemini-flash":  0.85,
-    "llama-3.3":    -0.60,
+    "gpt-4o": 0.85,
+    "gemini-flash": 0.85,
+    "llama-3.3": -0.60,
     "mistral-small": -0.65,
 }
 
 # After proposed criteria applied → all models converge
 EDGE_CASE_SCORES_AFTER = {
-    "gpt-4o":        0.80,
-    "gemini-flash":  0.79,
-    "llama-3.3":     0.78,
+    "gpt-4o": 0.80,
+    "gemini-flash": 0.79,
+    "llama-3.3": 0.78,
     "mistral-small": 0.77,
 }
 
@@ -110,32 +113,34 @@ async def stub_model_runner(
 
 async def stub_llm_caller(prompt: str) -> str:
     """Stub LLM that returns a canned correction proposal."""
-    return json.dumps({
-        "proposed_change": (
-            "Add explicit criterion for Catholic/Protestant welfare organisations: "
-            "organisations whose primary mission is social welfare but are operated "
-            "by a religious body should be classified as ngo_religious. "
-            "The religious character of the operating body takes precedence over "
-            "the service domain."
-        ),
-        "proposed_spec_code": (
-            "# Criterion: welfare org operated by religious body → ngo_religious\n"
-            "RELIGIOUS_WELFARE_KEYWORDS = ['caritas', 'diakonie', 'malteser',\n"
-            "                               'johanniter', 'rotes kreuz']\n"
-            "org_name_lower = candidate.get('name', '').lower()\n"
-            "if any(kw in org_name_lower for kw in RELIGIOUS_WELFARE_KEYWORDS):\n"
-            "    return SpecResult.ok(rule_id=self.rule_id,\n"
-            "                        message='Religious welfare org: ngo_religious',\n"
-            "                        data={'religious_welfare': True})"
-        ),
-        "hypothesis": (
-            "Catholic welfare orgs like Caritas are operated by the Catholic Church "
-            "and should be classified as ngo_religious regardless of their service domain. "
-            "Explicit keyword matching for well-known religious welfare bodies removes "
-            "the ambiguity that causes model divergence."
-        ),
-        "target_spec_id": "classify_spec_v1",
-    })
+    return json.dumps(
+        {
+            "proposed_change": (
+                "Add explicit criterion for Catholic/Protestant welfare organisations: "
+                "organisations whose primary mission is social welfare but are operated "
+                "by a religious body should be classified as ngo_religious. "
+                "The religious character of the operating body takes precedence over "
+                "the service domain."
+            ),
+            "proposed_spec_code": (
+                "# Criterion: welfare org operated by religious body → ngo_religious\n"
+                "RELIGIOUS_WELFARE_KEYWORDS = ['caritas', 'diakonie', 'malteser',\n"
+                "                               'johanniter', 'rotes kreuz']\n"
+                "org_name_lower = candidate.get('name', '').lower()\n"
+                "if any(kw in org_name_lower for kw in RELIGIOUS_WELFARE_KEYWORDS):\n"
+                "    return SpecResult.ok(rule_id=self.rule_id,\n"
+                "                        message='Religious welfare org: ngo_religious',\n"
+                "                        data={'religious_welfare': True})"
+            ),
+            "hypothesis": (
+                "Catholic welfare orgs like Caritas are operated by the Catholic Church "
+                "and should be classified as ngo_religious regardless of their service domain. "
+                "Explicit keyword matching for well-known religious welfare bodies removes "
+                "the ambiguity that causes model divergence."
+            ),
+            "target_spec_id": "classify_spec_v1",
+        }
+    )
 
 
 # =============================================================================
@@ -153,12 +158,12 @@ class DirectHarness:
     """
 
     def __init__(self):
-        self.baseline      = InMemoryBaselineStore()
-        self.snapshots     = InMemorySnapshotStore()
-        self.proposals     = InMemoryProposalStore()
+        self.baseline = InMemoryBaselineStore()
+        self.snapshots = InMemorySnapshotStore()
+        self.proposals = InMemoryProposalStore()
         self.spec_registry = InMemorySpecRegistry()
 
-        self.config  = ConvergenceConfig(
+        self.config = ConvergenceConfig(
             min_baseline_size=20,
             drift_multiplier=2.5,
             min_class_records=5,
@@ -180,10 +185,10 @@ class DirectHarness:
         self.proposals_generated: list[SpecProposal] = []
 
     async def _refresh_cache(self):
-        total    = await self.baseline.total_records()
+        total = await self.baseline.total_records()
         snapshot = await self.snapshots.latest()
         if snapshot and snapshot.total_records > 0:
-            mads   = snapshot.mad_by_class
+            mads = snapshot.mad_by_class
             counts = snapshot.records_by_class
         else:
             mads, counts = {}, {}
@@ -225,19 +230,25 @@ class DirectHarness:
             sig = replace(sig, triggering_input=input_data)
             await self.baseline.append_signal(sig)
             self.drift_signals.append(sig)
-            log.info("DRIFT DETECTED: %s on class=%s MAD %.3f (expected %.3f)",
-                     sig.drift_type.value, sig.input_class,
-                     sig.observed_mad, sig.expected_mad or 0)
+            log.info(
+                "DRIFT DETECTED: %s on class=%s MAD %.3f (expected %.3f)",
+                sig.drift_type.value,
+                sig.input_class,
+                sig.observed_mad,
+                sig.expected_mad or 0,
+            )
 
             log.info("Starting correction workflow for signal %s ...", sig.signal_id[:8])
             proposal = await self.correction_runner.run(sig)
             if proposal:
                 await self.proposals.write(proposal)
                 self.proposals_generated.append(proposal)
-                log.info("Proposal ready: %s status=%s improvement=%.4f",
-                         proposal.proposal_id[:8],
-                         proposal.proposal_status.value,
-                         proposal.mad_improvement or 0.0)
+                log.info(
+                    "Proposal ready: %s status=%s improvement=%.4f",
+                    proposal.proposal_id[:8],
+                    proposal.proposal_status.value,
+                    proposal.mad_improvement or 0.0,
+                )
 
         total = await self.baseline.total_records()
         if total > 0 and total % 10 == 0:
@@ -245,10 +256,10 @@ class DirectHarness:
             await self.snapshots.write(snapshot)
 
         return {
-            "run_id":    run_id,
-            "regime":    result["regime"],
-            "mad":       result["mad"],
-            "message":   result["message"],
+            "run_id": run_id,
+            "regime": result["regime"],
+            "mad": result["mad"],
+            "message": result["message"],
             "had_drift": len(signals) > 0,
         }
 
@@ -256,6 +267,7 @@ class DirectHarness:
 # =============================================================================
 # Main example flow
 # =============================================================================
+
 
 async def main():
     harness = DirectHarness()
@@ -273,7 +285,9 @@ async def main():
         scores = {m: NORMAL_SCORES[m] + (i % 3 - 1) * 0.01 for m in MODEL_IDS}
         r = await harness.run(org, scores)
         if (i + 1) % 5 == 0:
-            print(f"  Run {i+1:2d}: regime={r['regime']:<12} MAD={r['mad']:.4f}  {r['message'][:60]}")
+            print(
+                f"  Run {i+1:2d}: regime={r['regime']:<12} MAD={r['mad']:.4f}  {r['message'][:60]}"
+            )
 
     baseline_size = await harness.baseline.total_records()
     print(f"\n  Baseline built: {baseline_size} records")
@@ -296,10 +310,12 @@ async def main():
     print("\n[3] DRIFT TRIGGER — Edge case input")
     print("─" * 50)
     print(f"  Input: {EDGE_CASE_INPUT['name']}")
-    print(f"  Scores: gpt={EDGE_CASE_SCORES_BEFORE['gpt-4o']:.2f}  "
-          f"gemini={EDGE_CASE_SCORES_BEFORE['gemini-flash']:.2f}  "
-          f"llama={EDGE_CASE_SCORES_BEFORE['llama-3.3']:.2f}  "
-          f"mistral={EDGE_CASE_SCORES_BEFORE['mistral-small']:.2f}")
+    print(
+        f"  Scores: gpt={EDGE_CASE_SCORES_BEFORE['gpt-4o']:.2f}  "
+        f"gemini={EDGE_CASE_SCORES_BEFORE['gemini-flash']:.2f}  "
+        f"llama={EDGE_CASE_SCORES_BEFORE['llama-3.3']:.2f}  "
+        f"mistral={EDGE_CASE_SCORES_BEFORE['mistral-small']:.2f}"
+    )
     print(f"  Expected MAD: ~{_compute_mad(list(EDGE_CASE_SCORES_BEFORE.values())):.3f}")
 
     r = await harness.run(EDGE_CASE_INPUT, EDGE_CASE_SCORES_BEFORE)
@@ -322,8 +338,10 @@ async def main():
     print(f"  Target spec:      {proposal.target_spec_id}")
     print(f"  MAD before:       {proposal.validation_mad_before:.4f}")
     print(f"  MAD after:        {proposal.validation_mad_after:.4f}")
-    print(f"  Improvement:      {proposal.mad_improvement:.4f} "
-          f"({proposal.mad_improvement / proposal.validation_mad_before * 100:.1f}%)")
+    print(
+        f"  Improvement:      {proposal.mad_improvement:.4f} "
+        f"({proposal.mad_improvement / proposal.validation_mad_before * 100:.1f}%)"
+    )
     print(f"\n  Hypothesis:\n    {proposal.hypothesis}")
 
     assert proposal.proposal_status == ProposalStatus.VALIDATED
@@ -356,8 +374,10 @@ async def main():
     print(f"\n  Result: regime={r2['regime']}  MAD={r2['mad']:.4f}")
     print(f"  Message: {r2['message']}")
 
-    assert r2["regime"] in ("convergent", "novel_class"), \
-        f"Expected convergent after fix, got {r2['regime']}"
+    assert r2["regime"] in (
+        "convergent",
+        "novel_class",
+    ), f"Expected convergent after fix, got {r2['regime']}"
     assert len(harness.drift_signals) == initial_signal_count, "No new drift after fix"
     print("  No new drift signal — edge case now classified consistently.")
 
@@ -369,8 +389,10 @@ async def main():
     print(f"  Baseline records built:   {await harness.baseline.total_records()}")
     print(f"  Drift signals detected:   {len(harness.drift_signals)}")
     print(f"  Proposals generated:      {len(harness.proposals_generated)}")
-    print(f"  Proposals validated:      "
-          f"{sum(1 for p in harness.proposals_generated if p.proposal_status == ProposalStatus.VALIDATED)}")
+    print(
+        f"  Proposals validated:      "
+        f"{sum(1 for p in harness.proposals_generated if p.proposal_status == ProposalStatus.VALIDATED)}"
+    )
 
     signal = harness.drift_signals[0]
     print(f"\n  Drift signal:")
@@ -381,8 +403,10 @@ async def main():
 
     p = harness.proposals_generated[0]
     print(f"\n  Correction proposal:")
-    print(f"    MAD reduction:  {p.mad_improvement:.4f} "
-          f"({p.mad_improvement / p.validation_mad_before * 100:.1f}%)")
+    print(
+        f"    MAD reduction:  {p.mad_improvement:.4f} "
+        f"({p.mad_improvement / p.validation_mad_before * 100:.1f}%)"
+    )
     print(f"    Validation:     {p.proposal_status.value}")
     print(f"    Models converged after: {p.models_converged_after}/{len(MODEL_IDS)}")
 

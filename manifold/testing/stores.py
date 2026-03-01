@@ -39,10 +39,10 @@ from manifold.testing.models import (
     SpecProposal,
 )
 
-
 # ---------------------------------------------------------------------------
 # Protocols
 # ---------------------------------------------------------------------------
+
 
 @runtime_checkable
 class BaselineStore(Protocol):
@@ -184,6 +184,7 @@ class SpecRegistry(Protocol):
 # In-memory implementations (for tests and development)
 # ---------------------------------------------------------------------------
 
+
 class InMemoryBaselineStore:
     """
     In-memory BaselineStore for tests.
@@ -192,9 +193,9 @@ class InMemoryBaselineStore:
     """
 
     def __init__(self) -> None:
-        self._records: list[ConvergenceRecord]  = []
-        self._signals: dict[str, DriftSignal]   = {}
-        self._stale: set[str]                   = set()   # run_ids
+        self._records: list[ConvergenceRecord] = []
+        self._signals: dict[str, DriftSignal] = {}
+        self._stale: set[str] = set()  # run_ids
 
     async def append(self, record: ConvergenceRecord) -> None:
         self._records.append(record)
@@ -215,9 +216,9 @@ class InMemoryBaselineStore:
         limit: int | None = None,
     ) -> list[ConvergenceRecord]:
         result = [
-            r for r in self._records
-            if r.input_class == input_class
-            and (not exclude_stale or r.run_id not in self._stale)
+            r
+            for r in self._records
+            if r.input_class == input_class and (not exclude_stale or r.run_id not in self._stale)
         ]
         if limit:
             result = result[-limit:]
@@ -261,18 +262,16 @@ class InMemoryBaselineStore:
         for r in valid_records:
             classes.setdefault(r.input_class, []).append(r)
 
-        records_by_class    = {c: len(rs) for c, rs in classes.items()}
-        mad_by_class        = {
-            c: statistics.mean(r.inter_model_mad for r in rs)
-            for c, rs in classes.items()
+        records_by_class = {c: len(rs) for c, rs in classes.items()}
+        mad_by_class = {
+            c: statistics.mean(r.inter_model_mad for r in rs) for c, rs in classes.items()
         }
         mad_stddev_by_class = {
             c: (statistics.stdev(r.inter_model_mad for r in rs) if len(rs) > 1 else 0.0)
             for c, rs in classes.items()
         }
         confidence_by_class = {
-            c: statistics.mean(r.confidence for r in rs)
-            for c, rs in classes.items()
+            c: statistics.mean(r.confidence for r in rs) for c, rs in classes.items()
         }
 
         spec_versions = await spec_registry.current_versions()
@@ -286,7 +285,7 @@ class InMemoryBaselineStore:
             mad_stddev_by_class=mad_stddev_by_class,
             confidence_by_class=confidence_by_class,
             spec_versions=spec_versions,
-            proposals_since_last=[],   # consumer fills this in
+            proposals_since_last=[],  # consumer fills this in
             cluster_version=None,
             notes=notes,
         )
@@ -318,16 +317,14 @@ class InMemoryProposalStore:
         return self._proposals.get(proposal_id)
 
     async def pending_proposals(self) -> list[SpecProposal]:
-        return [
-            p for p in self._proposals.values()
-            if p.review_status == ReviewStatus.PENDING
-        ]
+        return [p for p in self._proposals.values() if p.review_status == ReviewStatus.PENDING]
 
     async def mark_rejected(self, proposal_id: str, reviewer_notes: str) -> None:
         p = self._proposals.get(proposal_id)
         if p:
             # frozen dataclass → replace
             from dataclasses import replace
+
             self._proposals[proposal_id] = replace(
                 p,
                 review_status=ReviewStatus.REJECTED,
@@ -343,6 +340,7 @@ class InMemoryProposalStore:
         p = self._proposals.get(proposal_id)
         if p:
             from dataclasses import replace
+
             self._proposals[proposal_id] = replace(
                 p,
                 review_status=ReviewStatus.APPROVED,
@@ -354,7 +352,7 @@ class InMemoryProposalStore:
 class InMemorySpecRegistry:
     def __init__(self, initial_versions: dict[str, str] | None = None) -> None:
         self._versions: dict[str, str] = initial_versions or {}
-        self._history:  list[dict]     = []
+        self._history: list[dict] = []
 
     async def current_versions(self) -> dict[str, str]:
         return dict(self._versions)
@@ -365,19 +363,22 @@ class InMemorySpecRegistry:
         parts = old.split(".")
         new = f"{parts[0]}.{parts[1]}.{int(parts[2]) + 1}" if len(parts) == 3 else "0.0.1"
         self._versions[proposal.target_spec_id] = new
-        self._history.append({
-            "spec_id":     proposal.target_spec_id,
-            "old_version": old,
-            "new_version": new,
-            "proposal_id": proposal.proposal_id,
-            "applied_at":  datetime.now(timezone.utc).isoformat(),
-        })
+        self._history.append(
+            {
+                "spec_id": proposal.target_spec_id,
+                "old_version": old,
+                "new_version": new,
+                "proposal_id": proposal.proposal_id,
+                "applied_at": datetime.now(timezone.utc).isoformat(),
+            }
+        )
         return new
 
 
 # ---------------------------------------------------------------------------
 # SQLite implementation (production)
 # ---------------------------------------------------------------------------
+
 
 class SQLiteBaselineStore:
     """
@@ -466,16 +467,16 @@ class SQLiteBaselineStore:
         cx.commit()
 
     async def get_signal(self, signal_id: str) -> DriftSignal | None:
-        row = self._cx().execute(
-            "SELECT data FROM drift_signals WHERE signal_id=?", (signal_id,)
-        ).fetchone()
+        row = (
+            self._cx()
+            .execute("SELECT data FROM drift_signals WHERE signal_id=?", (signal_id,))
+            .fetchone()
+        )
         return DriftSignal.from_dict(json.loads(row[0])) if row else None
 
     async def total_records(self) -> int:
-        row = self._cx().execute(
-            "SELECT COUNT(*) FROM convergence_records"
-        ).fetchone()
-        return row[0]
+        row = self._cx().execute("SELECT COUNT(*) FROM convergence_records").fetchone()
+        return int(row[0])
 
     async def records_for_class(
         self,
@@ -512,13 +513,10 @@ class SQLiteBaselineStore:
         spec_id: str,
         spec_version: str,
     ) -> int:
-        # SQLite: use json_extract to check spec_versions->>spec_id == spec_version
-        # Falls back to Python filtering for broader compatibility
-        records = await self.records_for_class("%", exclude_stale=False)
-        stale_ids = [
-            r.run_id for r in records
-            if r.spec_versions.get(spec_id) == spec_version
-        ]
+        # Fetch all non-stale records and filter in Python for compatibility
+        rows = self._cx().execute("SELECT * FROM convergence_records WHERE is_stale=0").fetchall()
+        records = [self._row_to_record(r) for r in rows]
+        stale_ids = [r.run_id for r in records if r.spec_versions.get(spec_id) == spec_version]
         if stale_ids:
             placeholders = ",".join("?" * len(stale_ids))
             self._cx().execute(
@@ -535,16 +533,16 @@ class SQLiteBaselineStore:
     ) -> BaselineSnapshot:
         """Delegate to in-memory logic after loading valid records."""
         mem = InMemoryBaselineStore()
-        valid_records = self._cx().execute(
-            "SELECT * FROM convergence_records WHERE is_stale=0"
-        ).fetchall()
+        valid_records = (
+            self._cx().execute("SELECT * FROM convergence_records WHERE is_stale=0").fetchall()
+        )
         for row in valid_records:
             mem._records.append(self._row_to_record(row))
         return await mem.take_snapshot(spec_registry, notes)
 
     def _row_to_record(self, row: tuple) -> ConvergenceRecord:
         # Column order matches INSERT
-        (run_id, timestamp, fp, ic, cv, ms, cs, mad, conf, sv, ro, _stale) = row
+        run_id, timestamp, fp, ic, cv, ms, cs, mad, conf, sv, ro, _stale = row
         return ConvergenceRecord(
             run_id=run_id,
             timestamp=datetime.fromisoformat(timestamp),

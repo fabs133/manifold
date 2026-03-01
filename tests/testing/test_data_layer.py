@@ -43,10 +43,10 @@ from manifold.testing.events import (
     payload_run_completed,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 def make_record(
     input_class: str = "ngo_religious",
@@ -106,6 +106,7 @@ def make_proposal(signal: DriftSignal | None = None) -> SpecProposal:
 # models.py
 # ---------------------------------------------------------------------------
 
+
 class TestComputeMAD:
     def test_identical_values_gives_zero(self):
         assert _compute_mad([0.5, 0.5, 0.5]) == 0.0
@@ -164,7 +165,9 @@ class TestConvergenceRecordCreate:
     def test_serialisation_round_trip(self):
         r = make_record()
         assert ConvergenceRecord.from_dict(r.to_dict()).run_id == r.run_id
-        assert ConvergenceRecord.from_dict(r.to_dict()).inter_model_mad == pytest.approx(r.inter_model_mad)
+        assert ConvergenceRecord.from_dict(r.to_dict()).inter_model_mad == pytest.approx(
+            r.inter_model_mad
+        )
 
     def test_timestamp_is_utc_datetime(self):
         r = make_record()
@@ -218,6 +221,7 @@ class TestSpecProposal:
 # ---------------------------------------------------------------------------
 # stores.py — InMemory
 # ---------------------------------------------------------------------------
+
 
 class TestInMemoryBaselineStore:
     @pytest.mark.asyncio
@@ -358,6 +362,7 @@ class TestInMemorySpecRegistry:
 # stores.py — SQLite
 # ---------------------------------------------------------------------------
 
+
 class TestSQLiteBaselineStore:
     @pytest.mark.asyncio
     async def test_append_and_retrieve(self, tmp_path):
@@ -411,6 +416,7 @@ class TestSQLiteBaselineStore:
 # events.py
 # ---------------------------------------------------------------------------
 
+
 class TestEventBus:
     @pytest.mark.asyncio
     async def test_handler_called_on_emit(self):
@@ -463,12 +469,14 @@ class TestEventBus:
     async def test_subscribe_many(self):
         bus = EventBus()
         calls = []
-        bus.subscribe_many({
-            EventType.DRIFT_DETECTED: AsyncMock(side_effect=lambda e: calls.append("drift")),
-            EventType.SPEC_UPDATED:   AsyncMock(side_effect=lambda e: calls.append("spec")),
-        })
+        bus.subscribe_many(
+            {
+                EventType.DRIFT_DETECTED: AsyncMock(side_effect=lambda e: calls.append("drift")),
+                EventType.SPEC_UPDATED: AsyncMock(side_effect=lambda e: calls.append("spec")),
+            }
+        )
         await bus.emit(Event.create(EventType.DRIFT_DETECTED, "x", {}))
-        await bus.emit(Event.create(EventType.SPEC_UPDATED,   "x", {}))
+        await bus.emit(Event.create(EventType.SPEC_UPDATED, "x", {}))
         assert "drift" in calls
         assert "spec" in calls
 
@@ -518,7 +526,11 @@ class TestEventConsumer:
         await baseline.append_signal(signal)
 
         received_events = []
-        bus.subscribe(EventType.DRIFT_DETECTED, lambda e: received_events.append(e))
+
+        async def _capture(e: Event) -> None:
+            received_events.append(e)
+
+        bus.subscribe(EventType.DRIFT_DETECTED, _capture)
 
         event = Event.create(
             EventType.RUN_COMPLETED,
@@ -539,7 +551,7 @@ class TestEventConsumer:
     async def test_snapshot_taken_at_interval(self):
         consumer, baseline, snapshots, _, registry, _, _ = self._make_consumer()
 
-        for _ in range(5):
+        for _ in range(4):
             await baseline.append(make_record())
 
         event = Event.create(
@@ -583,7 +595,7 @@ class TestEventConsumer:
             EventType.SPEC_UPDATED,
             source="test",
             payload={
-                "spec_id":     "classify_spec",
+                "spec_id": "classify_spec",
                 "old_version": "1.0.0",
                 "new_version": "1.0.1",
                 "proposal_id": "p1",

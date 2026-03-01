@@ -53,10 +53,10 @@ from manifold.testing.models import (
     _fingerprint,
 )
 
-
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class ConvergenceConfig:
@@ -82,19 +82,21 @@ class ConvergenceConfig:
     record_input_field  Context data key holding the raw input (for fingerprint).
     record_output_field Context data key holding raw per-model outputs (optional).
     """
-    min_baseline_size:   int   = 500
-    drift_multiplier:    float = 2.5
-    outlier_threshold:   float = 2.0    # σ
-    min_class_records:   int   = 10
-    record_mad_field:    str   = "model_scores"
-    record_class_field:  str   = "input_class"
-    record_input_field:  str   = "input_data"
-    record_output_field: str   = "model_outputs"
+
+    min_baseline_size: int = 500
+    drift_multiplier: float = 2.5
+    outlier_threshold: float = 2.0  # σ
+    min_class_records: int = 10
+    record_mad_field: str = "model_scores"
+    record_class_field: str = "input_class"
+    record_input_field: str = "input_data"
+    record_output_field: str = "model_outputs"
 
 
 # ---------------------------------------------------------------------------
 # ConvergenceMonitor
 # ---------------------------------------------------------------------------
+
 
 class ConvergenceMonitor:
     """
@@ -125,17 +127,17 @@ class ConvergenceMonitor:
         config: ConvergenceConfig | None = None,
         spec_versions: dict[str, str] | None = None,
     ) -> None:
-        self._baseline       = baseline_store
-        self._config         = config or ConvergenceConfig()
-        self._spec_versions  = spec_versions or {}
-        self._pending_signals: deque[DriftSignal]       = deque()
+        self._baseline = baseline_store
+        self._config = config or ConvergenceConfig()
+        self._spec_versions = spec_versions or {}
+        self._pending_signals: deque[DriftSignal] = deque()
         self._pending_records: deque[ConvergenceRecord] = deque()
 
         # Synchronous snapshot of baseline state for evaluate()
         # Updated by harness before each run via update_baseline_cache()
-        self._cached_total:      int                   = 0
-        self._cached_class_mads: dict[str, float]      = {}
-        self._cached_class_count: dict[str, int]       = {}
+        self._cached_total: int = 0
+        self._cached_class_mads: dict[str, float] = {}
+        self._cached_class_count: dict[str, int] = {}
 
     # ------------------------------------------------------------------
     # Cache management (called by harness, sync)
@@ -153,9 +155,9 @@ class ConvergenceMonitor:
         Called by the harness before starting a run. This avoids making
         evaluate() async (which the Spec protocol does not support).
         """
-        self._cached_total        = total_records
-        self._cached_class_mads   = class_mads
-        self._cached_class_count  = class_counts
+        self._cached_total = total_records
+        self._cached_class_mads = class_mads
+        self._cached_class_count = class_counts
 
     # ------------------------------------------------------------------
     # Core evaluation (synchronous — called by Spec adapter)
@@ -191,8 +193,11 @@ class ConvergenceMonitor:
         scores = list(model_scores.values())
         if not scores:
             return {
-                "regime": "early", "mad": 0.0, "expected_mad": None,
-                "drift_type": None, "signal_id": None,
+                "regime": "early",
+                "mad": 0.0,
+                "expected_mad": None,
+                "drift_type": None,
+                "signal_id": None,
                 "message": "No model scores available yet",
             }
 
@@ -201,32 +206,48 @@ class ConvergenceMonitor:
         # ── REGIME 1: Early ──────────────────────────────────────────
         if self._cached_total < self._config.min_baseline_size:
             record = self._make_record(
-                run_id, input_data, input_class, cluster_version,
-                model_scores, observed_mad, raw_outputs,
+                run_id,
+                input_data,
+                input_class,
+                cluster_version,
+                model_scores,
+                observed_mad,
+                raw_outputs,
             )
             self._pending_records.append(record)
             return {
-                "regime": "early", "mad": observed_mad, "expected_mad": None,
-                "drift_type": None, "signal_id": None,
+                "regime": "early",
+                "mad": observed_mad,
+                "expected_mad": None,
+                "drift_type": None,
+                "signal_id": None,
                 "message": (
                     f"Baseline building: "
                     f"{self._cached_total}/{self._config.min_baseline_size} records"
                 ),
             }
 
-        expected_mad   = self._cached_class_mads.get(input_class)
-        class_count    = self._cached_class_count.get(input_class, 0)
+        expected_mad = self._cached_class_mads.get(input_class)
+        class_count = self._cached_class_count.get(input_class, 0)
 
         # ── REGIME 2: Novel input class ───────────────────────────────
         if expected_mad is None or class_count < self._config.min_class_records:
             record = self._make_record(
-                run_id, input_data, input_class, cluster_version,
-                model_scores, observed_mad, raw_outputs,
+                run_id,
+                input_data,
+                input_class,
+                cluster_version,
+                model_scores,
+                observed_mad,
+                raw_outputs,
             )
             self._pending_records.append(record)
             return {
-                "regime": "novel_class", "mad": observed_mad, "expected_mad": None,
-                "drift_type": None, "signal_id": None,
+                "regime": "novel_class",
+                "mad": observed_mad,
+                "expected_mad": None,
+                "drift_type": None,
+                "signal_id": None,
                 "message": (
                     f"Novel class '{input_class}' "
                     f"({class_count}/{self._config.min_class_records} records). "
@@ -252,7 +273,7 @@ class ConvergenceMonitor:
                 baseline_records=class_count,
                 outlier_model=outlier,
                 implicated_specs=list(self._spec_versions.keys()),
-                representative_fps=[],   # filled by harness from baseline store
+                representative_fps=[],  # filled by harness from baseline store
             )
             self._pending_signals.append(signal)
             return {
@@ -271,8 +292,13 @@ class ConvergenceMonitor:
 
         # Convergent — append to baseline
         record = self._make_record(
-            run_id, input_data, input_class, cluster_version,
-            model_scores, observed_mad, raw_outputs,
+            run_id,
+            input_data,
+            input_class,
+            cluster_version,
+            model_scores,
+            observed_mad,
+            raw_outputs,
         )
         self._pending_records.append(record)
         return {
@@ -281,10 +307,7 @@ class ConvergenceMonitor:
             "expected_mad": expected_mad,
             "drift_type": None,
             "signal_id": None,
-            "message": (
-                f"Convergent: MAD {observed_mad:.3f} "
-                f"≤ threshold {threshold:.3f}"
-            ),
+            "message": (f"Convergent: MAD {observed_mad:.3f} " f"≤ threshold {threshold:.3f}"),
         }
 
     # ------------------------------------------------------------------
@@ -318,6 +341,7 @@ class ConvergenceMonitor:
         raw_outputs: dict[str, Any],
     ) -> ConvergenceRecord:
         import statistics as _st
+
         scores = list(model_scores.values())
         consensus = _st.median(scores)
         confidence = max(0.0, 1.0 - mad)
@@ -354,8 +378,11 @@ class ConvergenceMonitor:
             if not others:
                 continue
             others_mean = statistics.mean(others)
-            others_std  = statistics.stdev(others) if len(others) > 1 else 0.0
-            if others_std > 0 and abs(score - others_mean) / others_std > self._config.outlier_threshold:
+            others_std = statistics.stdev(others) if len(others) > 1 else 0.0
+            if (
+                others_std > 0
+                and abs(score - others_mean) / others_std > self._config.outlier_threshold
+            ):
                 return DriftType.MODEL_OUTLIER, model_id
 
         return DriftType.CRITERIA_GAP, None
@@ -364,6 +391,7 @@ class ConvergenceMonitor:
 # ---------------------------------------------------------------------------
 # Spec adapter (requires manifold to be installed)
 # ---------------------------------------------------------------------------
+
 
 def make_convergence_spec(monitor: ConvergenceMonitor) -> Any:
     """
@@ -407,12 +435,12 @@ def make_convergence_spec(monitor: ConvergenceMonitor) -> Any:
             return ("invariant", "convergence", "hmmv")
 
         def evaluate(self, context: Context, candidate=None) -> SpecResult:
-            cfg      = monitor._config
-            scores   = context.get_data(cfg.record_mad_field)
-            cls      = context.get_data(cfg.record_class_field, "unknown")
-            raw_in   = context.get_data(cfg.record_input_field, {})
-            raw_out  = context.get_data(cfg.record_output_field, {})
-            c_ver    = context.get_data("cluster_version")
+            cfg = monitor._config
+            scores = context.get_data(cfg.record_mad_field)
+            cls = context.get_data(cfg.record_class_field, "unknown")
+            raw_in = context.get_data(cfg.record_input_field, {})
+            raw_out = context.get_data(cfg.record_output_field, {})
+            c_ver = context.get_data("cluster_version")
 
             if not scores:
                 return SpecResult.ok(

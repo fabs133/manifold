@@ -76,6 +76,7 @@ logger = logging.getLogger(__name__)
 # Event types
 # ---------------------------------------------------------------------------
 
+
 class EventType(Enum):
     """
     All events in the system. Ordered by rough lifecycle position.
@@ -107,32 +108,34 @@ class EventType(Enum):
     ---------------
     BASELINE_SNAPSHOT_TAKEN — a new snapshot was persisted
     """
+
     # Primary workflow
-    RUN_COMPLETED            = "run_completed"
-    BASELINE_UPDATED         = "baseline_updated"
-    DRIFT_DETECTED           = "drift_detected"
+    RUN_COMPLETED = "run_completed"
+    BASELINE_UPDATED = "baseline_updated"
+    DRIFT_DETECTED = "drift_detected"
 
     # Correction workflow
-    CORRECTION_STARTED       = "correction_started"
-    CORRECTION_COMPLETED     = "correction_completed"
-    CORRECTION_FAILED        = "correction_failed"
+    CORRECTION_STARTED = "correction_started"
+    CORRECTION_COMPLETED = "correction_completed"
+    CORRECTION_FAILED = "correction_failed"
 
     # Proposals
-    PROPOSAL_READY           = "proposal_ready"
-    PROPOSAL_APPROVED        = "proposal_approved"
-    PROPOSAL_REJECTED        = "proposal_rejected"
+    PROPOSAL_READY = "proposal_ready"
+    PROPOSAL_APPROVED = "proposal_approved"
+    PROPOSAL_REJECTED = "proposal_rejected"
 
     # Spec registry
-    SPEC_UPDATED             = "spec_updated"
-    BASELINE_STALE           = "baseline_stale"
+    SPEC_UPDATED = "spec_updated"
+    BASELINE_STALE = "baseline_stale"
 
     # Snapshots
-    BASELINE_SNAPSHOT_TAKEN  = "baseline_snapshot_taken"
+    BASELINE_SNAPSHOT_TAKEN = "baseline_snapshot_taken"
 
 
 # ---------------------------------------------------------------------------
 # Event
 # ---------------------------------------------------------------------------
+
 
 @dataclass(frozen=True)
 class Event:
@@ -153,11 +156,12 @@ class Event:
                      (e.g. all events from one drift→correction→proposal cycle
                      share a correlation_id)
     """
-    event_id:       str
-    event_type:     EventType
-    timestamp:      datetime
-    source:         str
-    payload:        dict[str, Any]
+
+    event_id: str
+    event_type: EventType
+    timestamp: datetime
+    source: str
+    payload: dict[str, Any]
     correlation_id: str | None = None
 
     @classmethod
@@ -179,11 +183,11 @@ class Event:
 
     def to_dict(self) -> dict:
         return {
-            "event_id":       self.event_id,
-            "event_type":     self.event_type.value,
-            "timestamp":      self.timestamp.isoformat(),
-            "source":         self.source,
-            "payload":        self.payload,
+            "event_id": self.event_id,
+            "event_type": self.event_type.value,
+            "timestamp": self.timestamp.isoformat(),
+            "source": self.source,
+            "payload": self.payload,
             "correlation_id": self.correlation_id,
         }
 
@@ -196,6 +200,7 @@ class Event:
 # should follow these shapes. Each factory function is the canonical way
 # to build a payload for a given event type.
 
+
 def payload_run_completed(
     run_id: str,
     success: bool,
@@ -204,10 +209,10 @@ def payload_run_completed(
     convergence_record: ConvergenceRecord | None,
 ) -> dict:
     return {
-        "run_id":            run_id,
-        "success":           success,
-        "had_drift":         had_drift,
-        "drift_signal_id":   drift_signal_id,
+        "run_id": run_id,
+        "success": success,
+        "had_drift": had_drift,
+        "drift_signal_id": drift_signal_id,
         "convergence_record": convergence_record.to_dict() if convergence_record else None,
     }
 
@@ -266,7 +271,7 @@ def payload_spec_updated(
     proposal_id: str,
 ) -> dict:
     return {
-        "spec_id":     spec_id,
+        "spec_id": spec_id,
         "old_version": old_version,
         "new_version": new_version,
         "proposal_id": proposal_id,
@@ -350,7 +355,9 @@ class EventBus:
             if isinstance(result, Exception):
                 logger.error(
                     "Handler %d for %s raised: %s",
-                    i, event.event_type.value, result,
+                    i,
+                    event.event_type.value,
+                    result,
                     exc_info=result,
                 )
 
@@ -358,6 +365,7 @@ class EventBus:
 # ---------------------------------------------------------------------------
 # EventConsumer — the nervous system
 # ---------------------------------------------------------------------------
+
 
 class EventConsumer:
     """
@@ -384,32 +392,34 @@ class EventConsumer:
 
     def __init__(
         self,
-        baseline_store: Any,      # BaselineStore protocol (see stores.py)
-        snapshot_store: Any,      # SnapshotStore protocol
-        proposal_store: Any,      # ProposalStore protocol
-        spec_registry: Any,       # SpecRegistry protocol
-        correction_runner: Any,   # CorrectionRunner protocol
+        baseline_store: Any,  # BaselineStore protocol (see stores.py)
+        snapshot_store: Any,  # SnapshotStore protocol
+        proposal_store: Any,  # ProposalStore protocol
+        spec_registry: Any,  # SpecRegistry protocol
+        correction_runner: Any,  # CorrectionRunner protocol
         bus: EventBus,
         snapshot_interval: int = 100,
     ) -> None:
-        self._baseline_store    = baseline_store
-        self._snapshot_store    = snapshot_store
-        self._proposal_store    = proposal_store
-        self._spec_registry     = spec_registry
+        self._baseline_store = baseline_store
+        self._snapshot_store = snapshot_store
+        self._proposal_store = proposal_store
+        self._spec_registry = spec_registry
         self._correction_runner = correction_runner
-        self._bus               = bus
+        self._bus = bus
         self._snapshot_interval = snapshot_interval
 
         # Wire up handlers
-        bus.subscribe_many({
-            EventType.RUN_COMPLETED:       self._on_run_completed,
-            EventType.DRIFT_DETECTED:      self._on_drift_detected,
-            EventType.CORRECTION_COMPLETED: self._on_correction_completed,
-            EventType.CORRECTION_FAILED:   self._on_correction_failed,
-            EventType.PROPOSAL_APPROVED:   self._on_proposal_approved,
-            EventType.PROPOSAL_REJECTED:   self._on_proposal_rejected,
-            EventType.SPEC_UPDATED:        self._on_spec_updated,
-        })
+        bus.subscribe_many(
+            {
+                EventType.RUN_COMPLETED: self._on_run_completed,
+                EventType.DRIFT_DETECTED: self._on_drift_detected,
+                EventType.CORRECTION_COMPLETED: self._on_correction_completed,
+                EventType.CORRECTION_FAILED: self._on_correction_failed,
+                EventType.PROPOSAL_APPROVED: self._on_proposal_approved,
+                EventType.PROPOSAL_REJECTED: self._on_proposal_rejected,
+                EventType.SPEC_UPDATED: self._on_spec_updated,
+            }
+        )
 
     # ------------------------------------------------------------------
     # Handlers
@@ -423,31 +433,39 @@ class EventConsumer:
         If it converged: append record to baseline, maybe take snapshot.
         """
         p = event.payload
-        logger.info("Run completed: run_id=%s success=%s drift=%s",
-                    p["run_id"], p["success"], p["had_drift"])
+        logger.info(
+            "Run completed: run_id=%s success=%s drift=%s",
+            p["run_id"],
+            p["success"],
+            p["had_drift"],
+        )
 
         if p["had_drift"] and p.get("drift_signal_id"):
             # Retrieve the DriftSignal from the baseline store's signal log
             signal = await self._baseline_store.get_signal(p["drift_signal_id"])
             if signal:
-                await self._bus.emit(Event.create(
-                    EventType.DRIFT_DETECTED,
-                    source="event_consumer",
-                    payload=payload_drift_detected(signal),
-                    correlation_id=event.correlation_id,
-                ))
+                await self._bus.emit(
+                    Event.create(
+                        EventType.DRIFT_DETECTED,
+                        source="event_consumer",
+                        payload=payload_drift_detected(signal),
+                        correlation_id=event.correlation_id,
+                    )
+                )
             return
 
         record_dict = p.get("convergence_record")
         if record_dict:
             record = ConvergenceRecord.from_dict(record_dict)
             await self._baseline_store.append(record)
-            await self._bus.emit(Event.create(
-                EventType.BASELINE_UPDATED,
-                source="event_consumer",
-                payload=payload_baseline_updated(record),
-                correlation_id=event.correlation_id,
-            ))
+            await self._bus.emit(
+                Event.create(
+                    EventType.BASELINE_UPDATED,
+                    source="event_consumer",
+                    payload=payload_baseline_updated(record),
+                    correlation_id=event.correlation_id,
+                )
+            )
 
             # Take snapshot if interval hit
             count = await self._baseline_store.total_records()
@@ -470,17 +488,17 @@ class EventConsumer:
 
         workflow_run_id = str(uuid.uuid4())
 
-        await self._bus.emit(Event.create(
-            EventType.CORRECTION_STARTED,
-            source="event_consumer",
-            payload=payload_correction_started(signal.signal_id, workflow_run_id),
-            correlation_id=event.correlation_id,
-        ))
+        await self._bus.emit(
+            Event.create(
+                EventType.CORRECTION_STARTED,
+                source="event_consumer",
+                payload=payload_correction_started(signal.signal_id, workflow_run_id),
+                correlation_id=event.correlation_id,
+            )
+        )
 
         # Run correction workflow (async, non-blocking for bus)
-        asyncio.create_task(
-            self._run_correction(signal, workflow_run_id, event.correlation_id)
-        )
+        asyncio.create_task(self._run_correction(signal, workflow_run_id, event.correlation_id))
 
     async def _run_correction(
         self,
@@ -492,30 +510,35 @@ class EventConsumer:
         try:
             proposal = await self._correction_runner.run(signal)
             if proposal is not None:
-                await self._bus.emit(Event.create(
-                    EventType.CORRECTION_COMPLETED,
-                    source="event_consumer.correction_runner",
-                    payload=payload_correction_completed(signal.signal_id, proposal),
-                    correlation_id=correlation_id,
-                ))
+                await self._bus.emit(
+                    Event.create(
+                        EventType.CORRECTION_COMPLETED,
+                        source="event_consumer.correction_runner",
+                        payload=payload_correction_completed(signal.signal_id, proposal),
+                        correlation_id=correlation_id,
+                    )
+                )
             else:
-                await self._bus.emit(Event.create(
-                    EventType.CORRECTION_FAILED,
-                    source="event_consumer.correction_runner",
-                    payload=payload_correction_failed(
-                        signal.signal_id,
-                        "Correction workflow produced no proposal"
-                    ),
-                    correlation_id=correlation_id,
-                ))
+                await self._bus.emit(
+                    Event.create(
+                        EventType.CORRECTION_FAILED,
+                        source="event_consumer.correction_runner",
+                        payload=payload_correction_failed(
+                            signal.signal_id, "Correction workflow produced no proposal"
+                        ),
+                        correlation_id=correlation_id,
+                    )
+                )
         except Exception as e:
             logger.error("Correction workflow raised: %s", e, exc_info=True)
-            await self._bus.emit(Event.create(
-                EventType.CORRECTION_FAILED,
-                source="event_consumer.correction_runner",
-                payload=payload_correction_failed(signal.signal_id, str(e)),
-                correlation_id=correlation_id,
-            ))
+            await self._bus.emit(
+                Event.create(
+                    EventType.CORRECTION_FAILED,
+                    source="event_consumer.correction_runner",
+                    payload=payload_correction_failed(signal.signal_id, str(e)),
+                    correlation_id=correlation_id,
+                )
+            )
 
     async def _on_correction_completed(self, event: Event) -> None:
         """Correction workflow produced a proposal. Write it and notify."""
@@ -527,12 +550,14 @@ class EventConsumer:
             proposal.target_spec_id,
             proposal.mad_improvement or 0.0,
         )
-        await self._bus.emit(Event.create(
-            EventType.PROPOSAL_READY,
-            source="event_consumer",
-            payload=payload_proposal_ready(proposal),
-            correlation_id=event.correlation_id,
-        ))
+        await self._bus.emit(
+            Event.create(
+                EventType.PROPOSAL_READY,
+                source="event_consumer",
+                payload=payload_proposal_ready(proposal),
+                correlation_id=event.correlation_id,
+            )
+        )
 
     async def _on_correction_failed(self, event: Event) -> None:
         """Correction workflow could not produce a proposal. Log and escalate."""
@@ -545,7 +570,7 @@ class EventConsumer:
 
     async def _on_proposal_approved(self, event: Event) -> None:
         """Human approved a proposal. Apply it to the spec registry."""
-        proposal_id   = event.payload["proposal_id"]
+        proposal_id = event.payload["proposal_id"]
         reviewer_notes = event.payload["reviewer_notes"]
 
         proposal = await self._proposal_store.get(proposal_id)
@@ -556,17 +581,19 @@ class EventConsumer:
         old_version = proposal.current_spec_version
         new_version = await self._spec_registry.apply_proposal(proposal)
 
-        await self._bus.emit(Event.create(
-            EventType.SPEC_UPDATED,
-            source="event_consumer",
-            payload=payload_spec_updated(
-                spec_id=proposal.target_spec_id,
-                old_version=old_version,
-                new_version=new_version,
-                proposal_id=proposal_id,
-            ),
-            correlation_id=event.correlation_id,
-        ))
+        await self._bus.emit(
+            Event.create(
+                EventType.SPEC_UPDATED,
+                source="event_consumer",
+                payload=payload_spec_updated(
+                    spec_id=proposal.target_spec_id,
+                    old_version=old_version,
+                    new_version=new_version,
+                    proposal_id=proposal_id,
+                ),
+                correlation_id=event.correlation_id,
+            )
+        )
 
     async def _on_proposal_rejected(self, event: Event) -> None:
         """Human rejected a proposal. Update status, no spec change."""
@@ -585,24 +612,27 @@ class EventConsumer:
         comparable to new runs. We mark them stale (not delete — they
         are still evidence of what the old spec produced).
         """
-        spec_id     = event.payload["spec_id"]
+        spec_id = event.payload["spec_id"]
         old_version = event.payload["old_version"]
 
-        stale_count = await self._baseline_store.mark_stale_for_spec_version(
-            spec_id, old_version
-        )
+        stale_count = await self._baseline_store.mark_stale_for_spec_version(spec_id, old_version)
 
         logger.info(
             "Marked %d baseline records stale after spec update: spec=%s v%s→v%s",
-            stale_count, spec_id, old_version, event.payload["new_version"],
+            stale_count,
+            spec_id,
+            old_version,
+            event.payload["new_version"],
         )
 
-        await self._bus.emit(Event.create(
-            EventType.BASELINE_STALE,
-            source="event_consumer",
-            payload=payload_baseline_stale(spec_id, stale_count),
-            correlation_id=event.correlation_id,
-        ))
+        await self._bus.emit(
+            Event.create(
+                EventType.BASELINE_STALE,
+                source="event_consumer",
+                payload=payload_baseline_stale(spec_id, stale_count),
+                correlation_id=event.correlation_id,
+            )
+        )
 
         # Take a snapshot to checkpoint the pre-change baseline
         await self._maybe_take_snapshot(
@@ -626,12 +656,14 @@ class EventConsumer:
                 notes=notes,
             )
             await self._snapshot_store.write(snapshot)
-            await self._bus.emit(Event.create(
-                EventType.BASELINE_SNAPSHOT_TAKEN,
-                source="event_consumer",
-                payload=payload_snapshot_taken(snapshot),
-                correlation_id=correlation_id,
-            ))
+            await self._bus.emit(
+                Event.create(
+                    EventType.BASELINE_SNAPSHOT_TAKEN,
+                    source="event_consumer",
+                    payload=payload_snapshot_taken(snapshot),
+                    correlation_id=correlation_id,
+                )
+            )
             logger.info(
                 "Snapshot taken: snapshot_id=%s total_records=%d",
                 snapshot.snapshot_id,

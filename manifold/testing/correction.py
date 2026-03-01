@@ -87,7 +87,7 @@ from manifold.testing.models import (
 logger = logging.getLogger(__name__)
 
 # Protocols as type aliases (runtime duck-typing, no ABC overhead)
-LLMCaller   = Callable[[str], Awaitable[str]]
+LLMCaller = Callable[[str], Awaitable[str]]
 ModelRunner = Callable[[dict, str, str], Awaitable[float]]
 # ModelRunner(input_data, criteria_hint, model_id) → score
 
@@ -96,6 +96,7 @@ ModelRunner = Callable[[dict, str, str], Awaitable[float]]
 # Internal data structures (pipeline-private)
 # ---------------------------------------------------------------------------
 
+
 @dataclass(frozen=True)
 class CorrectionAnalysis:
     """
@@ -103,29 +104,30 @@ class CorrectionAnalysis:
 
     Produced by step 1. Feeds step 2 (hypothesis generation).
     """
-    signal_id:          str
-    drift_type:         DriftType
-    input_class:        str
-    triggering_input:   dict
+
+    signal_id: str
+    drift_type: DriftType
+    input_class: str
+    triggering_input: dict
 
     # What the models said
-    model_scores:       dict[str, float]
-    observed_mad:       float
-    expected_mad:       float | None
-    outlier_model:      str | None
+    model_scores: dict[str, float]
+    observed_mad: float
+    expected_mad: float | None
+    outlier_model: str | None
 
     # Derived stats
-    agreeing_models:    list[str]          # models whose scores are close to consensus
-    disagreeing_models: list[str]          # models far from consensus
+    agreeing_models: list[str]  # models whose scores are close to consensus
+    disagreeing_models: list[str]  # models far from consensus
 
     # Context
-    baseline_records:   int
-    implicated_specs:   list[str]          # spec_ids likely responsible
+    baseline_records: int
+    implicated_specs: list[str]  # spec_ids likely responsible
 
     # Diagnosis
-    probable_cause:     str                # human-readable single sentence
-    target_spec_id:     str                # which spec to target
-    confidence_in_diagnosis: float         # [0, 1]
+    probable_cause: str  # human-readable single sentence
+    target_spec_id: str  # which spec to target
+    confidence_in_diagnosis: float  # [0, 1]
 
 
 @dataclass(frozen=True)
@@ -133,11 +135,12 @@ class Hypothesis:
     """
     A proposed correction. Produced by step 2 (LLM call).
     """
-    proposed_change:    str    # human-readable description
-    proposed_spec_code: str    # the actual implementation (or recommendation)
-    hypothesis:         str    # why this change should restore convergence
-    target_spec_id:     str
-    llm_raw_response:   str    # preserved for audit
+
+    proposed_change: str  # human-readable description
+    proposed_spec_code: str  # the actual implementation (or recommendation)
+    hypothesis: str  # why this change should restore convergence
+    target_spec_id: str
+    llm_raw_response: str  # preserved for audit
 
 
 @dataclass(frozen=True)
@@ -145,18 +148,20 @@ class ValidationResult:
     """
     Outcome of re-running models with the proposed criteria. Produced by step 3.
     """
-    validated:             bool
-    mad_before:            float
-    mad_after:             float | None
-    model_scores_after:    dict[str, float]
-    models_converged:      int               # models within 2× expected MAD
-    n_models_tested:       int
-    validation_note:       str               # why validated/rejected
+
+    validated: bool
+    mad_before: float
+    mad_after: float | None
+    model_scores_after: dict[str, float]
+    models_converged: int  # models within 2× expected MAD
+    n_models_tested: int
+    validation_note: str  # why validated/rejected
 
 
 # ---------------------------------------------------------------------------
 # Step 1 — Analyze
 # ---------------------------------------------------------------------------
+
 
 def analyze(signal: DriftSignal) -> CorrectionAnalysis:
     """
@@ -166,13 +171,22 @@ def analyze(signal: DriftSignal) -> CorrectionAnalysis:
     target spec from implicated_specs, and writes a human-readable
     probable_cause sentence.
     """
-    scores     = signal.model_scores
-    values     = list(scores.values())
-    consensus  = statistics.median(values)
-    spread     = statistics.stdev(values) if len(values) > 1 else 0.0
+    scores = signal.model_scores
+    values = list(scores.values())
+    consensus = statistics.median(values)
+    spread = statistics.stdev(values) if len(values) > 1 else 0.0
 
-    agreeing     = [m for m, s in scores.items() if abs(s - consensus) <= spread]
-    disagreeing  = [m for m, s in scores.items() if abs(s - consensus) > spread]
+    agreeing = [m for m, s in scores.items() if abs(s - consensus) <= spread]
+    disagreeing = [m for m, s in scores.items() if abs(s - consensus) > spread]
+
+    # When all models fall within 1 stdev (e.g. evenly split scores),
+    # fall back to splitting by sign relative to the consensus.
+    if not disagreeing and len(scores) > 1:
+        above = [m for m, s in scores.items() if s >= consensus]
+        below = [m for m, s in scores.items() if s < consensus]
+        if above and below:
+            agreeing = above
+            disagreeing = below
 
     # Target spec: prefer the first implicated spec, fallback to sentinel
     target = signal.implicated_specs[0] if signal.implicated_specs else "unknown_spec"
@@ -191,8 +205,8 @@ def analyze(signal: DriftSignal) -> CorrectionAnalysis:
             f"Models split into {len(agreeing)} agreeing and "
             f"{len(disagreeing)} disagreeing on input class '{signal.input_class}'. "
             f"Observed MAD {signal.observed_mad:.3f} is "
-            f"{signal.observed_mad / signal.expected_mad:.1f}× "
-            f"the expected {signal.expected_mad:.3f}. "
+            f"{signal.observed_mad / (signal.expected_mad or 1.0):.1f}× "
+            f"the expected {signal.expected_mad or 0.0:.3f}. "
             "Likely cause: the current spec does not adequately define "
             "classification criteria for this input type."
         )
@@ -229,11 +243,10 @@ def analyze(signal: DriftSignal) -> CorrectionAnalysis:
 # Step 2 — Generate hypothesis (LLM)
 # ---------------------------------------------------------------------------
 
+
 def _build_prompt(analysis: CorrectionAnalysis, current_spec_code: str) -> str:
-    scores_fmt = "\n".join(
-        f"  {m}: {s:+.3f}" for m, s in sorted(analysis.model_scores.items())
-    )
-    agreeing_fmt    = ", ".join(analysis.agreeing_models)   or "none"
+    scores_fmt = "\n".join(f"  {m}: {s:+.3f}" for m, s in sorted(analysis.model_scores.items()))
+    agreeing_fmt = ", ".join(analysis.agreeing_models) or "none"
     disagreeing_fmt = ", ".join(analysis.disagreeing_models) or "none"
 
     if analysis.drift_type == DriftType.MODEL_OUTLIER:
@@ -361,7 +374,7 @@ def _parse_llm_response(raw: str) -> dict | None:
     except json.JSONDecodeError:
         # Try to find JSON object within larger text
         start = text.find("{")
-        end   = text.rfind("}") + 1
+        end = text.rfind("}") + 1
         if start == -1 or end == 0:
             return None
         try:
@@ -380,12 +393,13 @@ def _parse_llm_response(raw: str) -> dict | None:
             logger.warning("LLM response has empty field: %s", key)
             return None
 
-    return data
+    return dict(data)
 
 
 # ---------------------------------------------------------------------------
 # Step 3 — Validate
 # ---------------------------------------------------------------------------
+
 
 async def validate(
     hypothesis: Hypothesis,
@@ -419,18 +433,20 @@ async def validate(
     # No model re-run needed — we already have the scores.
     if signal.drift_type == DriftType.MODEL_OUTLIER and signal.outlier_model:
         scores_without_outlier = {
-            m: s for m, s in signal.model_scores.items()
-            if m != signal.outlier_model
+            m: s for m, s in signal.model_scores.items() if m != signal.outlier_model
         }
         mad_without = _compute_mad(list(scores_without_outlier.values()))
-        threshold   = (expected_mad or mad_before) * 2.0
+        threshold = (expected_mad or mad_before) * 2.0
 
         validated = mad_without <= threshold
         note = (
             f"MAD without '{signal.outlier_model}': {mad_without:.4f} "
             f"({'≤' if validated else '>'} threshold {threshold:.4f}). "
-            + ("Model outlier confirmed — audit model." if validated
-               else "MAD still high without outlier — may be CRITERIA_GAP instead.")
+            + (
+                "Model outlier confirmed — audit model."
+                if validated
+                else "MAD still high without outlier — may be CRITERIA_GAP instead."
+            )
         )
         return ValidationResult(
             validated=validated,
@@ -486,17 +502,14 @@ async def validate(
             validation_note=f"All models failed during validation: {failed_models}",
         )
 
-    mad_after  = _compute_mad(list(scores_after.values()))
-    reduction  = (mad_before - mad_after) / mad_before if mad_before > 0 else 0.0
-    validated  = reduction >= improvement_threshold
+    mad_after = _compute_mad(list(scores_after.values()))
+    reduction = (mad_before - mad_after) / mad_before if mad_before > 0 else 0.0
+    validated = reduction >= improvement_threshold
 
     # Count converged models: within 2× expected MAD of consensus
     if expected_mad and expected_mad > 0:
         consensus = statistics.median(list(scores_after.values()))
-        converged = sum(
-            1 for s in scores_after.values()
-            if abs(s - consensus) <= expected_mad * 2
-        )
+        converged = sum(1 for s in scores_after.values() if abs(s - consensus) <= expected_mad * 2)
     else:
         converged = len(scores_after)
 
@@ -506,9 +519,8 @@ async def validate(
     )
     if failed_models:
         note += f"Failed models (excluded): {failed_models}. "
-    note += (
-        f"{converged}/{len(scores_after)} models converged after proposed change. "
-        + ("✓ Validated." if validated else "✗ Insufficient improvement — proposal rejected.")
+    note += f"{converged}/{len(scores_after)} models converged after proposed change. " + (
+        "✓ Validated." if validated else "✗ Insufficient improvement — proposal rejected."
     )
 
     return ValidationResult(
@@ -525,6 +537,7 @@ async def validate(
 # ---------------------------------------------------------------------------
 # CorrectionRunner — the public interface
 # ---------------------------------------------------------------------------
+
 
 class CorrectionRunner:
     """
@@ -548,21 +561,21 @@ class CorrectionRunner:
 
     def __init__(
         self,
-        llm_caller:    LLMCaller,
-        model_runner:  ModelRunner,
-        model_ids:     list[str],
-        baseline_store: Any = None,          # BaselineStore (optional)
+        llm_caller: LLMCaller,
+        model_runner: ModelRunner,
+        model_ids: list[str],
+        baseline_store: Any = None,  # BaselineStore (optional)
         current_spec_codes: dict[str, str] | None = None,
         improvement_threshold: float = 0.3,
         max_llm_retries: int = 2,
     ) -> None:
-        self._llm            = llm_caller
-        self._model_runner   = model_runner
-        self._model_ids      = model_ids
-        self._baseline       = baseline_store
-        self._spec_codes     = current_spec_codes or {}
-        self._threshold      = improvement_threshold
-        self._max_retries    = max_llm_retries
+        self._llm = llm_caller
+        self._model_runner = model_runner
+        self._model_ids = model_ids
+        self._baseline = baseline_store
+        self._spec_codes = current_spec_codes or {}
+        self._threshold = improvement_threshold
+        self._max_retries = max_llm_retries
 
     async def run(self, signal: DriftSignal) -> SpecProposal | None:
         """
@@ -573,7 +586,9 @@ class CorrectionRunner:
         """
         logger.info(
             "CorrectionRunner: starting for signal_id=%s type=%s class=%s",
-            signal.signal_id, signal.drift_type.value, signal.input_class,
+            signal.signal_id,
+            signal.drift_type.value,
+            signal.input_class,
         )
 
         # ── Step 1: Analyze ─────────────────────────────────────────────────
@@ -587,22 +602,20 @@ class CorrectionRunner:
 
         # ── Step 2: Generate hypothesis ─────────────────────────────────────
         current_code = self._spec_codes.get(
-            analysis.target_spec_id,
-            f"# Spec '{analysis.target_spec_id}' code not available"
+            analysis.target_spec_id, f"# Spec '{analysis.target_spec_id}' code not available"
         )
-        hypothesis = await generate_hypothesis(
-            analysis, self._llm, current_code, self._max_retries
-        )
+        hypothesis = await generate_hypothesis(analysis, self._llm, current_code, self._max_retries)
         if hypothesis is None:
-            logger.error(
-                "Hypothesis generation failed for signal_id=%s", signal.signal_id
-            )
+            logger.error("Hypothesis generation failed for signal_id=%s", signal.signal_id)
             return None
         logger.info(
             "Hypothesis: target=%s change=%s",
             hypothesis.target_spec_id,
-            hypothesis.proposed_change[:80] + "..." if len(hypothesis.proposed_change) > 80
-            else hypothesis.proposed_change,
+            (
+                hypothesis.proposed_change[:80] + "..."
+                if len(hypothesis.proposed_change) > 80
+                else hypothesis.proposed_change
+            ),
         )
 
         # ── Step 3: Validate ────────────────────────────────────────────────
@@ -630,7 +643,7 @@ class CorrectionRunner:
             created_at=datetime.now(timezone.utc),
             triggered_by_signal_id=signal.signal_id,
             target_spec_id=hypothesis.target_spec_id,
-            current_spec_version="unknown",      # caller can enrich from registry
+            current_spec_version="unknown",  # caller can enrich from registry
             proposed_change=hypothesis.proposed_change,
             proposed_spec_code=hypothesis.proposed_spec_code,
             hypothesis=hypothesis.hypothesis,

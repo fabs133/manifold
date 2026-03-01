@@ -54,7 +54,11 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable
 
-from manifold.testing.convergence import ConvergenceConfig, ConvergenceMonitor, make_convergence_spec
+from manifold.testing.convergence import (
+    ConvergenceConfig,
+    ConvergenceMonitor,
+    make_convergence_spec,
+)
 from manifold.testing.events import (
     Event,
     EventBus,
@@ -76,6 +80,7 @@ logger = logging.getLogger(__name__)
 # HMMVResult — what harness.run() returns
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class HMMVResult:
     """
@@ -94,21 +99,23 @@ class HMMVResult:
     workflow_summary: summary string from the underlying WorkflowResult
     error           : populated if success == False
     """
-    run_id:           str
-    success:          bool
-    regime:           str
-    consensus_score:  float | None
-    model_scores:     dict[str, float]
-    inter_model_mad:  float
-    input_class:      str
-    drift_signal:     DriftSignal | None = None
+
+    run_id: str
+    success: bool
+    regime: str
+    consensus_score: float | None
+    model_scores: dict[str, float]
+    inter_model_mad: float
+    input_class: str
+    drift_signal: DriftSignal | None = None
     workflow_summary: str = ""
-    error:            str | None = None
+    error: str | None = None
 
 
 # ---------------------------------------------------------------------------
 # No-op correction runner (placeholder)
 # ---------------------------------------------------------------------------
+
 
 class NoOpCorrectionRunner:
     """
@@ -117,6 +124,7 @@ class NoOpCorrectionRunner:
     Logs drift signals but produces no SpecProposal. Replace with a real
     implementation backed by a correction workflow manifest.
     """
+
     async def run(self, signal: DriftSignal) -> SpecProposal | None:
         logger.warning(
             "NoOpCorrectionRunner received drift signal %s (type=%s, class=%s). "
@@ -131,6 +139,7 @@ class NoOpCorrectionRunner:
 # ---------------------------------------------------------------------------
 # HMMVTestHarness
 # ---------------------------------------------------------------------------
+
 
 class HMMVTestHarness:
     """
@@ -172,24 +181,24 @@ class HMMVTestHarness:
         on_proposal_ready: Callable[[SpecProposal], Awaitable[None]] | None = None,
         on_drift_detected: Callable[[DriftSignal], Awaitable[None]] | None = None,
     ) -> None:
-        self._models            = models
-        self._manifest_path     = workflow_manifest
-        self._baseline          = baseline_store
-        self._snapshots         = snapshot_store or InMemorySnapshotStore()
-        self._proposals         = proposal_store or InMemoryProposalStore()
-        self._registry          = spec_registry or InMemorySpecRegistry()
+        self._models = models
+        self._manifest_path = workflow_manifest
+        self._baseline = baseline_store
+        self._snapshots = snapshot_store or InMemorySnapshotStore()
+        self._proposals = proposal_store or InMemoryProposalStore()
+        self._registry = spec_registry or InMemorySpecRegistry()
         self._correction_runner = correction_runner or NoOpCorrectionRunner()
-        self._config            = config or ConvergenceConfig()
+        self._config = config or ConvergenceConfig()
         self._snapshot_interval = snapshot_interval
         self._on_proposal_ready = on_proposal_ready
         self._on_drift_detected = on_drift_detected
 
         # Built during setup()
-        self._monitor:      ConvergenceMonitor | None = None
+        self._monitor: ConvergenceMonitor | None = None
         self._orchestrator: Any | None = None
-        self._bus:          EventBus | None = None
-        self._consumer:     EventConsumer | None = None
-        self._ready         = False
+        self._bus: EventBus | None = None
+        self._consumer: EventConsumer | None = None
+        self._ready = False
 
     # ------------------------------------------------------------------
     # Setup
@@ -224,15 +233,19 @@ class HMMVTestHarness:
 
         # Wire user callbacks
         if self._on_proposal_ready:
+
             async def _proposal_handler(event: Event) -> None:
                 proposal = SpecProposal.from_dict(event.payload["proposal"])
                 await self._on_proposal_ready(proposal)  # type: ignore[misc]
+
             self._bus.subscribe(EventType.PROPOSAL_READY, _proposal_handler)
 
         if self._on_drift_detected:
+
             async def _drift_handler(event: Event) -> None:
                 signal = DriftSignal.from_dict(event.payload["drift_signal"])
                 await self._on_drift_detected(signal)  # type: ignore[misc]
+
             self._bus.subscribe(EventType.DRIFT_DETECTED, _drift_handler)
 
         # Get current spec versions from registry for record annotation
@@ -254,7 +267,8 @@ class HMMVTestHarness:
         self._ready = True
         logger.info(
             "HMMVTestHarness ready: %d models, manifest=%s",
-            len(self._models), self._manifest_path,
+            len(self._models),
+            self._manifest_path,
         )
 
     # ------------------------------------------------------------------
@@ -302,7 +316,9 @@ class HMMVTestHarness:
         run_id = str(uuid.uuid4())
         try:
             from manifold.core.context import create_context
+
             ctx = create_context(run_id=run_id, initial_data=initial)
+            assert self._orchestrator is not None, "Call setup() before run()"
             workflow_result = await self._orchestrator.run(initial_data=initial)
         except Exception as e:
             logger.error("Orchestrator failed: %s", e, exc_info=True)
@@ -318,20 +334,20 @@ class HMMVTestHarness:
             )
 
         # Drain convergence monitor
+        assert self._monitor is not None, "Call setup() before run()"
         signals = self._monitor.drain_signals()
         records = self._monitor.drain_records()
 
-        had_drift      = len(signals) > 0
-        drift_signal   = signals[0] if signals else None
-        convergence_r  = records[0] if records else None
+        had_drift = len(signals) > 0
+        drift_signal = signals[0] if signals else None
+        convergence_r = records[0] if records else None
 
         # Store signals and records
         for sig in signals:
             # Enrich: add representative fingerprints from baseline
-            fps = await self._baseline.sample_fingerprints_for_class(
-                sig.input_class, n=5
-            )
+            fps = await self._baseline.sample_fingerprints_for_class(sig.input_class, n=5)
             from dataclasses import replace
+
             sig = replace(sig, representative_fps=fps, triggering_input=input_data)
             await self._baseline.append_signal(sig)
 
@@ -353,9 +369,7 @@ class HMMVTestHarness:
         await asyncio.sleep(0)
 
         # Extract convergence result from monitor output
-        model_scores = workflow_result.final_context.get_data(
-            self._config.record_mad_field, {}
-        )
+        model_scores = workflow_result.final_context.get_data(self._config.record_mad_field, {})
         detected_class = workflow_result.final_context.get_data(
             self._config.record_class_field, input_class or "unknown"
         )
@@ -399,14 +413,18 @@ class HMMVTestHarness:
         3. Marks affected baseline records as stale
         4. Refreshes the monitor's spec_versions
         """
-        await self._bus.emit(Event.create(  # type: ignore[union-attr]
-            EventType.PROPOSAL_APPROVED,
-            source="harness.approve_proposal",
-            payload={"proposal_id": proposal_id, "reviewer_notes": reviewer_notes},
-        ))
-        await asyncio.sleep(0)   # let EventConsumer process
+        assert self._bus is not None, "Call setup() before approve_proposal()"
+        await self._bus.emit(
+            Event.create(
+                EventType.PROPOSAL_APPROVED,
+                source="harness.approve_proposal",
+                payload={"proposal_id": proposal_id, "reviewer_notes": reviewer_notes},
+            )
+        )
+        await asyncio.sleep(0)  # let EventConsumer process
         # Refresh spec versions in monitor
-        self._monitor._spec_versions = await self._registry.current_versions()  # type: ignore[union-attr]
+        assert self._monitor is not None
+        self._monitor._spec_versions = await self._registry.current_versions()
 
     async def reject_proposal(
         self,
@@ -414,11 +432,14 @@ class HMMVTestHarness:
         reviewer_notes: str = "",
     ) -> None:
         """Reject a proposal without applying it."""
-        await self._bus.emit(Event.create(  # type: ignore[union-attr]
-            EventType.PROPOSAL_REJECTED,
-            source="harness.reject_proposal",
-            payload={"proposal_id": proposal_id, "reviewer_notes": reviewer_notes},
-        ))
+        assert self._bus is not None, "Call setup() before reject_proposal()"
+        await self._bus.emit(
+            Event.create(
+                EventType.PROPOSAL_REJECTED,
+                source="harness.reject_proposal",
+                payload={"proposal_id": proposal_id, "reviewer_notes": reviewer_notes},
+            )
+        )
 
     # ------------------------------------------------------------------
     # Introspection
@@ -426,14 +447,14 @@ class HMMVTestHarness:
 
     async def baseline_stats(self) -> dict:
         """Return a summary of current baseline state."""
-        total   = await self._baseline.total_records()
+        total = await self._baseline.total_records()
         snapshot = await self._snapshots.latest()
         return {
-            "total_records":        total,
+            "total_records": total,
             "drift_detection_active": total >= self._config.min_baseline_size,
-            "latest_snapshot_id":   snapshot.snapshot_id if snapshot else None,
+            "latest_snapshot_id": snapshot.snapshot_id if snapshot else None,
             "latest_snapshot_records": snapshot.total_records if snapshot else 0,
-            "pending_proposals":    len(await self._proposals.pending_proposals()),
+            "pending_proposals": len(await self._proposals.pending_proposals()),
         }
 
     # ------------------------------------------------------------------
@@ -445,11 +466,11 @@ class HMMVTestHarness:
         if self._monitor is None:
             return
 
-        total   = await self._baseline.total_records()
+        total = await self._baseline.total_records()
         snapshot = await self._snapshots.latest()
 
         if snapshot and snapshot.total_records > 0:
-            class_mads   = snapshot.mad_by_class
+            class_mads = snapshot.mad_by_class
             class_counts = snapshot.records_by_class
         else:
             # No snapshot yet — compute from raw records (slower, only in early regime)
@@ -466,10 +487,11 @@ class HMMVTestHarness:
             return {}, {}
         records = self._baseline._records
         from collections import defaultdict
+
         by_class: dict[str, list] = defaultdict(list)
         for r in records:
             by_class[r.input_class].append(r)
-        mads   = {c: statistics.mean(r.inter_model_mad for r in rs) for c, rs in by_class.items()}
+        mads = {c: statistics.mean(r.inter_model_mad for r in rs) for c, rs in by_class.items()}
         counts = {c: len(rs) for c, rs in by_class.items()}
         return mads, counts
 
@@ -479,17 +501,12 @@ class HMMVTestHarness:
             from manifold import OrchestratorBuilder
         except ImportError as e:
             raise ImportError(
-                "manifold must be installed to use HMMVTestHarness. "
-                "pip install manifold-ai"
+                "manifold must be installed to use HMMVTestHarness. " "pip install manifold-ai"
             ) from e
 
         spec = make_convergence_spec(self._monitor)  # type: ignore[arg-type]
 
-        builder = (
-            OrchestratorBuilder()
-            .with_manifest_file(self._manifest_path)
-            .with_spec(spec)
-        )
+        builder = OrchestratorBuilder().with_manifest_file(self._manifest_path).with_spec(spec)
         return builder.build()
 
     def _extract_regime(self, workflow_result: Any) -> str:
@@ -503,13 +520,14 @@ class HMMVTestHarness:
         for entry in reversed(ctx.trace):
             for spec_ref in entry.spec_results:
                 if spec_ref.rule_id == "convergence_monitor":
-                    return spec_ref.data.get("regime", "convergent")
+                    return str(spec_ref.data.get("regime", "convergent"))
         return "convergent"
 
 
 # ---------------------------------------------------------------------------
 # Convenience (standalone, without manifold installed)
 # ---------------------------------------------------------------------------
+
 
 def _compute_mad_sync(values: list[float]) -> float:
     if not values:

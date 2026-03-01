@@ -47,7 +47,7 @@ class ImageDimensionsSpec(Spec):
                 self.rule_id,
                 "No image metadata to validate",
                 suggested_fix="Ensure agent returns dict with 'width' and 'height'",
-                tags=self.tags
+                tags=self.tags,
             )
 
         width = candidate.get("width", 0)
@@ -58,7 +58,7 @@ class ImageDimensionsSpec(Spec):
                 self.rule_id,
                 f"Image dimensions OK: {width}x{height}",
                 tags=self.tags,
-                data={"width": width, "height": height}
+                data={"width": width, "height": height},
             )
 
         return SpecResult.fail(
@@ -70,8 +70,8 @@ class ImageDimensionsSpec(Spec):
                 "actual_width": width,
                 "actual_height": height,
                 "min_width": self._min_width,
-                "min_height": self._min_height
-            }
+                "min_height": self._min_height,
+            },
         )
 
 
@@ -114,7 +114,7 @@ class SpriteExtractionSpec(Spec):
                 self.rule_id,
                 "No expected_frames defined in context",
                 suggested_fix="Set context.data['expected_frames'] before extraction",
-                tags=self.tags
+                tags=self.tags,
             )
 
         if extracted >= expected:
@@ -122,7 +122,7 @@ class SpriteExtractionSpec(Spec):
                 self.rule_id,
                 f"Extraction succeeded: {extracted}/{expected} frames",
                 tags=self.tags,
-                data={"expected": expected, "extracted": extracted}
+                data={"expected": expected, "extracted": extracted},
             )
 
         return SpecResult.fail(
@@ -130,11 +130,7 @@ class SpriteExtractionSpec(Spec):
             f"Extraction incomplete: {extracted}/{expected} frames",
             suggested_fix="Regenerate with clearer grid constraints or adjust extraction logic",
             tags=self.tags,
-            data={
-                "expected": expected,
-                "extracted": extracted,
-                "missing": expected - extracted
-            }
+            data={"expected": expected, "extracted": extracted, "missing": expected - extracted},
         )
 
 
@@ -177,7 +173,7 @@ class GridLayoutValidSpec(Spec):
                 self.rule_id,
                 "No expected grid_size in context",
                 suggested_fix="Set context.data['grid_size'] = N for NxN grid",
-                tags=self.tags
+                tags=self.tags,
             )
 
         if detected_grid is None:
@@ -185,7 +181,7 @@ class GridLayoutValidSpec(Spec):
                 self.rule_id,
                 "Grid detection not performed",
                 suggested_fix="Run grid detection on generated image",
-                tags=self.tags
+                tags=self.tags,
             )
 
         if detected_grid == expected_grid:
@@ -193,7 +189,7 @@ class GridLayoutValidSpec(Spec):
                 self.rule_id,
                 f"Grid layout correct: {detected_grid}x{detected_grid}",
                 tags=self.tags,
-                data={"grid_size": detected_grid}
+                data={"grid_size": detected_grid},
             )
 
         return SpecResult.fail(
@@ -201,10 +197,7 @@ class GridLayoutValidSpec(Spec):
             f"Grid mismatch: expected {expected_grid}x{expected_grid}, got {detected_grid}x{detected_grid}",
             suggested_fix="Strengthen grid constraints in prompt or regenerate",
             tags=self.tags,
-            data={
-                "expected": expected_grid,
-                "detected": detected_grid
-            }
+            data={"expected": expected_grid, "detected": detected_grid},
         )
 
 
@@ -223,17 +216,13 @@ class HasGlobalStyleSpec(Spec):
         style = context.get_data("global_style")
 
         if style and len(str(style).strip()) > 0:
-            return SpecResult.ok(
-                self.rule_id,
-                f"Style defined: {style}",
-                tags=self.tags
-            )
+            return SpecResult.ok(self.rule_id, f"Style defined: {style}", tags=self.tags)
 
         return SpecResult.fail(
             self.rule_id,
             "Missing global_style",
             suggested_fix="Set context.data['global_style'] = 'Pixel Art' (or other style)",
-            tags=self.tags
+            tags=self.tags,
         )
 
 
@@ -255,12 +244,12 @@ class PromptNotEmptySpec(Spec):
                 self.rule_id,
                 f"Prompt generated: {length} chars",
                 tags=self.tags,
-                data={"prompt_length": length}
+                data={"prompt_length": length},
             )
 
         return SpecResult.fail(
             self.rule_id,
             "Generated prompt is empty",
             suggested_fix="Check prompt generation logic",
-            tags=self.tags
+            tags=self.tags,
         )

@@ -61,19 +61,38 @@ from manifold.testing.harness import HMMVTestHarness, HMMVResult, NoOpCorrection
 
 __all__ = [
     # models
-    "ConvergenceRecord", "BaselineSnapshot", "DriftSignal", "DriftType",
-    "SpecProposal", "ProposalStatus", "ReviewStatus",
+    "ConvergenceRecord",
+    "BaselineSnapshot",
+    "DriftSignal",
+    "DriftType",
+    "SpecProposal",
+    "ProposalStatus",
+    "ReviewStatus",
     # convergence
-    "ConvergenceConfig", "ConvergenceMonitor", "make_convergence_spec",
+    "ConvergenceConfig",
+    "ConvergenceMonitor",
+    "make_convergence_spec",
     # correction
-    "CorrectionRunner", "CorrectionAnalysis", "Hypothesis", "ValidationResult",
-    "analyze", "generate_hypothesis", "validate",
+    "CorrectionRunner",
+    "CorrectionAnalysis",
+    "Hypothesis",
+    "ValidationResult",
+    "analyze",
+    "generate_hypothesis",
+    "validate",
     # events
-    "Event", "EventBus", "EventConsumer", "EventType",
+    "Event",
+    "EventBus",
+    "EventConsumer",
+    "EventType",
     # stores
-    "InMemoryBaselineStore", "InMemorySnapshotStore",
-    "InMemoryProposalStore", "InMemorySpecRegistry",
+    "InMemoryBaselineStore",
+    "InMemorySnapshotStore",
+    "InMemoryProposalStore",
+    "InMemorySpecRegistry",
     "SQLiteBaselineStore",
     # harness
-    "HMMVTestHarness", "HMMVResult", "NoOpCorrectionRunner",
+    "HMMVTestHarness",
+    "HMMVResult",
+    "NoOpCorrectionRunner",
 ]

@@ -9,6 +9,7 @@ We verify:
 - Cache update affects behaviour
 - Idempotency: multiple drains are safe
 """
+
 from __future__ import annotations
 
 import uuid
@@ -20,10 +21,10 @@ from manifold.testing.convergence import ConvergenceConfig, ConvergenceMonitor
 from manifold.testing.models import DriftType
 from manifold.testing.stores import InMemoryBaselineStore
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
+
 
 def make_monitor(
     min_baseline_size: int = 10,
@@ -59,14 +60,15 @@ def run_eval(
 
 CONVERGED_SCORES = {"a": 0.80, "b": 0.78, "c": 0.82, "d": 0.79}
 # Two-camp split: a+b agree, c+d disagree → high MAD, no single outlier → CRITERIA_GAP
-DIVERGED_SCORES  = {"a": 0.80, "b": 0.80, "c": -0.80, "d": -0.80}
+DIVERGED_SCORES = {"a": 0.80, "b": 0.80, "c": -0.80, "d": -0.80}
 # One model far from the other three → MODEL_OUTLIER
-OUTLIER_SCORES   = {"a": 0.80, "b": 0.78, "c": 0.82, "d": -0.90}
+OUTLIER_SCORES = {"a": 0.80, "b": 0.78, "c": 0.82, "d": -0.90}
 
 
 # ---------------------------------------------------------------------------
 # Regime 1: Early
 # ---------------------------------------------------------------------------
+
 
 class TestEarlyRegime:
     def test_regime_is_early_below_baseline_threshold(self):
@@ -100,6 +102,7 @@ class TestEarlyRegime:
 # Regime 2: Novel input class
 # ---------------------------------------------------------------------------
 
+
 class TestNovelClassRegime:
     def _mature_cache(self, monitor: ConvergenceMonitor, class_mads=None, class_counts=None):
         monitor.update_baseline_cache(
@@ -131,6 +134,7 @@ class TestNovelClassRegime:
 # ---------------------------------------------------------------------------
 # Regime 3: Mature / drift detection
 # ---------------------------------------------------------------------------
+
 
 class TestMatureRegime:
     def _setup_mature(self, monitor: ConvergenceMonitor, expected_mad=0.04, class_count=20):
@@ -183,19 +187,20 @@ class TestMatureRegime:
         self._setup_mature(m)
         run_eval(m, DIVERGED_SCORES)
         signal = m.drain_signals()[0]
-        assert signal.timestamp.tzinfo is not None    # timezone-aware
+        assert signal.timestamp.tzinfo is not None  # timezone-aware
 
     def test_diverged_run_no_record_added(self):
         m = make_monitor()
         self._setup_mature(m)
         run_eval(m, DIVERGED_SCORES)
         m.drain_signals()
-        assert m.drain_records() == []   # drifted run doesn't add to baseline
+        assert m.drain_records() == []  # drifted run doesn't add to baseline
 
 
 # ---------------------------------------------------------------------------
 # Drift classification
 # ---------------------------------------------------------------------------
+
 
 class TestDriftClassification:
     def _setup(self) -> ConvergenceMonitor:
@@ -232,13 +237,14 @@ class TestDriftClassification:
 # Queue drain behaviour
 # ---------------------------------------------------------------------------
 
+
 class TestDrainBehaviour:
     def test_drain_signals_empties_queue(self):
         m = make_monitor()
         m.update_baseline_cache(500, {"ngo_religious": 0.04}, {"ngo_religious": 20})
         run_eval(m, DIVERGED_SCORES)
         assert len(m.drain_signals()) == 1
-        assert len(m.drain_signals()) == 0   # drained
+        assert len(m.drain_signals()) == 0  # drained
 
     def test_drain_records_empties_queue(self):
         m = make_monitor(min_baseline_size=1)
@@ -263,7 +269,7 @@ class TestDrainBehaviour:
             input_data={},
             input_class="cls",
             cluster_version=None,
-            model_scores={},    # empty
+            model_scores={},  # empty
             raw_outputs={},
         )
         assert result["regime"] == "early"
@@ -273,6 +279,7 @@ class TestDrainBehaviour:
 # ---------------------------------------------------------------------------
 # Cache update behaviour
 # ---------------------------------------------------------------------------
+
 
 class TestCacheUpdate:
     def test_updating_cache_changes_regime(self):
