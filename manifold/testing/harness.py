@@ -51,7 +51,7 @@ import asyncio
 import logging
 import statistics
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Awaitable, Callable
 
 from manifold.testing.convergence import (
@@ -317,7 +317,7 @@ class HMMVTestHarness:
         try:
             from manifold.core.context import create_context
 
-            ctx = create_context(run_id=run_id, initial_data=initial)
+            create_context(run_id=run_id, initial_data=initial)
             assert self._orchestrator is not None, "Call setup() before run()"
             workflow_result = await self._orchestrator.run(initial_data=initial)
         except Exception as e:

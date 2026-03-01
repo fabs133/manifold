@@ -12,12 +12,11 @@ from __future__ import annotations
 import asyncio
 import uuid
 from datetime import datetime, timezone
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 
 from manifold.testing.models import (
-    BaselineSnapshot,
     ConvergenceRecord,
     DriftSignal,
     DriftType,
@@ -39,7 +38,6 @@ from manifold.testing.events import (
     EventBus,
     EventConsumer,
     EventType,
-    payload_drift_detected,
     payload_run_completed,
 )
 

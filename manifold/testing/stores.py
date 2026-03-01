@@ -25,7 +25,6 @@ import json
 import sqlite3
 import statistics
 import uuid
-from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
@@ -34,7 +33,6 @@ from manifold.testing.models import (
     BaselineSnapshot,
     ConvergenceRecord,
     DriftSignal,
-    ProposalStatus,
     ReviewStatus,
     SpecProposal,
 )

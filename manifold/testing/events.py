@@ -57,7 +57,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Awaitable, Callable
@@ -571,7 +571,6 @@ class EventConsumer:
     async def _on_proposal_approved(self, event: Event) -> None:
         """Human approved a proposal. Apply it to the spec registry."""
         proposal_id = event.payload["proposal_id"]
-        reviewer_notes = event.payload["reviewer_notes"]
 
         proposal = await self._proposal_store.get(proposal_id)
         if proposal is None:

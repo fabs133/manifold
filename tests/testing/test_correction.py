@@ -25,9 +25,7 @@ import pytest
 
 from manifold.testing.correction import (
     CorrectionRunner,
-    CorrectionAnalysis,
     Hypothesis,
-    ValidationResult,
     analyze,
     generate_hypothesis,
     validate,

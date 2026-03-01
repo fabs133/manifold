@@ -72,7 +72,7 @@ import json
 import logging
 import statistics
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable
 
@@ -366,7 +366,7 @@ def _parse_llm_response(raw: str) -> dict | None:
     if text.startswith("```"):
         lines = text.split("\n")
         # Remove first line (```json or ```) and last line (```)
-        inner = [l for l in lines[1:] if l.strip() != "```"]
+        inner = [line for line in lines[1:] if line.strip() != "```"]
         text = "\n".join(inner).strip()
 
     try:
