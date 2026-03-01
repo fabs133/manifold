@@ -3,7 +3,7 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Published on Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.18707311-blue)](https://zenodo.org/records/18707311)
+[![Scientific Paper on Zenodo](https://img.shields.io/badge/Zenodo-Scientific%20Paper-blue)](https://zenodo.org/records/18707311)
 [![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)]()
 
 > **600 trials. Standard prompting reported 100% success. Actual correct output: 34%.**  
@@ -178,7 +178,8 @@ Workflows live in data, not code. Swap domains by swapping manifests. Agents are
 
 This framework is the subject of a published whitepaper and accompanying scientific paper with full experimental methodology across 600 trials.
 
-📄 **[Read the Whitepaper on Zenodo](https://zenodo.org/records/18707311)**
+📄 **[Whitepaper — Architecture & Concepts](./manifold_whitepaper_v2.pdf)** *(this repo)*  
+🔬 **[Scientific Paper — Full Methodology & Results on Zenodo](https://zenodo.org/records/18707311)** *(600 trials, statistical analysis)*
 
 **Honest note on scope:** The experimental results come from controlled trials at a scale I could fund independently. I don't have the resources for large-scale production testing across diverse domains. If you stress-test this architecture and find failure modes — I want to know. Every independent result, including negative ones, advances the work.
 
