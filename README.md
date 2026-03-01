@@ -1,42 +1,55 @@
 # Manifold
+### Contract-Driven Orchestration for Multi-Agent AI Systems
 
-**Contract-Driven Orchestration for Multi-Agent AI Systems**
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Published on Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.18707311-blue)](https://zenodo.org/records/18707311)
+[![Status: Alpha](https://img.shields.io/badge/status-alpha-orange.svg)]()
 
-Manifold enforces correctness in multi-agent workflows through declarative contracts and semantic loop prevention.
+> **600 trials. Standard prompting reported 100% success. Actual correct output: 34%.**  
+> Manifold eliminates false positives entirely through external specification-driven validation.
+
+---
 
 ## The Problem
 
-AI agents in production fail unpredictably:
-- Loop indefinitely on the same error
-- Retry blindly without fixing root causes
-- Violate constraints and produce invalid outputs
-- Make debugging impossible (no trace of decisions)
+Most agent frameworks put the agent in two roles at once: **executor and judge**.
+
+It performs the task. Then it decides if its output is correct. This is like asking a student to grade their own exam. The result across 600 controlled trials:
+
+| Approach | True Success | False Positives | Relative Cost |
+|---|---|---|---|
+| Naive prompting | 34% | **66%** | 1× |
+| Retry logic | 38% | 62% | 1.5–3.5× |
+| **Manifold** | **94%** | **0%** | **0.36×** |
+
+Two failure modes drive this:
+
+1. **Silent false positives** — the agent reports success, the output is wrong. Your system never finds out.
+2. **Infinite retry loops** — output is bad → retry → same output → retry. Standard retry counters count attempts, not progress.
+
+---
 
 ## The Solution
 
-Manifold enforces correctness through contracts:
+Manifold treats prompts as **contracts**, not instructions.
 
-- **Specs** - Define what must be true (pre/post/invariant/progress)
-- **Router** - Only valid transitions are possible (spec outcomes gate edges)
-- **Loop Detection** - Semantic fingerprinting prevents duplicate failures
-- **Tracing** - Every decision is logged with reasoning
+Each workflow step defines what must be true *before* it runs, what must be true *after*, what must always hold globally, and what must *change* before a retry is allowed. Verification is external — the agent's opinion about its own output is irrelevant.
 
-Workflows are declarative YAML manifests. Agents are replaceable components. Contracts are the laws of physics.
+```
+Instruction approach:  agent executes → agent judges → system trusts
+Manifold approach:     agent executes → spec engine judges → system trusts the spec
+```
+
+---
 
 ## Quick Start
-
-### Installation
 
 ```bash
 pip install manifold-ai
 ```
 
-### Example: Data Extraction Pipeline
-
-**1. Define specs:**
+### 1. Define Specs
 
 ```python
 from manifold import Spec, SpecResult, Context
@@ -68,12 +81,10 @@ class OutputNotEmpty(Spec):
         )
 ```
 
-**2. Create manifest** (`workflow.yaml`):
+### 2. Define Workflow (YAML)
 
 ```yaml
 manifest_version: "1.0"
-spec_version: "1.0"
-
 globals:
   start_step: "extract"
   budgets:
@@ -84,27 +95,21 @@ globals:
 steps:
   extract:
     agent_id: "extraction_agent"
-    pre_specs:
-      - "has_api_key"
-    post_specs:
-      - "output_not_empty"
-    retry_policy:
-      max_attempts: 3
-      backoff_seconds: 1.0
+    pre_specs:  ["has_api_key"]
+    post_specs: ["output_not_empty"]
 
 edges:
   - from_step: "extract"
     to_step: "__complete__"
     when: "post_ok"
     priority: 10
-
   - from_step: "extract"
     to_step: "__fail__"
     when: "attempts('extract') >= 3"
     priority: 1
 ```
 
-**3. Run workflow:**
+### 3. Run
 
 ```python
 from manifold import OrchestratorBuilder
@@ -114,158 +119,108 @@ orchestrator = (
     .with_manifest_file("workflow.yaml")
     .with_spec(HasAPIKey())
     .with_spec(OutputNotEmpty())
-    # .with_agent(your_agent)  # Add your agents
     .build()
 )
 
-result = await orchestrator.run(
-    initial_data={"api_key": "sk-..."}
-)
+result = await orchestrator.run(initial_data={"api_key": "sk-..."})
 
 print(f"Success: {result.success}")
 print(f"Steps executed: {result.total_steps_executed}")
 print(f"Trace: {result.final_context.trace}")
 ```
 
+---
+
 ## Core Concepts
 
-### Specs (Specifications)
+### Four Spec Categories
 
-Pure validation functions that enforce contracts:
+| Category | Purpose |
+|---|---|
+| **Preconditions** | Must be true before the agent runs. Gates execution. |
+| **Postconditions** | Must be true about the output. Eliminates false positives. |
+| **Invariants** | Must always hold across the entire run. Global safety constraints. |
+| **Progress conditions** | Must show the situation changed. Prevents infinite retry loops. |
 
-- **Pre-specs**: Must pass before step runs
-- **Post-specs**: Must pass for output to be accepted
-- **Invariant-specs**: Must always hold (global constraints)
-- **Progress-specs**: Must show situation changed (anti-loop)
+### Semantic Loop Detection
 
-```python
-@dataclass(frozen=True)
-class SpecResult:
-    rule_id: str
-    passed: bool
-    message: str
-    suggested_fix: str | None = None
-    tags: tuple[str, ...] = ()
-    data: dict[str, Any] = field(default_factory=dict)
-```
-
-### Router
-
-Evaluates edge conditions to determine next step:
-
-```yaml
-edges:
-  - from_step: "generate"
-    to_step: "validate"
-    when: "post_ok"
-    priority: 10
-
-  - from_step: "generate"
-    to_step: "retry_with_adjustment"
-    when: "failed('quality_check') and attempts('generate') < 3"
-    priority: 5
-```
-
-Condition primitives:
-- `post_ok` - All post-specs passed
-- `invariant_ok` - All invariant-specs passed
-- `passed("rule_id")` - Specific spec passed
-- `failed("rule_id")` - Specific spec failed
-- `has("field")` - Context has data field
-- `attempts("step_id") < N` - Attempt count check
-
-### Loop Detection
-
-Semantic fingerprinting prevents identical retries:
+Standard retry counters count attempts. Manifold counts *progress*.
 
 ```python
-fingerprint = hash(
-    step_id,
-    canonical_inputs,
-    tool_calls,
-    failed_rule_ids,
-    missing_fields
-)
+fingerprint = hash(step_id, canonical_inputs, tool_calls, failed_rule_ids, missing_fields)
 
 if fingerprint in seen_fingerprints:
-    raise LoopDetectedError()
+    raise LoopDetectedError()  # Blocked — not just counted
 ```
 
-### Tracing
+Every retry must represent genuine forward movement. Same situation = blocked.
 
-Complete audit trail:
+### Declarative Manifests
 
-```python
-@dataclass(frozen=True)
-class TraceEntry:
-    timestamp: datetime
-    step_id: str
-    attempt: int
-    agent_output: Any
-    tool_calls: tuple[ToolCall, ...]
-    spec_results: tuple[SpecResultRef, ...]
-    duration_ms: int
-    error: str | None = None
-```
+Workflows live in data, not code. Swap domains by swapping manifests. Agents are replaceable components. Specs are the laws of physics.
 
-## Features
-
-- ✅ **Declarative Manifests** - Workflow as YAML/JSON data
-- ✅ **Spec-Based Routing** - Conditions reference spec outcomes
-- ✅ **Loop Prevention** - Semantic fingerprinting detects duplicates
-- ✅ **Budget Enforcement** - Retry and cost limits
-- ✅ **Complete Tracing** - Full audit trail of decisions
-- ✅ **Immutable Context** - Predictable state management
-- ✅ **Type-Safe** - Full mypy strict mode support
-- ✅ **Zero Magic** - Explicit contracts, no hidden behavior
+---
 
 ## Comparison
 
 | Feature | Manifold | LangGraph | Manual Code |
-|---------|----------|-----------|-------------|
+|---|---|---|---|
 | Declarative manifests | ✓ | Partial | ✗ |
+| External spec validation | ✓ | ✗ | Manual |
 | Loop prevention | ✓ | ✗ | Manual |
-| Spec-based routing | ✓ | ✗ | Manual |
-| Progress validation | ✓ | ✗ | Manual |
+| Progress conditions | ✓ | ✗ | Manual |
 | Complete tracing | ✓ | Partial | Manual |
+| Zero false positives | ✓ | ✗ | Manual |
 
-## Documentation
+---
 
-- [Core Concepts](docs/CONCEPTS.md)
-- [Writing Specs](docs/WRITING_SPECS.md)
-- [Manifest Schema](docs/MANIFEST_SCHEMA.md)
-- [Examples](examples/)
+## Research
 
-## Use Cases
+This framework is the subject of a published whitepaper and accompanying scientific paper with full experimental methodology across 600 trials.
 
-- Multi-agent workflows with reliability requirements
-- Production AI systems that need correctness guarantees
-- Complex pipelines with retry/validation logic
-- A/B testing different agent strategies
-- Workflows where debugging is critical
+📄 **[Read the Whitepaper on Zenodo](https://zenodo.org/records/18707311)**
+
+**Honest note on scope:** The experimental results come from controlled trials at a scale I could fund independently. I don't have the resources for large-scale production testing across diverse domains. If you stress-test this architecture and find failure modes — I want to know. Every independent result, including negative ones, advances the work.
+
+Open to collaboration and co-authorship on follow-up research.
+
+---
+
+## When to Use Manifold
+
+**Best fit:**
+- Multi-step workflows with verifiable intermediate outputs
+- Data extraction and format compliance tasks
+- Production systems where silent failures are costly
+- Any pipeline where you need to know *why* something failed
+
+**Less applicable:**
+- Purely creative tasks where "correct" is subjective
+- Exploratory tasks with undefined output spaces
+
+Even in creative domains, loop prevention and cost control provide value.
+
+---
 
 ## Requirements
 
 - Python 3.10+
 - PyYAML
 
-## License
+---
 
-MIT License - see [LICENSE](LICENSE) for details
+## Status
 
-## Contributing
+**Alpha (v0.1.0)** — Core architecture is stable. API may evolve.
 
-Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## Acknowledgments
-
-Built on principles from:
-- The Spec-Pattern Multi-Agent Architecture
-- Contract-driven design
-- Immutable data patterns
+Feedback, issues, and pull requests welcome.
 
 ---
 
-**Built by:** Fabio Rumpel  
-**Status:** Alpha (v0.1.0)  
-**Feedback:** Open an [issue](https://github.com/fabs133/manifold/issues)
+## Contact
+
+**Fabio-Eric Rempel** · [fabiorempel@proton.me](mailto:fabiorempel@proton.me) · [github.com/fabs133](https://github.com/fabs133)
+
+---
+
+*MIT License · Built on contract-driven design and immutable data patterns*
