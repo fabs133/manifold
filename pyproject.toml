@@ -39,7 +39,7 @@ dev = [
     "black>=23.0",
     "mypy>=1.0",
     "ruff>=0.1.0",
-    "types-PyYAML>=6.0",
+    "types-PyYAML>=6.0.12.20260408",
 ]
 
 [project.urls]
